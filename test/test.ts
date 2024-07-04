@@ -1,4 +1,4 @@
-import { LazyCanvas, EllipseImageLayer, EllipseLayer, TextLayer, Font, NgonLayer, LineLayer, generateRandomName, saveFile, Gradient } from '../src'
+import { LazyCanvas, EllipseImageLayer, EllipseLayer, TextLayer, Font, NgonLayer, LineLayer, generateRandomName, saveFile, Gradient } from '../dist'
 
 let font = new Font()
     .setFamily("JoeKubert")
