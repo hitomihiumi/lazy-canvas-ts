@@ -1,0 +1,9 @@
+node_modules
+package-lock.json
+output.png
+fonts
+gitignore
+.idea
+dist
+pattern.png
+/test.txt
