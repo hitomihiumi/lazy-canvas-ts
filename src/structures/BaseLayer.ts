@@ -2,6 +2,7 @@ import { isValidColor } from  '../utils/utils';
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
+import { LazyError } from "../types/LazyUtils";
 
 export class BaseLayer {
 
@@ -24,8 +25,8 @@ export class BaseLayer {
      * @param {number} x - The x position of the layer
      */
     setX(x: number) {
-        if (!x && x !== 0) throw new Error('X must be provided');
-        if (isNaN(x)) throw new Error('X must be a number');
+        if (!x && x !== 0) throw new LazyError('X must be provided');
+        if (isNaN(x)) throw new LazyError('X must be a number');
         this.data.x = x;
         return this;
     }
@@ -34,8 +35,8 @@ export class BaseLayer {
      * @param {number} y - The y position of the layer
      */
     setY(y: number) {
-        if (!y && y !== 0) throw new Error('Y must be provided');
-        if (isNaN(y)) throw new Error('Y must be a number');
+        if (!y && y !== 0) throw new LazyError('Y must be provided');
+        if (isNaN(y)) throw new LazyError('Y must be a number');
         this.data.y = y;
         return this;
     }
@@ -44,8 +45,8 @@ export class BaseLayer {
      * @param {string} color - The shadow color for the layer
      */
     setShadowColor(color: string | Gradient | Pattern) {
-        if (!color) throw new Error('Color must be provided');
-        if (!isValidColor(color)) throw new Error('Color must be a valid hex color');
+        if (!color) throw new LazyError('Color must be provided');
+        if (!isValidColor(color)) throw new LazyError('Color must be a valid hex color');
         this.data.shadow.shadowColor = color;
         return this;
     }
@@ -54,8 +55,8 @@ export class BaseLayer {
      * @param {number} blur - The degree of shadow blur
      */
     setShadowBlur(blur: number) {
-        if (!blur && blur !== 0) throw new Error('Blur must be provided');
-        if (isNaN(blur)) throw new Error('Blur must be a number');
+        if (!blur && blur !== 0) throw new LazyError('Blur must be provided');
+        if (isNaN(blur)) throw new LazyError('Blur must be a number');
         this.data.shadow.shadowBlur = blur;
         return this;
     }
@@ -64,8 +65,8 @@ export class BaseLayer {
      * @param {number} offsetX - The X-axis offset of the shadow relative to the layer
      */
     setShadowOffsetX(offsetX: number) {
-        if (!offsetX && offsetX !== 0) throw new Error('OffsetX must be provided');
-        if (isNaN(offsetX)) throw new Error('OffsetX must be a number');
+        if (!offsetX && offsetX !== 0) throw new LazyError('OffsetX must be provided');
+        if (isNaN(offsetX)) throw new LazyError('OffsetX must be a number');
         this.data.shadow.shadowOffsetX = offsetX;
         return this;
     }
@@ -74,8 +75,8 @@ export class BaseLayer {
      * @param {number} offsetY - The Y-axis offset of the shadow relative to the layer
      */
     setShadowOffsetY(offsetY: number) {
-        if (!offsetY && offsetY !== 0) throw new Error('OffsetY must be provided');
-        if (isNaN(offsetY)) throw new Error('OffsetY must be a number');
+        if (!offsetY && offsetY !== 0) throw new LazyError('OffsetY must be provided');
+        if (isNaN(offsetY)) throw new LazyError('OffsetY must be a number');
         this.data.shadow.shadowOffsetY = offsetY;
         return this;
     }
@@ -84,9 +85,9 @@ export class BaseLayer {
      * @param {number} alpha - The alpha value of the layer
      */
     setAlpha(alpha: number) {
-        if (!alpha && alpha !== 0) throw new Error('Alpha must be provided');
-        if (isNaN(alpha)) throw new Error('Alpha must be a number');
-        if (alpha < 0 || alpha > 1) throw new Error('Alpha must be between 0 and 1');
+        if (!alpha && alpha !== 0) throw new LazyError('Alpha must be provided');
+        if (isNaN(alpha)) throw new LazyError('Alpha must be a number');
+        if (alpha < 0 || alpha > 1) throw new LazyError('Alpha must be between 0 and 1');
         this.data.alpha = alpha;
         return this;
     }
@@ -95,8 +96,8 @@ export class BaseLayer {
      * @param {number} angle - The angle of rotation the layer
      */
     setRotation(angle: number) {
-        if (!angle && angle !== 0) throw new Error('Rotation must be provided');
-        if (isNaN(angle)) throw new Error('Rotation must be a number');
+        if (!angle && angle !== 0) throw new LazyError('Rotation must be provided');
+        if (isNaN(angle)) throw new LazyError('Rotation must be a number');
         this.data.angle = angle;
         return this;
     }
@@ -105,7 +106,7 @@ export class BaseLayer {
      * @param {string} operation - The global composite operation of the layer
      */
     setGlobalCompositeOperation(operation: "source-over" | "source-in" | "source-out" | "source-atop" | "destination-over" | "destination-in" | "destination-out" | "destination-atop" | "lighter" | "copy" | "xor" | "multiply" | "screen" | "overlay" | "darken" | "lighten" | "color-dodge" | "color-burn" | "hard-light" | "soft-light" | "difference" | "exclusion" | "hue" | "saturation" | "color" | "luminosity") {
-        if (!operation) throw new Error('Operation must be provided');
+        if (!operation) throw new LazyError('Operation must be provided');
         this.data.globalComposite = operation;
         return this;
     }

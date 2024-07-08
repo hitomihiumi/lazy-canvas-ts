@@ -24,6 +24,14 @@ import { Font } from "./utils/Font";
 
 import { isValidColor, color, isImageUrlValid, lazyLoadImage, saveFile, textMetrics, generateRandomName } from "./utils/utils";
 
+import { LazyCanvasLayer } from "./types/LazyCanvasLayer";
+import { LazyCanvasData } from "./types/LazyCanvasData";
+import { LazyCanvasFilter } from "./types/LazyCanvasFilter";
+import { LazyCanvasGradient } from "./types/LazyCanvasGradient";
+import { LazyCanvasPattern } from "./types/LazyCanvasPattern";
+import { LazyCanvasFont } from "./types/LazyCanvasFont";
+import { LazyCanvasPlugin } from "./types/LazyCanvasPlugin";
+
 export {
     LazyCanvas,
     ArcLayer,
@@ -50,5 +58,12 @@ export {
     lazyLoadImage,
     saveFile,
     textMetrics,
-    generateRandomName
+    generateRandomName,
+    LazyCanvasLayer,
+    LazyCanvasData,
+    LazyCanvasFilter,
+    LazyCanvasGradient,
+    LazyCanvasPattern,
+    LazyCanvasFont,
+    LazyCanvasPlugin
 };

@@ -1,9 +1,11 @@
+import { LazyError } from "../types/LazyUtils";
+
 export class LazyCanvasPlugin {
     public onload(lazycanvas: any): void {
-        throw new Error("Plugin must implement onload()");
+        throw new LazyError("Plugin must implement onload()");
     }
 
     public unload(lazycanvas: any): void {
-        throw new Error("Plugin must implement unload()");
+        throw new LazyError("Plugin must implement unload()");
     }
 }

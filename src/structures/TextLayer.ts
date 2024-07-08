@@ -3,6 +3,7 @@ import { isValidColor } from '../utils/utils';
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
+import { LazyError } from "../types/LazyUtils";
 
 export class TextLayer extends BaseLayer {
 
@@ -19,7 +20,7 @@ export class TextLayer extends BaseLayer {
      * @param {string} text - The text to display
      */
     setText(text: string) {
-        if (!text) throw new Error('Text must be provided');
+        if (!text) throw new LazyError('Text must be provided');
         this.data.text = text;
         return this;
     }
@@ -28,7 +29,7 @@ export class TextLayer extends BaseLayer {
      * @param {string} font - The name of the font
      */
     setFont(font: string) {
-        if (!font) throw new Error('Font must be provided');
+        if (!font) throw new LazyError('Font must be provided');
         this.data.font = font;
         return this;
     }
@@ -37,8 +38,8 @@ export class TextLayer extends BaseLayer {
      * @param {number} fontSize - The size of the text
      */
     setFontSize(fontSize: number) {
-        if (!fontSize) throw new Error('Font size must be provided');
-        if (isNaN(fontSize)) throw new Error('Font size must be a number');
+        if (!fontSize) throw new LazyError('Font size must be provided');
+        if (isNaN(fontSize)) throw new LazyError('Font size must be a number');
         this.data.size = fontSize;
         return this;
     }
@@ -48,7 +49,7 @@ export class TextLayer extends BaseLayer {
      * Weight types: normal, bold, italic, bold italic, regular
      */
     setWeight(weight: 'normal' | 'bold' | 'italic' | 'bold italic' | 'regular' | 'semi-bold' | 'extra-bold') {
-        if (!weight) throw new Error('Weight must be provided');
+        if (!weight) throw new LazyError('Weight must be provided');
         this.data.weight = weight;
         return this;
     }
@@ -57,8 +58,8 @@ export class TextLayer extends BaseLayer {
      * @param {string} color - The color of the text
      */
     setColor(color: string | Gradient | Pattern) {
-        if (!color) throw new Error('Color must be provided');
-        if (!isValidColor(color)) throw new Error('Color must be a valid color');
+        if (!color) throw new LazyError('Color must be provided');
+        if (!isValidColor(color)) throw new LazyError('Color must be a valid color');
         this.data.color = color;
         return this;
     }
@@ -68,7 +69,7 @@ export class TextLayer extends BaseLayer {
      * Align types: left, center, right, start, end
      */
     setAlign(align: 'left' | 'center' | 'right' | 'start' | 'end') {
-        if (!align) throw new Error('Alignment must be provided');
+        if (!align) throw new LazyError('Alignment must be provided');
         this.data.align = align;
         return this;
     }
@@ -85,8 +86,8 @@ export class TextLayer extends BaseLayer {
      * @param {number} width - Max width zone of the text
      */
     setWidth(width: number) {
-        if (!width) throw new Error('Width must be provided');
-        if (isNaN(width)) throw new Error('Width must be a number');
+        if (!width) throw new LazyError('Width must be provided');
+        if (isNaN(width)) throw new LazyError('Width must be a number');
         this.data.width = width;
         return this;
     }
@@ -95,8 +96,8 @@ export class TextLayer extends BaseLayer {
      * @param {number} height - Max height zone of the text
      */
     setHeight(height: number) {
-        if (!height) throw new Error('Height must be provided');
-        if (isNaN(height)) throw new Error('Height must be a number');
+        if (!height) throw new LazyError('Height must be provided');
+        if (isNaN(height)) throw new LazyError('Height must be a number');
         this.data.height = height;
         return this;
     }
@@ -113,7 +114,7 @@ export class TextLayer extends BaseLayer {
      * @param {string} direction - The direction of the text
      */
     setDirection(direction: 'ltr' | 'rtl' | 'inherit') {
-        if (!direction) throw new Error('Direction must be provided');
+        if (!direction) throw new LazyError('Direction must be provided');
         this.data.direction = direction;
         return this;
     }
@@ -122,7 +123,7 @@ export class TextLayer extends BaseLayer {
      * @param {string} baseline - The baseline of the text
      */
     setBaseline(baseline: 'alphabetic' | 'top' | 'hanging' | 'middle' | 'ideographic' | 'bottom') {
-        if (!baseline) throw new Error('Baseline must be provided');
+        if (!baseline) throw new LazyError('Baseline must be provided');
         this.data.baseline = baseline;
         return this;
     }

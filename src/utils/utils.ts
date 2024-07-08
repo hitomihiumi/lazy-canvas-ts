@@ -23,7 +23,7 @@ export function isValidColor(color: any) {
     return false;
 }
 
-export function isImageUrlValid(url: string) {
+export function isImageUrlValid(url: any) {
     try {
         jimp.read(url);
         return true;

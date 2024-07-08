@@ -3,6 +3,8 @@ import { isValidColor } from '../utils/utils';
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
+import { LazyError } from "../types/LazyUtils";
+
 
 export class BezierLayer extends BaseLayer {
 
@@ -19,13 +21,13 @@ export class BezierLayer extends BaseLayer {
      * @param {Array} points - The points of the Bézier curve
      */
     setPoints(...points: Array<{x: number, y: number}>) {
-        if (!points) throw new Error('Points must be provided');
-        if (points.length < 2) throw new Error('Two points must be provided');
+        if (!points) throw new LazyError('Points must be provided');
+        if (points.length < 2) throw new LazyError('Two points must be provided');
         for (const point of points) {
-            if (!point.x && point.x !== 0) throw new Error('X must be provided');
-            if (!point.y && point.y !== 0) throw new Error('Y must be provided');
-            if (isNaN(point.x)) throw new Error('X must be a number');
-            if (isNaN(point.y)) throw new Error('Y must be a number');
+            if (!point.x && point.x !== 0) throw new LazyError('X must be provided');
+            if (!point.y && point.y !== 0) throw new LazyError('Y must be provided');
+            if (isNaN(point.x)) throw new LazyError('X must be a number');
+            if (isNaN(point.y)) throw new LazyError('Y must be a number');
 
             this.data.points.push(point);
         }
@@ -36,13 +38,13 @@ export class BezierLayer extends BaseLayer {
      * @param {Array} controlPoints - The control points of the Bézier curve
      */
     setControlPoints(...controlPoints: Array<{x: number, y: number}>) {
-        if (!controlPoints) throw new Error('Control points must be provided');
-        if (controlPoints.length < 2) throw new Error('At least two control points must be provided');
+        if (!controlPoints) throw new LazyError('Control points must be provided');
+        if (controlPoints.length < 2) throw new LazyError('At least two control points must be provided');
         for (const controlPoint of controlPoints) {
-            if (!controlPoint.x && controlPoint.x !== 0) throw new Error('X must be provided');
-            if (!controlPoint.y && controlPoint.y !== 0) throw new Error('Y must be provided');
-            if (isNaN(controlPoint.x)) throw new Error('X must be a number');
-            if (isNaN(controlPoint.y)) throw new Error('Y must be a number');
+            if (!controlPoint.x && controlPoint.x !== 0) throw new LazyError('X must be provided');
+            if (!controlPoint.y && controlPoint.y !== 0) throw new LazyError('Y must be provided');
+            if (isNaN(controlPoint.x)) throw new LazyError('X must be a number');
+            if (isNaN(controlPoint.y)) throw new LazyError('Y must be a number');
 
             this.data.controlPoints.push(controlPoint);
         }
@@ -53,8 +55,8 @@ export class BezierLayer extends BaseLayer {
      * @param {number} stroke - The stroke of the figure
      */
     setStroke(stroke: number) {
-        if (!stroke) throw new Error('Stroke must be provided');
-        if (isNaN(stroke)) throw new Error('Stroke must be a number');
+        if (!stroke) throw new LazyError('Stroke must be provided');
+        if (isNaN(stroke)) throw new LazyError('Stroke must be a number');
         this.data.stroke = stroke;
         return this;
     }
@@ -63,8 +65,8 @@ export class BezierLayer extends BaseLayer {
      * @param {string} color - The color of the figure
      */
     setColor(color: string | Gradient | Pattern) {
-        if (!color) throw new Error('Color must be provided');
-        if (!isValidColor(color)) throw new Error('Color must be a valid color');
+        if (!color) throw new LazyError('Color must be provided');
+        if (!isValidColor(color)) throw new LazyError('Color must be a valid color');
         this.data.color = color;
         return this;
     }

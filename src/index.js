@@ -25,4 +25,5 @@ module.exports = {
     saveFile: require('./utils/utils').saveFile,
     textMetrics: require('./utils/utils').textMetrics,
     generateRandomName: require('./utils/utils').generateRandomName,
+    LazyCanvasPlugin: require('./types/LazyCanvasPlugin').LazyCanvasPlugin,
 }

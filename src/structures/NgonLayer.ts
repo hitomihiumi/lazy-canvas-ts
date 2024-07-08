@@ -3,6 +3,7 @@ import { isValidColor } from '../utils/utils';
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
+import { LazyError } from "../types/LazyUtils";
 
 export class NgonLayer extends BaseLayer {
 
@@ -16,8 +17,8 @@ export class NgonLayer extends BaseLayer {
      * @param {number} sides - The number of sides the figure should have
      */
     setSides(sides: number) {
-        if (!sides) throw new Error('Sides must be provided');
-        if (isNaN(sides)) throw new Error('Sides must be a number');
+        if (!sides) throw new LazyError('Sides must be provided');
+        if (isNaN(sides)) throw new LazyError('Sides must be a number');
         this.data.sides = sides;
         return this;
     }
@@ -26,8 +27,8 @@ export class NgonLayer extends BaseLayer {
      * @param {number} radius - The radius of the figure
      */
     setRadius(radius: number) {
-        if (!radius) throw new Error('Radius must be provided');
-        if (isNaN(radius)) throw new Error('Radius must be a number');
+        if (!radius) throw new LazyError('Radius must be provided');
+        if (isNaN(radius)) throw new LazyError('Radius must be a number');
         this.data.radius = radius;
         return this;
     }
@@ -44,8 +45,8 @@ export class NgonLayer extends BaseLayer {
      * @param {number} stroke - The stroke of the figure
      */
     setStroke(stroke: number) {
-        if (!stroke) throw new Error('Stroke must be provided');
-        if (isNaN(stroke)) throw new Error('Stroke must be a number');
+        if (!stroke) throw new LazyError('Stroke must be provided');
+        if (isNaN(stroke)) throw new LazyError('Stroke must be a number');
         this.data.stroke = stroke;
         return this;
     }
@@ -55,8 +56,8 @@ export class NgonLayer extends BaseLayer {
      */
 
     setColor(color: string | Gradient | Pattern) {
-        if (!color) throw new Error('Color must be provided');
-        if (!isValidColor(color)) throw new Error('Color must be a valid color');
+        if (!color) throw new LazyError('Color must be provided');
+        if (!isValidColor(color)) throw new LazyError('Color must be a valid color');
         this.data.color = color;
         return this;
     }

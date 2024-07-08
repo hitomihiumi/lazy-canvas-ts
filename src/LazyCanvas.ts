@@ -8,7 +8,7 @@ import { LazyCanvasPlugin } from './types/LazyCanvasPlugin';
 import { LazyCanvasData } from './types/LazyCanvasData';
 import { LazyCanvasLayer } from "./types/LazyCanvasLayer";
 import { LazyCanvasFont } from "./types/LazyCanvasFont";
-import { LazyCanvasMethod } from "./types/LazyCanvasMethod";
+import { LazyError, LazyLog } from "./types/LazyUtils";
 import { LazyCanvasPattern } from "./types/LazyCanvasPattern";
 import { LazyCanvasFilter } from "./types/LazyCanvasFilter";
 import { Font } from "./utils/Font";
@@ -33,7 +33,7 @@ export class LazyCanvas {
 
         if (this.plugins) {
             for (const plugin of Object.values(this.plugins)) {
-                if (plugin.constructor.name !== "LazyCanvasPlugin") throw new Error("[LazyCanvas] Invalid plugin provided");
+                if (plugin.constructor.name !== "LazyCanvasPlugin") throw new LazyError("Invalid plugin provided");
                 if (plugin.onload) {
                     plugin.onload(this);
                 }
@@ -46,7 +46,7 @@ export class LazyCanvas {
      * If you want to create a new canvas, you can use the createNewCanvas method
      */
     setData(data: LazyCanvasData) {
-        if (!data) throw new Error("[LazyCanvas] No data provided");
+        if (!data) throw new LazyError("No data provided");
         this.data = data;
         return this;
     }
@@ -57,14 +57,14 @@ export class LazyCanvas {
      * Creates a new canvas with the provided width and height
      */
     createNewCanvas(width: number, height: number) {
-        if (!width || !height) throw new Error("[LazyCanvas] No width or height provided");
+        if (!width || !height) throw new LazyError("No width or height provided");
         this.data.width = width;
         this.data.height = height;
         return this;
     }
 
     addLayers(...layers: Array<any>) {
-        if (!layers) throw new Error("[LazyCanvas] No layers data provided");
+        if (!layers) throw new LazyError("No layers data provided");
         for (const l of layers) {
             this.data.layers.push(l.toJSON());
         }
@@ -72,146 +72,146 @@ export class LazyCanvas {
     }
 
     removeLayer(data: LazyCanvasLayer) {
-        if (!data) throw new Error("[LazyCanvas] No data provided");
+        if (!data) throw new LazyError("No data provided");
         this.data.layers = this.data.layers.filter(l => l !== data);
         return this;
     }
 
     moveLayer(data: LazyCanvasLayer, index: number) {
-        if (!data || !index) throw new Error("No data or index provided");
+        if (!data || !index) throw new LazyError("No data or index provided");
         this.data.layers.splice(index, 0, this.data.layers.splice(this.data.layers.indexOf(data), 1)[0]);
         return this;
     }
 
     modifyLayer(index: number, param: string, newData: any) {
-        if ((!index && index !== 0) || !param || (!newData && newData !== 0)) throw new Error("No index or param or newData provided");
-        if (!this.data.layers[index]) throw new Error("No layer found with that index");
-        if (!(param in this.data.layers[index])) throw new Error("Invalid param provided");
+        if ((!index && index !== 0) || !param || (!newData && newData !== 0)) throw new LazyError("No index or param or newData provided");
+        if (!this.data.layers[index]) throw new LazyError("No layer found with that index");
+        if (!(param in this.data.layers[index])) throw new LazyError("Invalid param provided");
         switch (param) {
             case "x":
                 this.data.layers[index].x = newData;
-                if (isNaN(newData)) throw new Error("X must be a number");
+                if (isNaN(newData)) throw new LazyError("X must be a number");
                 break;
             case "y":
                 this.data.layers[index].y = newData;
-                if (isNaN(newData)) throw new Error("Y must be a number");
+                if (isNaN(newData)) throw new LazyError("Y must be a number");
                 break;
             case "width":
-                if (isNaN(newData)) throw new Error("Width must be a number");
+                if (isNaN(newData)) throw new LazyError("Width must be a number");
                 this.data.layers[index].width = newData;
                 break;
             case "height":
-                if (isNaN(newData)) throw new Error("Height must be a number");
+                if (isNaN(newData)) throw new LazyError("Height must be a number");
                 this.data.layers[index].height = newData;
                 break;
             case "radius":
-                if (isNaN(newData)) throw new Error("Radius must be a number");
+                if (isNaN(newData)) throw new LazyError("Radius must be a number");
                 this.data.layers[index].radius = newData;
                 break;
             case "stroke":
-                if (isNaN(newData)) throw new Error("Stroke must be a number");
+                if (isNaN(newData)) throw new LazyError("Stroke must be a number");
                 this.data.layers[index].stroke = newData;
                 break;
             case "color":
-                if (!isValidColor(newData)) throw new Error("Color must be a valid color");
+                if (!isValidColor(newData)) throw new LazyError("Color must be a valid color");
                 this.data.layers[index].color = newData;
                 break;
             case "text":
                 this.data.layers[index].text = newData;
                 break;
             case "size":
-                if (isNaN(newData)) throw new Error("Size must be a number");
+                if (isNaN(newData)) throw new LazyError("Size must be a number");
                 this.data.layers[index].size = newData;
                 break;
             case "font":
                 this.data.layers[index].font = newData;
                 break;
             case "align":
-                if (['start', 'end', 'left', 'right', 'center'].includes(newData) === false) throw new Error("Align must be start, end, left, right or center");
+                if (['start', 'end', 'left', 'right', 'center'].includes(newData) === false) throw new LazyError("Align must be start, end, left, right or center");
                 this.data.layers[index].align = newData;
                 break;
             case "weight":
-                if (['normal', 'bold', 'italic', 'bold italic', 'regular'].includes(newData) === false) throw new Error("Weight must be bold, italic or regular");
+                if (['normal', 'bold', 'italic', 'bold italic', 'regular'].includes(newData) === false) throw new LazyError("Weight must be bold, italic or regular");
                 this.data.layers[index].weight = newData;
                 break;
             case "multiline":
-                if (typeof newData !== "boolean") throw new Error("Multiline must be a true or false value");
+                if (typeof newData !== "boolean") throw new LazyError("Multiline must be a true or false value");
                 this.data.layers[index].multiline = newData;
                 break;
             case "image":
-                if (!isImageUrlValid(newData)) throw new Error("Image must be a valid URL");
+                if (!isImageUrlValid(newData)) throw new LazyError("Image must be a valid URL");
                 this.data.layers[index].image = newData;
                 break;
             case "fill":
-                if (typeof newData !== "boolean") throw new Error("Filled must be a true or false value");
+                if (typeof newData !== "boolean") throw new LazyError("Filled must be a true or false value");
                 this.data.layers[index].fill = newData;
                 break;
             case "points":
-                if (!newData) throw new Error("No points provided");
+                if (!newData) throw new LazyError("No points provided");
                 this.data.layers[index].points = newData;
                 break;
             case "sides":
-                if (isNaN(newData)) throw new Error("Sides must be a number");
+                if (isNaN(newData)) throw new LazyError("Sides must be a number");
                 this.data.layers[index].sides = newData;
                 break;
             case "shadowBlur":
-                if (isNaN(newData)) throw new Error("ShadowBlur must be a number");
+                if (isNaN(newData)) throw new LazyError("ShadowBlur must be a number");
                 this.data.layers[index].shadow.shadowBlur = newData;
                 break;
             case "shadowColor":
-                if (!isValidColor(newData)) throw new Error("ShadowColor must be a valid color");``
+                if (!isValidColor(newData)) throw new LazyError("ShadowColor must be a valid color");``
                 this.data.layers[index].shadow.shadowColor = newData;
                 break;
             case "shadowOffsetX":
-                if (isNaN(newData)) throw new Error("ShadowOffsetX must be a number");
+                if (isNaN(newData)) throw new LazyError("ShadowOffsetX must be a number");
                 this.data.layers[index].shadow.shadowOffsetX = newData;
                 break;
             case "shadowOffsetY":
-                if (isNaN(newData)) throw new Error("ShadowOffsetY must be a number");
+                if (isNaN(newData)) throw new LazyError("ShadowOffsetY must be a number");
                 this.data.layers[index].shadow.shadowOffsetY = newData;
                 break;
             case "alpha":
-                if (isNaN(newData)) throw new Error("Alpha must be a number");
-                if (newData > 1 || newData < 0) throw new Error("Alpha must be between 0 and 1");
+                if (isNaN(newData)) throw new LazyError("Alpha must be a number");
+                if (newData > 1 || newData < 0) throw new LazyError("Alpha must be between 0 and 1");
                 this.data.layers[index].alpha = newData;
                 break;
             case "angle":
-                if (isNaN(newData)) throw new Error("Angle must be a number");
+                if (isNaN(newData)) throw new LazyError("Angle must be a number");
                 this.data.layers[index].angle = newData;
                 break;
             case "filter":
                 this.data.layers[index].filter = newData.toJSON();
                 break;
             case "angles":
-                if (!newData) throw new Error("No angles provided");
+                if (!newData) throw new LazyError("No angles provided");
                 this.data.layers[index].angles = newData;
                 break;
             case "clockwise":
-                if (typeof newData !== "boolean") throw new Error("Clockwise must be a true or false value");
+                if (typeof newData !== "boolean") throw new LazyError("Clockwise must be a true or false value");
                 this.data.layers[index].clockwise = newData;
                 break;
             case "controlPoints":
-                if (!newData) throw new Error("No control points provided");
+                if (!newData) throw new LazyError("No control points provided");
                 this.data.layers[index].controlPoints = newData;
                 break;
             case "controlPoint":
-                if (!newData) throw new Error("No control point provided");
+                if (!newData) throw new LazyError("No control point provided");
                 this.data.layers[index].controlPoint = newData;
                 break;
             default:
-                throw new Error("Invalid param provided");
+                throw new LazyError("Invalid param provided");
         }
 
         return this;
     }
 
     getLayer(index: number) {
-        if (!index && index !== 0) throw new Error("No index provided");
+        if (!index && index !== 0) throw new LazyError("No index provided");
         return this.data.layers[index];
     }
 
     getIndexOfLayer(data: LazyCanvasLayer) {
-        if (!data) throw new Error("No data provided");
+        if (!data) throw new LazyError("No data provided");
         return this.data.layers.indexOf(data);
     }
 
@@ -221,19 +221,19 @@ export class LazyCanvas {
     }
 
     setName(name: string) {
-        if (!name) throw new Error("No name provided");
+        if (!name) throw new LazyError("No name provided");
         this.data.name = name;
         return this;
     }
 
     setDescription(description: string) {
-        if (!description) throw new Error("No description provided");
+        if (!description) throw new LazyError("No description provided");
         this.data.description = description;
         return this;
     }
 
     setEmoji(emoji: string) {
-        if  (!emoji) throw new Error("No emoji provided");
+        if  (!emoji) throw new LazyError("No emoji provided");
         this.data.emoji = emoji;
         return this;
     }
@@ -243,29 +243,29 @@ export class LazyCanvas {
     }
 
     loadFonts(...fonts: Array<Font>) {
-        if (!fonts) throw new Error("No fonts provided");
+        if (!fonts) throw new LazyError("No fonts provided");
         for (const font of fonts) {
             let load = font.toJSON()
-            if (!load.path) throw new Error("No path provided");
-            if (!load.family) throw new Error("No family provided");
-            if (!load.weight) throw new Error("No weight provided");
+            if (!load.path) throw new LazyError("No path provided");
+            if (!load.family) throw new LazyError("No family provided");
+            if (!load.weight) throw new LazyError("No weight provided");
             GlobalFonts.registerFromPath(resolve(load.path), load.family);
         }
         return this;
     }
 
     set404Image(image: string) {
-        if (!image) throw new Error("No image provided");
+        if (!image) throw new LazyError("No image provided");
         this.data.errorImage = image;
         return this;
     }
 
     loadMethods(...methods: Array<any>) {
-        if (!methods) throw new Error("No methods provided");
+        if (!methods) throw new LazyError("No methods provided");
         for (const method of methods) {
             let load = method.toJSON();
-            if (!load.name) throw new Error("No name provided");
-            if (!load.method) throw new Error("No method provided");
+            if (!load.name) throw new LazyError("No name provided");
+            if (!load.method) throw new LazyError("No method provided");
             this.data.methods.push({ name: load.name, method: load.method });
         }
         return this;
@@ -465,14 +465,14 @@ export class LazyCanvas {
                 case "blur":
                     if (!filter.option) {
                         filter.option = 3;
-                        console.log(`[LazyCanvas] Value for filter ${filter.type} not found, used default value (${filter.option})`);
+                        LazyLog.log(`Value for filter ${filter.type} not found, used default value (${filter.option})`, "warn");
                     }
                     image = await image.blur(filter.option);
                     break;
                 case "gaussian":
                     if (!filter.option) {
                         filter.option = 3;
-                        console.log(`[LazyCanvas] Value for filter ${filter.type} not found, used default value (${filter.option})`);
+                        LazyLog.log(`Value for filter ${filter.type} not found, used default value (${filter.option})`, "warn");
                     }
                     image = await image.gaussian(filter.option);
                     break;
@@ -485,14 +485,14 @@ export class LazyCanvas {
                 case "brightness":
                     if (!filter.option) {
                         filter.option = 0;
-                        console.log(`[LazyCanvas] Value for filter ${filter.type} not found, used default value (${filter.option})`);
+                        LazyLog.log(`Value for filter ${filter.type} not found, used default value (${filter.option})`, "warn");
                     }
                     image = await image.brightness(filter.option);
                     break;
                 case "contrast":
                     if (!filter.option) {
                         filter.option = 0;
-                        console.log(`[LazyCanvas] Value for filter ${filter.type} not found, used default value (${filter.option})`);
+                        LazyLog.log(`Value for filter ${filter.type} not found, used default value (${filter.option})`, "warn");
                     }
                     image = await image.contrast(filter.option);
                     break;
@@ -524,7 +524,6 @@ export class LazyCanvas {
     }
 
     arcTo(ctx: SKRSContext2D, data: LazyCanvasLayer) {
-        console.log(data)
         ctx.beginPath();
         ctx.save();
         ctx.translate((data.points[0].x + data.points[2].x), (data.points[0].y + data.points[2].y));
@@ -579,8 +578,8 @@ export class LazyCanvas {
                     lazy.renderImage().then(async (pattern) => {
                         //await saveFile(pattern, 'png', 'pattern')
                         let image = await lazyLoadImage(pattern);
-                        //console.log(image)
-                        //console.log(ctx.createPattern(image, data.patternType));
+                        //LazyLog.log(image)
+                        //LazyLog.log(ctx.createPattern(image, data.patternType));
                         return resolve(ctx.createPattern(image, data.patternType));
                     });
                 }
@@ -629,7 +628,7 @@ export class LazyCanvas {
 
                         fill = await this.colorRender(ctx, data.color);
 
-                        //console.log(fill)
+                        //LazyLog.log(fill)
 
                         if (data.fill) ctx.fillStyle = fill;
                         else ctx.strokeStyle = fill;
@@ -668,7 +667,7 @@ export class LazyCanvas {
                                 }
                                 else image = await jimp.read(String(data.image));
                             } catch (e) {
-                                console.log(e + `\n[LazyCanvas] Try to load the error image`)
+                                LazyLog.log(e + `\nTry to load the error image`, "warn")
                                 // @ts-ignore
                                 if (!this.data.errorImage) {
                                     // @ts-ignore
@@ -699,7 +698,7 @@ export class LazyCanvas {
                                 if (typeof data.image === "object") image = await jimp.read(data.image)
                                 else image = await jimp.read(String(data.image));
                             } catch (e) {
-                                console.log(e + `\n[LazyCanvas] Try to load the error image`)
+                                LazyLog.log(e + `\nTry to load the error image`, "warn")
                                 if (!this.data.errorImage) {
                                     image = await jimp.read(String(this.data.errorImage));
                                 }
@@ -753,7 +752,7 @@ export class LazyCanvas {
                                     method.method(ctx, data);
                                 }
                             } else {
-                                console.log(`[LazyCanvas] Method for ${data.type} not found`);
+                                LazyLog.log(`Method for ${data.type} not found`, "warn");
                             }
                             break;
                     }
@@ -767,8 +766,8 @@ export class LazyCanvas {
 
                 if (WhatINeed === 'buffer') return canvas.toBuffer('image/png');
                 else if (WhatINeed === 'ctx') return ctx;
-            } catch (e) {
-                console.log(e);
+            } catch (e: any) {
+                LazyLog.log(e);
                 return;
             }
     }

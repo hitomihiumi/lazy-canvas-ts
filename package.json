@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "test": "node --trace-warnings ./test/test.js",
-    "test:rank": "node --trace-warnings ./test/testrank.js"
+    "test:rank": "node --trace-warnings ./test/test-rank.js",
+    "test:error": "node --trace-warnings ./test/test-error.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,7 @@
     "lazycanvas"
   ],
   "author": "hitomihiumi",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@napi-rs/canvas": "^0.1.53",
     "canvas-multiline-text": "1.0.3",

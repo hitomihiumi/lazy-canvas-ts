@@ -1,9 +1,10 @@
+.idea
+dist
 node_modules
 package-lock.json
+
+pattern.png
+test.txt
 output.png
 fonts
 gitignore
-.idea
-dist
-pattern.png
-/test.txt
