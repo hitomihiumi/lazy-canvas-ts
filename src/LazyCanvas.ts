@@ -2,8 +2,7 @@ import { createCanvas, loadImage, GlobalFonts, SKRSContext2D } from '@napi-rs/ca
 import * as jimp from 'jimp';
 import { resolve } from 'path';
 // @ts-ignore
-import drawMultilineText from 'canvas-multiline-text';
-import { isImageUrlValid, isValidColor, color, lazyLoadImage } from './utils/utils';
+import { isImageUrlValid, isValidColor, color, lazyLoadImage, drawMultilineText } from './utils/utils';
 import { LazyCanvasPlugin } from './types/LazyCanvasPlugin';
 import { LazyCanvasData } from './types/LazyCanvasData';
 import { LazyCanvasLayer } from "./types/LazyCanvasLayer";
@@ -275,16 +274,14 @@ export class LazyCanvas {
         return { ...this.data };
     }
 
-    clipper(ctx: SKRSContext2D, img: any, x: number, y: number, w: number, h: number, rad: number){
-        if (rad > w / 2 || rad > h / 2) rad = Math.min(w / 2, h / 2);
+    clipper(ctx: SKRSContext2D, img: any, x: number, y: number, w: number, h: number, r: number){
+        if (r > w / 2 || r > h / 2) r = Math.min(w / 2, h / 2);
         ctx.beginPath();
-        ctx.arc(x+rad, y+rad, rad, Math.PI, Math.PI+Math.PI/2 , false);
-        ctx.lineTo(x+w - rad, y);
-        ctx.arc(x+w-rad, y+rad, rad, Math.PI+Math.PI/2, Math.PI*2 , false);
-        ctx.lineTo(x+w,y+h - rad);
-        ctx.arc(x+w-rad,y+h-rad,rad,Math.PI*2,Math.PI/2,false);
-        ctx.lineTo(x+rad,y+h);
-        ctx.arc(x+rad,y+h-rad,rad,Math.PI/2,Math.PI,false);
+        ctx.moveTo(x + (w /2), y);
+        ctx.arcTo(x + w, y, x + w, y + (h / 2), r);
+        ctx.arcTo(x + w, y + h, x + (w / 2), y + h, r);
+        ctx.arcTo(x, y + h, x, y + (h / 2), r);
+        ctx.arcTo(x, y, x + (w / 2), y, r);
         ctx.closePath();
         ctx.save();
         ctx.clip();
@@ -413,7 +410,7 @@ export class LazyCanvas {
             ctx.textAlign = data.align;
             if (data.baseline) ctx.textBaseline = data.baseline;
             if (data.direction) ctx.direction = data.direction;
-            drawMultilineText(ctx, data.text, {
+            ctx = drawMultilineText(ctx, data.text, {
                 rect: {
                     x: data.x,
                     y: data.y,
@@ -422,9 +419,8 @@ export class LazyCanvas {
                 },
                 font: data.font,
                 style: data.weight,
-                verbose: false,
                 lineHeight: 1,
-                minFontSize: 25,
+                minFontSize: 1,
                 maxFontSize: Number(data.size),
                 stroke: !data.fill
             })

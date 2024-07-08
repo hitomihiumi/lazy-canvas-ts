@@ -4,7 +4,7 @@ import { createConicalGradient } from './createConicGradient'
 import * as fs from 'fs';
 import { LazyCanvasGradient } from "../types/LazyCanvasGradient";
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
-import {LazyCanvasData} from "../types/LazyCanvasData";
+import { LazyCanvasData } from "../types/LazyCanvasData";
 
 export function isValidColor(color: any) {
     if (/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color)) {
@@ -110,4 +110,76 @@ export async function saveFile(buffer: any, extension: 'png' | 'jpeg' | 'webp' |
 
 export function generateRandomName() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
+export function drawMultilineText(ctx: SKRSContext2D, text: string, opts: any) {
+    if(!opts)
+        opts = {}
+    if (!opts.font)
+        opts.font = 'sans-serif'
+    if (typeof opts.stroke == 'undefined')
+        opts.stroke = false
+    if (!opts.rect)
+        opts.rect = {
+            x: 0,
+            y: 0,
+            width: ctx.canvas.width,
+            height: ctx.canvas.height
+        }
+    if (!opts.lineHeight)
+        opts.lineHeight = 1.1
+    if (!opts.minFontSize)
+        opts.minFontSize = 30
+    if (!opts.maxFontSize)
+        opts.maxFontSize = 100
+    if (!opts.rect.width)
+        opts.rect.width = ctx.canvas.width - opts.rect.x
+    if (!opts.rect.height)
+        opts.rect.height = ctx.canvas.height - opts.rect.y
+
+    console.log(opts)
+
+    const words = text.split(' ')
+
+    let lines = []
+
+    for (var fontSize = opts.minFontSize; fontSize <= opts.maxFontSize; fontSize++) {
+
+        let lineHeight = fontSize * opts.lineHeight
+
+        ctx.font = ' ' + fontSize + 'px ' + opts.font
+
+        let x = opts.rect.x
+        let y = opts.rect.y + fontSize
+        lines = []
+        let line = ''
+
+        for (let word of words) {
+            let linePlus = line + word + ' '
+            if (ctx.measureText(linePlus).width > (opts.rect.width)) {
+                lines.push({ text: line, x: x, y: y })
+                line = word + ' '
+                y += lineHeight
+            } else {
+                line = linePlus
+            }
+        }
+
+        lines.push({ text: line, x: x, y: y })
+
+        if (y > opts.rect.height)
+            break
+
+    }
+
+    for (let { text: text1, x, y } of lines) {
+        if (opts.stroke) {
+            ctx.strokeText(text1.trim(), x, y)
+        } else {
+            ctx.fillText(text1.trim(), x, y)
+        }
+
+    }
+
+    return ctx
 }

@@ -54,7 +54,7 @@ Extends [BaseLayer](./baselayer.md)
         <td>Switches the text mode to multiline</td>
         <td>boolean</td>
         <td>false</td>
-        <td>-</td>
+        <td>if you set to 'true' MUST specify the height and length in the appropriate functions</td>
     </tr>
     <tr>
         <td>setWidth()</td>
