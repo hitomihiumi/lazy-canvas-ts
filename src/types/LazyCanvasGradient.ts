@@ -3,6 +3,7 @@ export interface LazyCanvasGradient {
     gradientType: string;
     points: Array<{ x: number, y: number }>;
     colorPoints: Array<{ position: number, color: string }>;
+    startAngle: number;
     radius: number;
     type: string;
 

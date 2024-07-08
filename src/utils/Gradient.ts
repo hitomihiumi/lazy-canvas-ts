@@ -61,6 +61,13 @@ export class Gradient {
         return this;
     }
 
+    setStartAngle(startAngle: number) {
+        if (!startAngle && startAngle !== 0) throw new Error('Start angle must be provided');
+        if (isNaN(startAngle)) throw new Error('Start angle must be a number');
+        this.data.startAngle = startAngle;
+        return this;
+    }
+
     toJSON() {
         return { ...this.data };
     }

@@ -1,6 +1,5 @@
 import * as jimp from 'jimp';
-import {createCanvas, loadImage, SKRSContext2D, Image } from '@napi-rs/canvas';
-import { createConicalGradient } from './createConicGradient'
+import { createCanvas, loadImage, SKRSContext2D, Image } from '@napi-rs/canvas';
 import * as fs from 'fs';
 import { LazyCanvasGradient } from "../types/LazyCanvasGradient";
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
@@ -38,12 +37,10 @@ export async function color(ctx: SKRSContext2D, colorParam: string | LazyCanvasG
         let gradient;
         if (colorParam.gradientType === 'linear') gradient = ctx.createLinearGradient(colorParam.points[0].x, colorParam.points[0].y, colorParam.points[1].x, colorParam.points[1].y);
         else if (colorParam.gradientType === 'radial') gradient = ctx.createRadialGradient(colorParam.points[0].x, colorParam.points[0].y, 0, colorParam.points[0].x, colorParam.points[0].y, colorParam.radius);
-        else if (colorParam.gradientType === 'conic') gradient = await createConicalGradient(ctx, colorParam.colorPoints, colorParam.points[0].x, colorParam.points[0].y, -Math.PI, Math.PI, false);
-        if (colorParam.gradientType !== 'conic') {
-            for (const colors of colorParam.colorPoints) {
-                // @ts-ignore
-                gradient.addColorStop(colors.position, colors.color);
-            }
+        else if (colorParam.gradientType === 'conic') gradient = ctx.createConicGradient(colorParam.startAngle, colorParam.points[0].x, colorParam.points[0].y);
+        for (const colors of colorParam.colorPoints) {
+            // @ts-ignore
+            gradient.addColorStop(colors.position, colors.color);
         }
         return gradient;
     } else {

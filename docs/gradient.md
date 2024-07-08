@@ -40,6 +40,13 @@ Create's gradient class. Can be used in all figure and text layers.
         <td>false</td>
         <td>Use only for radial gradient</td>
     </tr>
+    <tr>
+        <td>setStartAngle()</td>
+        <td>Sets the starting angle of gradient circle's</td>
+        <td>number</td>
+        <td>false</td>
+        <td>Use only for conic gradient</td>
+    </tr>
 </table>
 
 <br>
