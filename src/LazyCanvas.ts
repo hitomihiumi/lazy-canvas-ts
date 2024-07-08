@@ -678,7 +678,7 @@ export class LazyCanvas {
                                 }
                             }
 
-                            await this.filterApply(image, data.filter.toJSON());
+                            if (data.filter) await this.filterApply(image, data.filter.toJSON());
 
                             ctx.save();
                             ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
@@ -706,8 +706,7 @@ export class LazyCanvas {
                                     image = await jimp.read(String(this.data.errorImage));
                                 }
                             }
-
-                            await this.filterApply(image, data.filter.toJSON());
+                            if (data.filter) await this.filterApply(image, data.filter.toJSON());
 
                             ctx.save();
                             ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
