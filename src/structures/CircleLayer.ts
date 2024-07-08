@@ -18,7 +18,7 @@ export class CircleLayer extends BaseLayer {
     setRadius(radius: number) {
         if (!radius) throw new Error('Radius must be provided');
         if (isNaN(radius)) throw new Error('Radius must be a number');
-        this.data.width = radius;
+        this.data.radius = radius;
         return this;
     }
 
