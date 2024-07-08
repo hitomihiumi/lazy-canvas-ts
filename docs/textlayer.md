@@ -38,16 +38,16 @@ Extends [BaseLayer](./baselayer.md)
     <tr>
         <td>setWeight()</td>
         <td>Sets the font weight</td>
-        <td>string</td>
+        <td>'normal' | 'bold' | 'italic' | 'bold italic' | 'regular' | 'semi-bold' | 'extra-bold'</td>
         <td>false</td>
-        <td>Variants: normal, bold, italic, bold italic, regular</td>
+        <td>-</td>
     </tr>
     <tr>
         <td>setAlign()</td>
         <td>Sets the text alignment</td>
-        <td>string</td>
+        <td>'left' | 'center' | 'right' | 'start' | 'end'</td>
         <td>false</td>
-        <td>Variants: left, center, right, start, end</td>
+        <td>-</td>
     </tr>
     <tr>
         <td>setMultiline()</td>
@@ -80,16 +80,16 @@ Extends [BaseLayer](./baselayer.md)
     <tr>
         <td>setDirection()</td>
         <td>Sets text direction</td>
-        <td>string</td>
+        <td>'ltr' | 'rtl' | 'inherit'</td>
         <td>false</td>
-        <td>values: ltr, rtl, inherit</td>
+        <td>-</td>
     </tr>
     <tr>
         <td>setBaseline()</td>
         <td>Sets the baseline of text</td>
-        <td>string</td>
+        <td>'alphabetic' | 'top' | 'hanging' | 'middle' | 'ideographic' | 'bottom'</td>
         <td>false</td>
-        <td>values: top, hanging, middle, alphabetic, ideographic, bottom</td>
+        <td>-</td>
     </tr>
 </table>
 

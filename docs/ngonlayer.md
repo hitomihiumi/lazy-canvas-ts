@@ -1,6 +1,6 @@
 # NgonLayer
 
-Layer class to create proper ngons
+Layer class to create proper n-gon.
 
 Extends [BaseLayer](./baselayer.md)
 
@@ -15,9 +15,16 @@ Extends [BaseLayer](./baselayer.md)
         <td>Notes</td>
     </tr>
     <tr>
-        <td>setPoints()</td>
-        <td>Sets the control points that will be the corners of the shape</td>
-        <td>array</td>
+        <td>setSides()</td>
+        <td>Sets the number of sides of the n-gon</td>
+        <td>number</td>
+        <td>true</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>setRadius()</td>
+        <td>Sets the radius of the n-gon</td>
+        <td>number</td>
         <td>true</td>
         <td>-</td>
     </tr>

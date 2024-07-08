@@ -22,7 +22,7 @@ A class designed to create a font object that can be loaded into LazyCanvas usin
     <tr>
         <td>setWeight()</td>
         <td>Sets the font weight</td>
-        <td>string</td>
+        <td>'normal' | 'bold' | 'italic' | 'bold italic' | 'regular' | 'semi-bold' | 'extra-bold'</td>
         <td>true</td>
         <td>-</td>
     </tr>

@@ -22,9 +22,9 @@ Pattern for LazyCanvas layers, used like color.
     <tr>
         <td>setType()</td>
         <td>Sets the type of the pattern</td>
-        <td>string</td>
+        <td>'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat'</td>
         <td>false</td>
-        <td>types: repeat, no-repeat, repeat-x, repeat-y</td>
+        <td>-</td>
     </tr>
 </table>
 

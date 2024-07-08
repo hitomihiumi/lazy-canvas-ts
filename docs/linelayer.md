@@ -17,7 +17,7 @@ Extends [BaseLayer](./baselayer.md)
     <tr>
         <td>setPoints()</td>
         <td>Sets 2 control points to create a line</td>
-        <td>array</td>
+        <td>Array<{ x: number, y: number }></td>
         <td>true</td>
         <td>-</td>
     </tr>
@@ -38,7 +38,7 @@ Extends [BaseLayer](./baselayer.md)
     <tr>
         <td>setLineDash()</td>
         <td>Sets the line dash pattern used when stroking lines</td>
-        <td>array</td>
+        <td>number[]</td>
         <td>false</td>
         <td>-</td>
     </tr>

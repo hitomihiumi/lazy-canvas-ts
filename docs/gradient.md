@@ -15,23 +15,23 @@ Create's gradient class. Can be used in all figure and text layers.
     <tr>
         <td>setPoints()</td>
         <td>Sets 2 control points to create a gradient</td>
-        <td>array</td>
+        <td>Array<{ x: number, y: number }></td>
         <td>true</td>
         <td>-</td>
     </tr>
     <tr>
         <td>addColorPoints()</td>
         <td>Add's color point to your gradient</td>
-        <td>array</td>
+        <td>Array<{ position: number, color: string }></td>
         <td>true</td>
         <td>-</td>
     </tr>
     <tr>
         <td>setType()</td>
         <td>Sets the type of gradient</td>
-        <td>string</td>
+        <td>'linear' | 'radial' | 'conic'</td>
         <td>true</td>
-        <td>Can be only: linear, radial and conic </td>
+        <td>-</td>
     </tr>
     <tr>
         <td>setRadius()</td>

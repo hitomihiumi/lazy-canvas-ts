@@ -1,7 +1,7 @@
 import { BaseLayer } from './BaseLayer';
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { isImageUrlValid } from "../utils/utils";
-import { LazyCanvasFilter } from "../types/LazyCanvasFilter";
+import { Filter } from "../utils/Filter";
 
 export class ImageLayer extends BaseLayer {
 
@@ -40,11 +40,8 @@ export class ImageLayer extends BaseLayer {
         return this;
     }
 
-    setFilter(filter: LazyCanvasFilter) {
+    setFilter(filter: Filter) {
         if (!filter) throw new Error('Filter must be provided');
-
-        filter = filter.toJSON();
-
         this.data.filter = filter;
         return this;
     }

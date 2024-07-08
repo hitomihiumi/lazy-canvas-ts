@@ -27,28 +27,28 @@
     <tr>
         <td>addLayers()</td>
         <td>Adds a layers to the canvas</td>
-        <td>layer</td>
+        <td>LazyCanvasLayer[]</td>
         <td>-</td>
         <td>-</td>
     </tr>
     <tr>
         <td>removeLayer()</td>
         <td>Adds a layer to the canvas</td>
-        <td>layer</td>
+        <td>LazyCanvasLayer</td>
         <td>-</td>
         <td>-</td>
     </tr>
     <tr>
         <td>moveLayer()</td>
         <td>Moves a layer in the array to the specified position</td>
-        <td>layer, number</td>
+        <td>LazyCanvasLayer, number</td>
         <td>-</td>
         <td>-</td>
     </tr>
     <tr>
         <td>modifyLayer()</td>
         <td>Modifies a layer without extracting it from the canvas structure</td>
-        <td>number, string, data</td>
+        <td>number, string, any</td>
         <td>-</td>
         <td>-</td>
     </tr>
@@ -62,14 +62,14 @@
     <tr>
         <td>getIndexOfLayer()</td>
         <td>Gets the index of a layer based on its schema</td>
-        <td>layer</td>
+        <td>LazyCanvasLayer</td>
         <td>-</td>
         <td>-</td>
     </tr>
     <tr>
         <td>setData()</td>
         <td>Sets the canvas data</td>
-        <td>array</td>
+        <td>LazyCanvasData</td>
         <td>-</td>
         <td>Use it ONLY if you're sure of what you're doing.</td>
     </tr>
@@ -104,7 +104,7 @@
     <tr>
         <td>loadFonts()</td>
         <td>Loads custom fonts used in the canvas</td>
-        <td>array</td>
+        <td>Font[]*</td>
         <td>-</td>
         <td>-</td>
     </tr>
@@ -123,6 +123,8 @@
         <td>-</td>
     </tr>
 </table>
+
+*[Font](./font.md)
 
 <br>
 

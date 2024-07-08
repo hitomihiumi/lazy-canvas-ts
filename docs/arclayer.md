@@ -24,7 +24,7 @@ Extends [BaseLayer](./baselayer.md)
     <tr>
         <td>setAngles()</td>
         <td>Sets the start and end angles of the arc</td>
-        <td>array</td>
+        <td>number[]</td>
         <td>true</td>
         <td>-</td>
     </tr>

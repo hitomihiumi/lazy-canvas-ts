@@ -17,14 +17,14 @@ Extends [BaseLayer](./baselayer.md)
     <tr>
         <td>setPoints()</td>
         <td>Sets the start and end points</td>
-        <td>array</td>
+        <td>Array<{x: number, y: number}></td>
         <td>true</td>
         <td>-</td>
     </tr>
     <tr>
         <td>setControlPoint()</td>
         <td>Sets the deviation point of the line</td>
-        <td>array</td>
+        <td>{x: number, y: number}</td>
         <td>true</td>
         <td>-</td>
     </tr>
