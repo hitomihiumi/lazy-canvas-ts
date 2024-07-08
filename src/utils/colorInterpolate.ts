@@ -1,8 +1,7 @@
-
-import { createCanvas } from 'canvas';
+import { createCanvas, SKRSContext2D } from '@napi-rs/canvas';
 
 export class ColorInterpolate {
-    private ctx: CanvasRenderingContext2D;
+    private ctx: SKRSContext2D;
     private rgbaSet: Uint8ClampedArray;
 
     constructor(stops: Array<{ color: string, position: number }> = [], segment = 100) {

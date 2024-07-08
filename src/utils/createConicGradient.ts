@@ -1,9 +1,10 @@
 import { ColorInterpolate } from './colorInterpolate';
-import { createCanvas } from 'canvas';
+import { createCanvas, SKRSContext2D } from '@napi-rs/canvas';
+import { lazyLoadImage } from "./utils";
 
-export function createConicalGradient (
-    userContext: CanvasRenderingContext2D,
-    colorStops = [{ color: '#fff', position: 0 }, { position: 1, color: '#fff' }],
+export async function createConicalGradient(
+    userContext: SKRSContext2D,
+    colorStops = [{color: '#fff', position: 0}, {position: 1, color: '#fff'}],
     x = 0,
     y = 0,
     startAngle = 0,
@@ -57,6 +58,8 @@ export function createConicalGradient (
         ctx.restore();
     }
 
+    let image = await lazyLoadImage(canvas.toBuffer('image/png'));
+
     // Clip content overflow
     const cvsForClip = createCanvas(userContext.canvas.width, userContext.canvas.height);
     const clipCtx = cvsForClip.getContext('2d');
@@ -64,7 +67,7 @@ export function createConicalGradient (
     clipCtx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
     clipCtx.lineTo(x, y);
     clipCtx.closePath();
-    clipCtx.fillStyle = clipCtx.createPattern(canvas, 'no-repeat');
+    clipCtx.fillStyle = clipCtx.createPattern(image, 'no-repeat');
     clipCtx.fill();
 
     // @ts-ignore

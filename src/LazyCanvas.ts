@@ -1,4 +1,4 @@
-import { createCanvas, loadImage, registerFont } from 'canvas';
+import { createCanvas, loadImage, GlobalFonts, SKRSContext2D } from '@napi-rs/canvas';
 import * as jimp from 'jimp';
 import { resolve } from 'path';
 // @ts-ignore
@@ -249,10 +249,7 @@ export class LazyCanvas {
             if (!load.path) throw new Error("No path provided");
             if (!load.family) throw new Error("No family provided");
             if (!load.weight) throw new Error("No weight provided");
-            registerFont(resolve(load.path), {
-                family: load.family,
-                weight: load.weight
-            });
+            GlobalFonts.registerFromPath(resolve(load.path), load.family);
         }
         return this;
     }
@@ -278,7 +275,7 @@ export class LazyCanvas {
         return { ...this.data };
     }
 
-    clipper(ctx: CanvasRenderingContext2D, img: any, x: number, y: number, w: number, h: number, rad: number){
+    clipper(ctx: SKRSContext2D, img: any, x: number, y: number, w: number, h: number, rad: number){
         if (rad > w / 2 || rad > h / 2) rad = Math.min(w / 2, h / 2);
         ctx.beginPath();
         ctx.arc(x+rad, y+rad, rad, Math.PI, Math.PI+Math.PI/2 , false);
@@ -296,7 +293,7 @@ export class LazyCanvas {
         ctx.restore();
     }
 
-    fillRoundedRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number){
+    fillRoundedRect(ctx: SKRSContext2D, x: number, y: number, w: number, h: number, r: number){
         if (r > w / 2 || r > h / 2) r = Math.min(w / 2, h / 2);
         ctx.beginPath();
         ctx.moveTo(x + (w /2), y);
@@ -308,7 +305,7 @@ export class LazyCanvas {
         ctx.fill();
     }
 
-    outerlineRounded(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number, s = 1){
+    outerlineRounded(ctx: SKRSContext2D, x: number, y: number, w: number, h: number, r: number, s = 1){
         if (r > w / 2 || r > h / 2) r = Math.min(w / 2, h / 2);
         ctx.beginPath();
         ctx.lineWidth = s;
@@ -321,7 +318,7 @@ export class LazyCanvas {
         ctx.stroke();
     }
 
-    circle(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer, filled = true) {
+    circle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         if (filled === true) {
             this.fillRoundedRect(ctx, data.x, data.y, data.radius * 2, data.radius * 2, data.radius);
@@ -331,7 +328,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    ellipse(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer, filled = true) {
+    ellipse(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         ctx.save();
         ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
@@ -346,7 +343,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    square(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer, filled = true) {
+    square(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         ctx.save();
         ctx.translate(data.x + data.width / 2, data.y + data.width / 2);
@@ -361,7 +358,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    rectangle(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer, filled = true) {
+    rectangle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         ctx.save();
         ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
@@ -376,7 +373,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    ngon(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer, filled = true) {
+    ngon(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         ctx.moveTo(data.x + data.radius * Math.cos(0 + data.angle), data.y + data.radius * Math.sin(0 + data.angle));
         for (let i = 1; i < data.sides + 1; i++) {
@@ -391,7 +388,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    line(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer) {
+    line(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
         ctx.translate((data.points[0].x + data.points[1].x) / 2, (data.points[0].y + data.points[1].y) / 2);
@@ -406,7 +403,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    textRender(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer) {
+    textRender(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
         if (data.multiline) {
@@ -509,7 +506,7 @@ export class LazyCanvas {
         }
     }
 
-    arc(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer, filled = true) {
+    arc(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         ctx.save();
         ctx.translate(data.x, data.y);
@@ -526,7 +523,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    arcTo(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer) {
+    arcTo(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         console.log(data)
         ctx.beginPath();
         ctx.save();
@@ -541,7 +538,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    bezierCurve(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer) {
+    bezierCurve(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
         ctx.translate(data.points[0].x, data.points[0].y);
@@ -555,7 +552,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    quadraticCurve(ctx: CanvasRenderingContext2D, data: LazyCanvasLayer) {
+    quadraticCurve(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
         ctx.translate(data.points[0].x, data.points[0].y);
@@ -569,10 +566,11 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    async patternRender(ctx: CanvasRenderingContext2D, data: LazyCanvasPattern) {
+    async patternRender(ctx: SKRSContext2D, data: LazyCanvasPattern) {
         return new Promise(async function(resolve: (arg0: CanvasPattern | null) => any, reject: any) {
             if (data.pattern.type === "image") {
                 let image = await lazyLoadImage(data.pattern.data);
+                // @ts-ignore
                 return resolve(ctx.createPattern(image, data.patternType));
             } else if (data.pattern.type === "canvas") {
                 let lazy = data.pattern.data;
@@ -590,17 +588,17 @@ export class LazyCanvas {
         }.bind(this));
     }
 
-    async colorRender(ctx: CanvasRenderingContext2D, data: any): Promise<string | CanvasPattern | CanvasGradient | any> {
+    async colorRender(ctx: SKRSContext2D, data: any): Promise<string | CanvasPattern | CanvasGradient | any> {
         let col;
         if (typeof data === 'object' && data.toJSON().type === 'pattern') { // @ts-ignore
             col = await this.patternRender(ctx, data.toJSON());
         }
-        else col = color(ctx, data);
+        else col = await color(ctx, data);
 
         return col;
     }
 
-    async renderImage(WhatINeed = "buffer"): Promise<NodeJS.ArrayBufferView | CanvasRenderingContext2D | undefined> {
+    async renderImage(WhatINeed = "buffer"): Promise<NodeJS.ArrayBufferView | SKRSContext2D | undefined> {
             try {
                 // @ts-ignore
                 let canvas = createCanvas(this.data.width, this.data.height);
@@ -767,7 +765,7 @@ export class LazyCanvas {
                     ctx.closePath();
                 }
 
-                if (WhatINeed === 'buffer') return canvas.toBuffer();
+                if (WhatINeed === 'buffer') return canvas.toBuffer('image/png');
                 else if (WhatINeed === 'ctx') return ctx;
             } catch (e) {
                 console.log(e);

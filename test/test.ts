@@ -1,4 +1,16 @@
-import { LazyCanvas, EllipseImageLayer, EllipseLayer, TextLayer, Font, NgonLayer, LineLayer, generateRandomName, saveFile, Gradient } from '../dist'
+import {
+    LazyCanvas,
+    EllipseImageLayer,
+    EllipseLayer,
+    TextLayer,
+    Font,
+    NgonLayer,
+    LineLayer,
+    generateRandomName,
+    saveFile,
+    Gradient,
+    RectangleLayer
+} from '../dist'
 
 let font = new Font()
     .setFamily("JoeKubert")
@@ -81,7 +93,7 @@ let levelup = new TextLayer()
     .setFontSize(30)
     .setText('LEVEL UP!')
     .setColor('#fff')
-    .setBaseline('bottom')
+    .setBaseline('middle')
     .setShadowColor('#000')
     .setShadowBlur(5)
     .setShadowOffsetX(0)

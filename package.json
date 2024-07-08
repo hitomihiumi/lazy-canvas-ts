@@ -1,6 +1,6 @@
 {
   "name": "@hitomihiumi/lazy-canvas",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Simple module for using canvas in lazy method",
   "main": "./dist/index.js",
   "scripts": {
@@ -22,7 +22,7 @@
   "author": "hitomihiumi",
   "license": "ISC",
   "dependencies": {
-    "canvas": "2.9.3",
+    "@napi-rs/canvas": "^0.1.53",
     "canvas-multiline-text": "1.0.3",
     "jimp": "^0.22.12",
     "path": "^0.12.7",

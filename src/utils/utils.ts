@@ -1,5 +1,5 @@
 import * as jimp from 'jimp';
-import {createCanvas, loadImage } from 'canvas';
+import {createCanvas, loadImage, SKRSContext2D, Image } from '@napi-rs/canvas';
 import { createConicalGradient } from './createConicGradient'
 import * as fs from 'fs';
 import { LazyCanvasGradient } from "../types/LazyCanvasGradient";
@@ -32,13 +32,13 @@ export function isImageUrlValid(url: string) {
     }
 }
 
-export function color(ctx: CanvasRenderingContext2D, colorParam: string | LazyCanvasGradient) {
+export async function color(ctx: SKRSContext2D, colorParam: string | LazyCanvasGradient) {
     if (typeof colorParam === 'object') {
         colorParam = colorParam.toJSON();
         let gradient;
         if (colorParam.gradientType === 'linear') gradient = ctx.createLinearGradient(colorParam.points[0].x, colorParam.points[0].y, colorParam.points[1].x, colorParam.points[1].y);
         else if (colorParam.gradientType === 'radial') gradient = ctx.createRadialGradient(colorParam.points[0].x, colorParam.points[0].y, 0, colorParam.points[0].x, colorParam.points[0].y, colorParam.radius);
-        else if (colorParam.gradientType === 'conic') gradient = createConicalGradient(ctx, colorParam.colorPoints, colorParam.points[0].x, colorParam.points[0].y, -Math.PI, Math.PI, false);
+        else if (colorParam.gradientType === 'conic') gradient = await createConicalGradient(ctx, colorParam.colorPoints, colorParam.points[0].x, colorParam.points[0].y, -Math.PI, Math.PI, false);
         if (colorParam.gradientType !== 'conic') {
             for (const colors of colorParam.colorPoints) {
                 // @ts-ignore
@@ -51,7 +51,7 @@ export function color(ctx: CanvasRenderingContext2D, colorParam: string | LazyCa
     }
 }
 
-export async function lazyLoadImage(url: any): Promise<CanvasImageSource> {
+export async function lazyLoadImage(url: any): Promise<Image> {
     return new Promise(async (resolve, reject) => {
         if (!url) reject('URL must be provided');
         if (!await isImageUrlValid(url)) reject('Invalid URL');
