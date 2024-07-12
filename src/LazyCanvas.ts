@@ -11,6 +11,8 @@ import { LazyError, LazyLog } from "./types/LazyUtils";
 import { LazyCanvasPattern } from "./types/LazyCanvasPattern";
 import { LazyCanvasFilter } from "./types/LazyCanvasFilter";
 import { Font } from "./utils/Font";
+import { BaseLayer } from './structures/BaseLayer';
+import { LazyCanvasMethod } from './types/LazyCanvasMethod';
 
 export enum RenderOutput {
     Buffer,
@@ -68,7 +70,7 @@ export class LazyCanvas {
         return this;
     }
 
-    addLayers(...layers: Array<any>) {
+    addLayers(...layers: LazyCanvasLayer[]) {
         if (!layers) throw new LazyError("No layers data provided");
         for (const l of layers) {
             this.data.layers.push(l.toJSON());
@@ -265,7 +267,7 @@ export class LazyCanvas {
         return this;
     }
 
-    loadMethods(...methods: Array<any>) {
+    loadMethods(...methods: LazyCanvasMethod[]) {
         if (!methods) throw new LazyError("No methods provided");
         for (const method of methods) {
             let load = method.toJSON();
