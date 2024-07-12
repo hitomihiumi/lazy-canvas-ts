@@ -12,6 +12,12 @@ import { LazyCanvasPattern } from "./types/LazyCanvasPattern";
 import { LazyCanvasFilter } from "./types/LazyCanvasFilter";
 import { Font } from "./utils/Font";
 
+export enum RenderOutput {
+    Buffer,
+    Context
+};
+export type StringRenderOutput = "buffer" | "ctx";
+
 export class LazyCanvas {
 
     private data: LazyCanvasData;
@@ -593,7 +599,7 @@ export class LazyCanvas {
         return col;
     }
 
-    async renderImage(WhatINeed = "buffer"): Promise<NodeJS.ArrayBufferView | SKRSContext2D | undefined> {
+    async renderImage(WhatINeed: StringRenderOutput | RenderOutput = "buffer"): Promise<NodeJS.ArrayBufferView | SKRSContext2D | undefined> {
             try {
                 // @ts-ignore
                 let canvas = createCanvas(this.data.width, this.data.height);
@@ -760,8 +766,8 @@ export class LazyCanvas {
                     ctx.closePath();
                 }
 
-                if (WhatINeed === 'buffer') return canvas.toBuffer('image/png');
-                else if (WhatINeed === 'ctx') return ctx;
+                if (WhatINeed === 'buffer' || WhatINeed === RenderOutput.Buffer) return canvas.toBuffer('image/png');
+                else if (WhatINeed === 'ctx' || WhatINeed === RenderOutput.Context) return ctx;
             } catch (e: any) {
                 LazyLog.log(e);
                 return;
