@@ -11,10 +11,10 @@ export class Pattern {
         this.data.patternType = 'no-repeat'
     }
 
-    async setPattern(pattern: string | LazyCanvas) {
+    setPattern(pattern: string | LazyCanvas) {
         if (!pattern) throw new Error('Pattern must be provided');
-        if (typeof pattern === 'object' && ['layer', 'canvas'].includes(pattern.getData().structureType) === false) throw new Error('Pattern must be a valid pattern');
-        if (typeof pattern === 'string' && await isImageUrlValid(pattern) === false) throw new Error('Pattern must be a valid pattern');
+        if (typeof pattern === 'object' && !['layer', 'canvas'].includes(pattern.getData().structureType)) throw new Error('Pattern must be a valid pattern');
+        if (typeof pattern === 'string' && !isImageUrlValid(pattern)) throw new Error('Pattern must be a valid pattern');
         this.data.pattern = {
             type: `${typeof pattern === 'string' ? `image` : pattern.getData().structureType}`,
             data: pattern

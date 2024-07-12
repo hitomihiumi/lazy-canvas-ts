@@ -569,23 +569,22 @@ export class LazyCanvas {
                 return resolve(ctx.createPattern(image, data.patternType));
             } else if (data.pattern.type === "canvas") {
                 let lazy = data.pattern.data;
-                if ("structureType" in data.pattern) {
                     // @ts-ignore
                     lazy.renderImage().then(async (pattern) => {
                         //await saveFile(pattern, 'png', 'pattern')
                         let image = await lazyLoadImage(pattern);
-                        //LazyLog.log(image)
-                        //LazyLog.log(ctx.createPattern(image, data.patternType));
+                        //console.log(image)
+                        //console.log(ctx.createPattern(image, data.patternType));
                         return resolve(ctx.createPattern(image, data.patternType));
                     });
-                }
             }
         }.bind(this));
     }
 
     async colorRender(ctx: SKRSContext2D, data: any): Promise<string | CanvasPattern | CanvasGradient | any> {
         let col;
-        if (typeof data === 'object' && data.toJSON().type === 'pattern') { // @ts-ignore
+        if (typeof data === 'object' && data.toJSON().type === 'pattern') {
+            // @ts-ignore
             col = await this.patternRender(ctx, data.toJSON());
         }
         else col = await color(ctx, data);
