@@ -1,6 +1,6 @@
 declare module '@hitomihiumi/lazy-canvas';
 
-import { LazyCanvas } from "./LazyCanvas";
+import { LazyCanvas, RenderOutput, StringRenderOutput } from "./LazyCanvas";
 
 import { ArcLayer } from "./structures/ArcLayer";
 import { ArcToLayer } from "./structures/ArcToLayer";
@@ -65,5 +65,7 @@ export {
     LazyCanvasGradient,
     LazyCanvasPattern,
     LazyCanvasFont,
-    LazyCanvasPlugin
+    LazyCanvasPlugin,
+    RenderOutput,
+    StringRenderOutput
 };

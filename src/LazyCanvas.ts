@@ -11,6 +11,14 @@ import { LazyError, LazyLog } from "./types/LazyUtils";
 import { LazyCanvasPattern } from "./types/LazyCanvasPattern";
 import { LazyCanvasFilter } from "./types/LazyCanvasFilter";
 import { Font } from "./utils/Font";
+import { BaseLayer } from './structures/BaseLayer';
+import { LazyCanvasMethod } from './types/LazyCanvasMethod';
+
+export enum RenderOutput {
+    Buffer,
+    Context
+};
+export type StringRenderOutput = "buffer" | "ctx";
 
 export class LazyCanvas {
 
@@ -62,7 +70,7 @@ export class LazyCanvas {
         return this;
     }
 
-    addLayers(...layers: Array<any>) {
+    addLayers(...layers: LazyCanvasLayer[]) {
         if (!layers) throw new LazyError("No layers data provided");
         for (const l of layers) {
             this.data.layers.push(l.toJSON());
@@ -259,7 +267,7 @@ export class LazyCanvas {
         return this;
     }
 
-    loadMethods(...methods: Array<any>) {
+    loadMethods(...methods: LazyCanvasMethod[]) {
         if (!methods) throw new LazyError("No methods provided");
         for (const method of methods) {
             let load = method.toJSON();
@@ -592,7 +600,7 @@ export class LazyCanvas {
         return col;
     }
 
-    async renderImage(WhatINeed = "buffer"): Promise<NodeJS.ArrayBufferView | SKRSContext2D | undefined> {
+    async renderImage(WhatINeed: StringRenderOutput | RenderOutput = "buffer"): Promise<NodeJS.ArrayBufferView | SKRSContext2D | undefined> {
             try {
                 // @ts-ignore
                 let canvas = createCanvas(this.data.width, this.data.height);
@@ -759,8 +767,8 @@ export class LazyCanvas {
                     ctx.closePath();
                 }
 
-                if (WhatINeed === 'buffer') return canvas.toBuffer('image/png');
-                else if (WhatINeed === 'ctx') return ctx;
+                if (WhatINeed === 'buffer' || WhatINeed === RenderOutput.Buffer) return canvas.toBuffer('image/png');
+                else if (WhatINeed === 'ctx' || WhatINeed === RenderOutput.Context) return ctx;
             } catch (e: any) {
                 LazyLog.log(e);
                 return;

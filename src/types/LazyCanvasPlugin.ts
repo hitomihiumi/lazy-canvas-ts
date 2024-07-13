@@ -1,6 +1,6 @@
 import { LazyError } from "../types/LazyUtils";
 
-export class LazyCanvasPlugin {
+export abstract class LazyCanvasPlugin {
     public onload(lazycanvas: any): void {
         throw new LazyError("Plugin must implement onload()");
     }
