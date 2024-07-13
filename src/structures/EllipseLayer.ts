@@ -5,6 +5,22 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 
+/**
+ * @example
+ * const { LazyCanvas, EllipseLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let ellipse = new EllipseLayer()
+ * .setX(100)
+ * .setY(100)
+ * .setWidth(300)
+ * .setHeight(200)
+ * .setRadius(100)
+ * .setColor('red')
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(ellipse)
+ * //...
+ */
 export class EllipseLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {

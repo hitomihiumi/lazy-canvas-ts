@@ -4,6 +4,21 @@ import { isImageUrlValid } from "../utils/utils";
 import { Filter } from "../utils/Filter";
 import { LazyError } from "../types/LazyUtils";
 
+/**
+ * @example
+ * const { LazyCanvas, ImageLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let image = new ImageLayer()
+ * .setX(25)
+ * .setY(25)
+ * .setWidth(150)
+ * .setHeight(150)
+ * .setImage('https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg')
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(image)
+ * //...
+ */
 export class ImageLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {

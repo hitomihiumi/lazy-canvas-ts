@@ -5,6 +5,20 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 
+/**
+ * @example
+ * const { LazyCanvas, ArcToLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let arcTo = new ArcToLayer()
+ * .setPoints({ x: 400, y: 50 }, { x: 300, y: 230 }, { x: 150, y: 20 })
+ * .setRadius(120)
+ * .setColor('#fff')
+ * .setStroke(5)
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(arcTo)
+ * //...
+ */
 export class ArcToLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {

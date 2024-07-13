@@ -4,6 +4,22 @@ import { isImageUrlValid } from "../utils/utils";
 import { Filter } from "../utils/Filter";
 import { LazyError } from "../types/LazyUtils";
 
+/**
+ * @example
+ * const { LazyCanvas, EllipseImageLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let ellipseImage = new EllipseImageLayer()
+ * .setX(25)
+ * .setY(25)
+ * .setWidth(150)
+ * .setHeight(150)
+ * .setRadius(50)
+ * .setImage('https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg')
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(ellipseImage)
+ * //...
+ */
 export class EllipseImageLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {

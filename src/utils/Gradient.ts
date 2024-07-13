@@ -1,6 +1,70 @@
 import { isValidColor } from './utils';
 import { LazyCanvasGradient } from '../types/LazyCanvasGradient';
 
+/**
+ * @example
+ * const { LazyCanvas, Gradient, CircleLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * // LINEAR
+ * let gradient = new Gradient()
+ * .setPoints({ x: 250, y: 150 }, { x: 250, y: 350 })
+ * .addColorPoints(
+ *   { color: '#FF0000', position: 0 },
+ *   { color: '#00FF00', position: 0.9 },
+ *   { color: '#0000FF', position: 1 }
+ * )
+ * .setType('linear')
+ * .setRadius(30, 100)
+ *
+ * let circle = new CircleLayer()
+ * .setX(50)
+ * .setY(50)
+ * .setRadius(200)
+ * .setColor(gradient)
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(circle)
+ *
+ * // RADIAL
+ * let gradient = new Gradient()
+ * .addColorPoints(
+ *   { color: '#ff0000', position: 0 },
+ *   { color: '#00ff00', position: 0.5 },
+ *   { color: '#0000ff', position: 1 }
+ * ).setPoints(
+ *   { x: 250, y: 250 }
+ * ).setType('radial')
+ * .setRadius(200)
+ *
+ * let circle = new CircleLayer()
+ * .setX(50)
+ * .setY(50)
+ * .setRadius(200)
+ * .setColor(gradient)
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(circle)
+ *
+ * // CONIC
+ * let gradient = new Gradient()
+ * .addColorPoints(
+ *   { color: '#ff0000', position: 0 },
+ *   { color: '#00ff00', position: 0.5 },
+ *   { color: '#0000ff', position: 1 }
+ * ).setPoints(
+ *   { x: 250, y: 250 }
+ * ).setType('conic')
+ *
+ * let circle = new CircleLayer()
+ * .setX(50)
+ * .setY(50)
+ * .setRadius(200)
+ * .setColor(gradient)
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(circle)
+ * //...
+ */
 export class Gradient {
     data: LazyCanvasGradient;
 

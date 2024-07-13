@@ -5,6 +5,19 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 
+/**
+ * @example
+ * const { LazyCanvas, NgonLayer } = require('@hitomihiumi/lazy-canvas')
+ * 
+ * let ngon = new NgonLayer()
+ * .setRadius(50)
+ * .setSides(6)
+ * .setColor('#fff')
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(ngon)
+ * //...
+ */
 export class NgonLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {

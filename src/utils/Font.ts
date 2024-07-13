@@ -1,5 +1,23 @@
 import { LazyCanvasFont } from "../types/LazyCanvasFont";
 
+/**
+ * @example
+ * const { LazyCanvas, Font } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let fontOne = new Font()
+ * .setFamily("JoeKubert")
+ * .setWeight("regular")
+ * .setPath("./fonts/v_CCJoeKubert-Doubled_v1.3.ttf")
+ *
+ * let fontTwo = new Font()
+ * .setFamily("Koulen")
+ * .setWeight("regular")
+ * .setPath("./fonts/Koulen-Regular.ttf")
+ *
+ * const lazy = new LazyCanvas()
+ * .loadFonts(fontOne, fontTwo)
+ * //...
+ */
 export class Font {
     data: LazyCanvasFont;
 
@@ -27,8 +45,9 @@ export class Font {
     }
 
     /**
+     * Set the path where this font is located.
+     * THE BASE FOLDER IN THE PATH IS THE ROOT FOLDER OF THE PROJECT.
      * @param {string} path - The path to the font file
-     * @important The base folder in the path is the root folder of the project
      * @example './some/path/to/font.ttf'
      */
     setPath(path: string) {

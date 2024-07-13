@@ -5,6 +5,14 @@ import { LazyCanvasGradient } from "../types/LazyCanvasGradient";
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { LazyCanvasData } from "../types/LazyCanvasData";
 
+/**
+ * Checks the string or gradient object provided to it for validity.
+ * @example
+ * const { isValidColor } = require('@hitomihiumi/lazy-canvas')
+ * //...
+ * console.log(isValidColor(`#ff8a8a`)) 
+ * // returns true
+ */
 export function isValidColor(color: any) {
     if (/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color)) {
         return true;
@@ -22,6 +30,14 @@ export function isValidColor(color: any) {
     return false;
 }
 
+/**
+ * Checks the validity of the image link.
+ * @example
+ * const { isImageUrlValid } = require('@hitomihiumi/lazy-canvas')
+ * //...
+ * console.log(isImageUrlValid(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`)) 
+ * // returns true
+ */
 export function isImageUrlValid(url: any) {
     try {
         jimp.read(url);
@@ -48,6 +64,16 @@ export async function color(ctx: SKRSContext2D, colorParam: string | LazyCanvasG
     }
 }
 
+/**
+ * Does a preload of the image.
+ * @example
+ * const { lazyLoadImage } = require('@hitomihiumi/lazy-canvas')
+ * //...
+ * console.log(lazyLoadImage(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`)) 
+ * // returns Promise<HTMLimageElement>
+ * console.log(await lazyLoadImage(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`)) 
+ * // returns image
+ */
 export async function lazyLoadImage(url: any): Promise<Image> {
     return new Promise(async (resolve, reject) => {
         if (!url) reject('URL must be provided');
@@ -64,6 +90,26 @@ export async function lazyLoadImage(url: any): Promise<Image> {
     });
 }
 
+/**
+ * Returns a object that contains information about the measured text (such as its width, for example)
+ * @example
+ * const { textMetrics, TextLayer } = require('@hitomihiumi/lazy-canvas')
+ * //...
+ * let text = new TextLayer()
+ * .setText(`Hello, World!`)
+ *
+ * console.log(textMetrics(text))
+ * // returns {
+ * //      width: 70,
+ * //      actualBoundingBoxLeft: 0,
+ * //      actualBoundingBoxRight: 71,
+ * //      actualBoundingBoxAscent: 9,
+ * //      actualBoundingBoxDescent: 2,
+ * //      emHeightAscent: 11,
+ * //      emHeightDescent: 3,
+ * //      alphabeticBaseline: -1
+ * //  }
+ */
 export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, width= 500, height= 500) {
     if (!value) throw new Error('Value must be provided');
     if (typeof value !== 'object') throw new Error('Value must be a object');
@@ -98,6 +144,16 @@ export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, wi
     }
 }
 
+/**
+ * Saves LazyCanvas* as a file.
+ * @example
+ * const { saveFile, LazyCanvas } = require('@hitomihiumi/lazy-canvas')
+ * //...
+ * let lazy = new LazyCanvas()
+ * //...
+ * let data = lazy.renderImage()
+ * await saveFile(data, `png`)
+ */
 export async function saveFile(buffer: any, extension: 'png' | 'jpeg' | 'webp' | 'jpg', name: string) {
     if (!buffer) throw new Error('Buffer must be provided');
     if (!extension) throw new Error('Extension must be provided');
@@ -105,6 +161,13 @@ export async function saveFile(buffer: any, extension: 'png' | 'jpeg' | 'webp' |
     fs.writeFileSync(`${name === undefined ? generateRandomName() : name }.${extension}`, buffer);
 }
 
+/**
+ * Generates a random string.
+ * @example
+ * const { generateRandomName } = require('@hitomihiumi/lazy-canvas')
+ * console.log(generateRandomName())
+ * // returns random string, example: 'w68i9u4xbo8sp3fwdqxsz' 
+ */
 export function generateRandomName() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }

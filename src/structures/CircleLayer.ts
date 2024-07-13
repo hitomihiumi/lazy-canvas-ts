@@ -5,6 +5,20 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 
+/**
+ * @example
+ * const { LazyCanvas, CircleLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let circle = new CircleLayer()
+ * .setX(100)
+ * .setY(100)
+ * .setRadius(100)
+ * .setColor('red')
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(circle)
+ * //...
+ */
 export class CircleLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {

@@ -5,6 +5,40 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 
+/**
+ * @example
+ * const { LazyCanvas, TextLayer } = require('@hitomihiumi/lazy-canvas')
+ * //...
+ * 
+ * // Multiline text
+ * let textOne = new TextLayer()
+ * .setText("This is a test of the LazyCanvas library.")
+ * .setFont("JoeKubert")
+ * .setFontSize(25)
+ * .setWeight("regular")
+ * .setColor("#fff")
+ * .setMultiline(true)
+ * .setX(50)
+ * .setY(50)
+ * .setHeight(100)
+ * .setWidth(500)
+ *
+ * // Single line text
+ * let textTwo = new TextLayer()
+ * .setText("Amazing text with amazing font!")
+ * .setFont("Koulen")
+ * .setFontSize(20)
+ * .setWeight("regular")
+ * .setColor("#fff")
+ * .setMultiline(false)
+ * .setAlign("start")
+ * .setX(50)
+ * .setY(130)
+ * 
+ * const lazy = new LazyCanvas()
+ * .addLayers(textOne, textTwo)
+ * //...
+ */
 export class TextLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {

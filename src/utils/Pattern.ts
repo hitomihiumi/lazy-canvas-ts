@@ -2,6 +2,24 @@ import { isImageUrlValid } from './utils';
 import { LazyCanvasPattern } from '../types/LazyCanvasPattern';
 import { LazyCanvas } from "../LazyCanvas";
 
+/**
+ * @example
+ * const { LazyCanvas, Pattern, SquareLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let pattern = new Pattern()
+ * .setPattern('https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg')
+ * .setType('repeat')
+ *
+ * let square = new SquareLayer()
+ * .setX(20)
+ * .setY(20)
+ * .setWidth(460)
+ * .setColor(pattern)
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(square)
+ * //...
+ */
 export class Pattern {
     data: LazyCanvasPattern;
 

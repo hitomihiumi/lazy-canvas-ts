@@ -5,6 +5,20 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 
+/**
+ * @example
+ * const { LazyCanvas, LineLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let line = new LineLayer()
+ * .setPoints({ x: 10, y: 10 }, { x: 100, y: 100 })
+ * .setColor('#fff')
+ * .setStroke(5)
+ * .setLineDash([10, 5])
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(line)
+ * //...
+ */
 export class LineLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {

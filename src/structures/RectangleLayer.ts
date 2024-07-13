@@ -5,6 +5,21 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 
+/**
+ * @example
+ * const { LazyCanvas, RectangleLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let rectangle = new RectangleLayer()
+ * .setX(10)
+ * .setY(10)
+ * .setWidth(200)
+ * .setHeight(100)
+ * .setColor('#FF0000')
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(rectangle)
+ * //...
+ */
 export class RectangleLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {
