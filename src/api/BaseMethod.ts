@@ -1,5 +1,21 @@
 import { LazyCanvasMethod } from "../types/LazyCanvasMethod";
 
+/**
+ * @example
+ * const { LazyCanvas, BaseMethod } = require('@hitomihiumi/lazy-canvas')
+ * //...
+ * function exampleRectFunc(ctx, data) {
+ *   ctx.fillRect(data.x, data.y, data.width, data.height)
+ * }
+ *
+ * const exampleRectMethod = new BaseMethod()
+ * .setName('exampleRect')
+ * .setMethod(exampleRectFunc)
+ *
+ * const lazy = new LazyCanvas()
+ * .loadMethods(exampleRectMethod)
+ * //...
+ */
 export class BaseMethod {
     data: LazyCanvasMethod;
 

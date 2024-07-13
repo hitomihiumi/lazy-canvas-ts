@@ -5,6 +5,20 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 
+/**
+ * @example
+ * const { LazyCanvas, QuadraticLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let quadratic = new QuadraticLayer()
+ * .setColor('#fff')
+ * .setStroke(5)
+ * .setPoints({ x: 10, y: 10 }, { x: 300, y: 200 })
+ * .setControlPoint({ x: 200, y: 100 })
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(quadratic)
+ * //...
+ */
 export class QuadraticLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {

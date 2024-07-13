@@ -1,5 +1,3 @@
-declare module '@hitomihiumi/lazy-canvas';
-
 import { LazyCanvas, RenderOutput, StringRenderOutput } from "./LazyCanvas";
 
 import { ArcLayer } from "./structures/ArcLayer";

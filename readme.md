@@ -143,33 +143,39 @@ Class documentation can be found below by clicking on the appropriate class name
 
 ### Main Classes
 
-- [LazyCanvas](./docs/lazycanvas.md)
-- [Font](./docs/font.md)
-- [Gradient](./docs/gradient.md)
-- [Filter](./docs/filter.md)
-- [Pattern](./docs/pattern.md)
+- [LazyCanvas](./docs/classes/LazyCanvas.md)
+- [Font](./docs/classes/Font.md)
+- [Gradient](./docs/classes/Gradient.md)
+- [Filter](./docs/classes/Filter.md)
+- [Pattern](./docs/classes/Pattern.md)
 
 ### Layers
 
-- [CircleLayer](./docs/circlelayer.md)
-- [EllipseLayer](./docs/ellipselayer.md)
-- [SquareLayer](./docs/squarelayer.md)
-- [RectangleLayer](./docs/rectanglelayer.md)
-- [LineLayer](./docs/linelayer.md)
-- [NgonLayer](./docs/ngonlayer.md)
-- [ImageLayer](./docs/imagelayer.md)
-- [EllipseImageLayer](./docs/ellipseimagelayer.md)
-- [TextLayer](./docs/textlayer.md)
-- [ArcLayer](./docs/arclayer.md)
-- [ArcToLayer](./docs/arctolayer.md)
-- [BezierLayer](./docs/bezierlayer.md)
-- [QuadraticLayer](./docs/quadraticlayer.md)
+- [CircleLayer](./docs/classes/CircleLayer.md)
+- [EllipseLayer](./docs/classes/EllipseLayer.md)
+- [SquareLayer](./docs/classes/SquareLayer.md)
+- [RectangleLayer](./docs/classes/RectangleLayer.md)
+- [LineLayer](./docs/classes/LineLayer.md)
+- [NgonLayer](./docs/classes/NgonLayer.md)
+- [ImageLayer](./docs/classes/ImageLayer.md)
+- [EllipseImageLayer](./docs/classes/EllipseImageLayer.md)
+- [TextLayer](./docs/classes/TextLayer.md)
+- [ArcLayer](./docs/classes/ArcLayer.md)
+- [ArcToLayer](./docs/classes/ArcToLayer.md)
+- [BezierLayer](./docs/classes/BezierLayer.md)
+- [QuadraticLayer](./docs/classes/QuadraticLayer.md)
 
 ### Extentions
 
-- [BaseLayer](./docs/baselayer.md)
-- [BaseMethod](./docs/basemethod.md)
-- [Utils](./docs/utils.md)
+- [BaseLayer](./docs/classes/BaseLayer.md)
+- [BaseMethod](./docs/classes/BaseMethod.md)
+- **Utils**
+  - [isValidColor](./docs/functions/isValidColor.md)
+  - [lazyLoadImage](./docs/functions/lazyLoadImage.md)
+  - [isImageUrlValid](./docs/functions/isImageUrlValid.md)
+  - [textMetrics](./docs/functions/textMetrics.md)
+  - [saveFile](./docs/functions/saveFile.md)
+  - [generateRandomName](./docs/functions/generateRandomName.md)
 
 ## To Do
 

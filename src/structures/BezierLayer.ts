@@ -5,7 +5,20 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 
-
+/**
+ * @example
+ * const { LazyCanvas, BezierLayer } = require('@hitomihiumi/lazy-canvas')
+ *
+ * let bezier = new BezierLayer()
+ * .setColor('#fff')
+ * .setStroke(5)
+ * .setPoints({ x: 10, y: 10 }, { x: 300, y: 200 })
+ * .setControlPoints({ x: 200, y: 100 }, { x: 100, y: 300 })
+ *
+ * const lazy = new LazyCanvas()
+ * .addLayers(bezier)
+ * //...
+ */
 export class BezierLayer extends BaseLayer {
 
     constructor(data?: LazyCanvasLayer) {
