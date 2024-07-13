@@ -7,4 +7,6 @@ export interface ArcTo extends Base {
     color: string | Gradient | Pattern;
     points: Array<{x: number, y: number}>;
     radius: number;
+
+    toJSON(): ArcTo;
 }

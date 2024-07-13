@@ -29,4 +29,4 @@ console.log(isImageUrlValid(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f43
 
 ## Defined in
 
-[utils/utils.ts:41](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/utils.ts#L41)
+[utils/utils.ts:41](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/utils.ts#L41)

@@ -6,4 +6,6 @@ export interface Image extends Base {
     width: number;
     height: number;
     filter: Filter;
+
+    toJSON(): Image;
 }

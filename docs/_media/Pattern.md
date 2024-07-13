@@ -42,7 +42,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Pattern.ts:26](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Pattern.ts#L26)
+[utils/Pattern.ts:26](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Pattern.ts#L26)
 
 ## Properties
 
@@ -52,7 +52,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Pattern.ts:24](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Pattern.ts#L24)
+[utils/Pattern.ts:24](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Pattern.ts#L24)
 
 ## Methods
 
@@ -70,7 +70,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Pattern.ts:32](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Pattern.ts#L32)
+[utils/Pattern.ts:32](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Pattern.ts#L32)
 
 ***
 
@@ -88,7 +88,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Pattern.ts:43](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Pattern.ts#L43)
+[utils/Pattern.ts:43](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Pattern.ts#L43)
 
 ***
 
@@ -128,4 +128,4 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Pattern.ts:49](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Pattern.ts#L49)
+[utils/Pattern.ts:49](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Pattern.ts#L49)

@@ -16,4 +16,6 @@ export interface Text extends Base {
     fill: boolean;
     direction: 'ltr' | 'rtl' | 'inherit';
     baseline: 'alphabetic' | 'top' | 'hanging' | 'middle' | 'ideographic' | 'bottom';
+
+    toJSON(): Text;
 }

@@ -8,4 +8,6 @@ export interface Rectangle extends Base {
     fill: boolean;
     stroke: number;
     color: string | Gradient | Pattern;
+
+    toJSON(): Rectangle;
 }

@@ -119,11 +119,13 @@ export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, wi
         const canvas = createCanvas(width, height);
         const ctx = canvas.getContext('2d');
 
+        // @ts-ignore
         ctx.font = `${value.toJSON().weight} ${value.toJSON().size}px ${value.toJSON().font}`;
+        // @ts-ignore
         return ctx.measureText(value.toJSON().text);
 
     } else if (value.toJSON().structureType === 'canvas') {
-
+        // @ts-ignore
         const canvas = createCanvas(value.toJSON().width, value.toJSON().height);
         const ctx = canvas.getContext('2d');
 

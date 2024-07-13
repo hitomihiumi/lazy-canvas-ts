@@ -152,7 +152,7 @@ main()
 
 #### Defined in
 
-[LazyCanvas.ts:151](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L151)
+[LazyCanvas.ts:151](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L151)
 
 ## Properties
 
@@ -162,7 +162,7 @@ main()
 
 #### Defined in
 
-[LazyCanvas.ts:149](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L149)
+[LazyCanvas.ts:149](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L149)
 
 ## Methods
 
@@ -180,7 +180,7 @@ main()
 
 #### Defined in
 
-[LazyCanvas.ts:196](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L196)
+[LazyCanvas.ts:196](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L196)
 
 ***
 
@@ -202,7 +202,7 @@ main()
 
 #### Defined in
 
-[LazyCanvas.ts:637](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L637)
+[LazyCanvas.ts:637](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L637)
 
 ***
 
@@ -222,7 +222,7 @@ main()
 
 #### Defined in
 
-[LazyCanvas.ts:654](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L654)
+[LazyCanvas.ts:654](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L654)
 
 ***
 
@@ -242,7 +242,7 @@ main()
 
 #### Defined in
 
-[LazyCanvas.ts:668](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L668)
+[LazyCanvas.ts:668](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L668)
 
 ***
 
@@ -264,7 +264,7 @@ main()
 
 #### Defined in
 
-[LazyCanvas.ts:450](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L450)
+[LazyCanvas.ts:450](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L450)
 
 ***
 
@@ -278,7 +278,7 @@ main()
 
 #### Defined in
 
-[LazyCanvas.ts:349](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L349)
+[LazyCanvas.ts:349](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L349)
 
 ***
 
@@ -308,7 +308,7 @@ main()
 
 #### Defined in
 
-[LazyCanvas.ts:409](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L409)
+[LazyCanvas.ts:409](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L409)
 
 ***
 
@@ -328,7 +328,7 @@ main()
 
 #### Defined in
 
-[LazyCanvas.ts:716](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L716)
+[LazyCanvas.ts:716](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L716)
 
 ***
 
@@ -353,7 +353,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:189](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L189)
+[LazyCanvas.ts:189](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L189)
 
 ***
 
@@ -375,7 +375,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:460](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L460)
+[LazyCanvas.ts:460](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L460)
 
 ***
 
@@ -403,7 +403,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:425](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L425)
+[LazyCanvas.ts:425](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L425)
 
 ***
 
@@ -423,7 +423,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:587](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L587)
+[LazyCanvas.ts:587](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L587)
 
 ***
 
@@ -483,7 +483,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:372](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L372)
+[LazyCanvas.ts:372](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L372)
 
 ***
 
@@ -501,7 +501,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:344](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L344)
+[LazyCanvas.ts:344](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L344)
 
 ***
 
@@ -519,7 +519,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:339](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L339)
+[LazyCanvas.ts:339](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L339)
 
 ***
 
@@ -539,7 +539,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:520](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L520)
+[LazyCanvas.ts:520](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L520)
 
 ***
 
@@ -557,7 +557,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:376](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L376)
+[LazyCanvas.ts:376](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L376)
 
 ***
 
@@ -575,7 +575,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:394](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L394)
+[LazyCanvas.ts:394](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L394)
 
 ***
 
@@ -597,7 +597,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:217](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L217)
+[LazyCanvas.ts:217](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L217)
 
 ***
 
@@ -617,7 +617,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:211](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L211)
+[LazyCanvas.ts:211](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L211)
 
 ***
 
@@ -639,7 +639,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:505](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L505)
+[LazyCanvas.ts:505](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L505)
 
 ***
 
@@ -669,7 +669,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:437](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L437)
+[LazyCanvas.ts:437](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L437)
 
 ***
 
@@ -689,7 +689,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:696](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L696)
+[LazyCanvas.ts:696](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L696)
 
 ***
 
@@ -709,7 +709,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:682](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L682)
+[LazyCanvas.ts:682](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L682)
 
 ***
 
@@ -731,7 +731,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:490](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L490)
+[LazyCanvas.ts:490](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L490)
 
 ***
 
@@ -749,7 +749,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:205](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L205)
+[LazyCanvas.ts:205](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L205)
 
 ***
 
@@ -767,7 +767,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:727](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L727)
+[LazyCanvas.ts:727](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L727)
 
 ***
 
@@ -785,7 +785,7 @@ Creates a new canvas with the provided width and height
 
 #### Defined in
 
-[LazyCanvas.ts:388](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L388)
+[LazyCanvas.ts:388](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L388)
 
 ***
 
@@ -806,7 +806,7 @@ If you want to create a new canvas, you can use the createNewCanvas method
 
 #### Defined in
 
-[LazyCanvas.ts:178](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L178)
+[LazyCanvas.ts:178](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L178)
 
 ***
 
@@ -824,7 +824,7 @@ If you want to create a new canvas, you can use the createNewCanvas method
 
 #### Defined in
 
-[LazyCanvas.ts:360](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L360)
+[LazyCanvas.ts:360](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L360)
 
 ***
 
@@ -842,7 +842,7 @@ If you want to create a new canvas, you can use the createNewCanvas method
 
 #### Defined in
 
-[LazyCanvas.ts:366](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L366)
+[LazyCanvas.ts:366](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L366)
 
 ***
 
@@ -860,7 +860,7 @@ If you want to create a new canvas, you can use the createNewCanvas method
 
 #### Defined in
 
-[LazyCanvas.ts:354](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L354)
+[LazyCanvas.ts:354](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L354)
 
 ***
 
@@ -882,7 +882,7 @@ If you want to create a new canvas, you can use the createNewCanvas method
 
 #### Defined in
 
-[LazyCanvas.ts:475](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L475)
+[LazyCanvas.ts:475](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L475)
 
 ***
 
@@ -902,7 +902,7 @@ If you want to create a new canvas, you can use the createNewCanvas method
 
 #### Defined in
 
-[LazyCanvas.ts:535](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L535)
+[LazyCanvas.ts:535](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L535)
 
 ***
 
@@ -962,4 +962,4 @@ If you want to create a new canvas, you can use the createNewCanvas method
 
 #### Defined in
 
-[LazyCanvas.ts:405](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/LazyCanvas.ts#L405)
+[LazyCanvas.ts:405](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/LazyCanvas.ts#L405)

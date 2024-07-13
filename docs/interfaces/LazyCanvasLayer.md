@@ -8,13 +8,13 @@
 
 ## Extends
 
-- `Arc`.`ArcTo`.`Bezier`.`Circle`.`Ellipse`.`EllipseImage`.`Image`.`Line`.`Ngon`.`Quadratic`.`Rectangle`.`Square`.`Text`
+- `Base`.`Arc`.`ArcTo`.`Bezier`.`Circle`.`Ellipse`.`EllipseImage`.`Image`.`Line`.`Ngon`.`Quadratic`.`Rectangle`.`Square`.`Text`
 
 ## Properties
 
 ### align
 
-> **align**: `"left"` \| `"center"` \| `"right"` \| `"start"` \| `"end"`
+> **align**: `"start"` \| `"end"` \| `"left"` \| `"right"` \| `"center"`
 
 #### Inherited from
 
@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[types/layers/TextLayer.d.ts:10](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/TextLayer.d.ts#L10)
+[types/layers/TextLayer.d.ts:10](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/TextLayer.d.ts#L10)
 
 ***
 
@@ -32,11 +32,11 @@
 
 #### Inherited from
 
-`Arc.alpha`
+`Base.alpha`
 
 #### Defined in
 
-[types/layers/BaseLayer.d.ts:14](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/BaseLayer.d.ts#L14)
+[types/layers/BaseLayer.d.ts:14](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L14)
 
 ***
 
@@ -46,11 +46,11 @@
 
 #### Inherited from
 
-`Arc.angle`
+`Base.angle`
 
 #### Defined in
 
-[types/layers/BaseLayer.d.ts:15](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/BaseLayer.d.ts#L15)
+[types/layers/BaseLayer.d.ts:15](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L15)
 
 ***
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[types/layers/ArcLayer.d.ts:10](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/ArcLayer.d.ts#L10)
+[types/layers/ArcLayer.d.ts:10](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/ArcLayer.d.ts#L10)
 
 ***
 
@@ -78,7 +78,7 @@
 
 #### Defined in
 
-[types/layers/TextLayer.d.ts:18](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/TextLayer.d.ts#L18)
+[types/layers/TextLayer.d.ts:18](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/TextLayer.d.ts#L18)
 
 ***
 
@@ -92,7 +92,7 @@
 
 #### Defined in
 
-[types/layers/ArcLayer.d.ts:11](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/ArcLayer.d.ts#L11)
+[types/layers/ArcLayer.d.ts:11](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/ArcLayer.d.ts#L11)
 
 ***
 
@@ -106,7 +106,7 @@
 
 #### Defined in
 
-[types/layers/ArcLayer.d.ts:8](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/ArcLayer.d.ts#L8)
+[types/layers/ArcLayer.d.ts:8](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/ArcLayer.d.ts#L8)
 
 ***
 
@@ -128,7 +128,7 @@
 
 #### Defined in
 
-[types/layers/QuadraticLayer.d.ts:9](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/QuadraticLayer.d.ts#L9)
+[types/layers/QuadraticLayer.d.ts:9](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/QuadraticLayer.d.ts#L9)
 
 ***
 
@@ -142,7 +142,7 @@
 
 #### Defined in
 
-[types/layers/BezierLayer.d.ts:9](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/BezierLayer.d.ts#L9)
+[types/layers/BezierLayer.d.ts:9](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BezierLayer.d.ts#L9)
 
 ***
 
@@ -156,7 +156,7 @@
 
 #### Defined in
 
-[types/layers/TextLayer.d.ts:17](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/TextLayer.d.ts#L17)
+[types/layers/TextLayer.d.ts:17](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/TextLayer.d.ts#L17)
 
 ***
 
@@ -166,11 +166,11 @@
 
 #### Inherited from
 
-`Arc.fill`
+`Base.fill`
 
 #### Defined in
 
-[types/layers/ArcLayer.d.ts:6](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/ArcLayer.d.ts#L6)
+[types/layers/BaseLayer.d.ts:17](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L17)
 
 ***
 
@@ -184,7 +184,7 @@
 
 #### Defined in
 
-[types/layers/EllipseImageLayer.d.ts:9](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/EllipseImageLayer.d.ts#L9)
+[types/layers/EllipseImageLayer.d.ts:9](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/EllipseImageLayer.d.ts#L9)
 
 ***
 
@@ -198,7 +198,7 @@
 
 #### Defined in
 
-[types/layers/TextLayer.d.ts:7](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/TextLayer.d.ts#L7)
+[types/layers/TextLayer.d.ts:7](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/TextLayer.d.ts#L7)
 
 ***
 
@@ -208,11 +208,11 @@
 
 #### Inherited from
 
-`Arc.globalComposite`
+`Base.globalComposite`
 
 #### Defined in
 
-[types/layers/BaseLayer.d.ts:18](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/BaseLayer.d.ts#L18)
+[types/layers/BaseLayer.d.ts:18](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L18)
 
 ***
 
@@ -226,7 +226,7 @@
 
 #### Defined in
 
-[types/layers/EllipseLayer.d.ts:7](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/EllipseLayer.d.ts#L7)
+[types/layers/EllipseLayer.d.ts:7](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/EllipseLayer.d.ts#L7)
 
 ***
 
@@ -240,7 +240,7 @@
 
 #### Defined in
 
-[types/layers/EllipseImageLayer.d.ts:5](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/EllipseImageLayer.d.ts#L5)
+[types/layers/EllipseImageLayer.d.ts:5](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/EllipseImageLayer.d.ts#L5)
 
 ***
 
@@ -254,7 +254,7 @@
 
 #### Defined in
 
-[types/layers/LineLayer.d.ts:9](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/LineLayer.d.ts#L9)
+[types/layers/LineLayer.d.ts:9](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/LineLayer.d.ts#L9)
 
 ***
 
@@ -268,7 +268,7 @@
 
 #### Defined in
 
-[types/layers/TextLayer.d.ts:11](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/TextLayer.d.ts#L11)
+[types/layers/TextLayer.d.ts:11](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/TextLayer.d.ts#L11)
 
 ***
 
@@ -282,7 +282,7 @@
 
 #### Defined in
 
-[types/layers/ArcToLayer.d.ts:8](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/ArcToLayer.d.ts#L8)
+[types/layers/ArcToLayer.d.ts:8](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/ArcToLayer.d.ts#L8)
 
 ***
 
@@ -296,7 +296,7 @@
 
 #### Defined in
 
-[types/layers/ArcLayer.d.ts:9](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/ArcLayer.d.ts#L9)
+[types/layers/ArcLayer.d.ts:9](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/ArcLayer.d.ts#L9)
 
 ***
 
@@ -306,11 +306,11 @@
 
 #### Inherited from
 
-`Arc.rotation`
+`Base.rotation`
 
 #### Defined in
 
-[types/layers/BaseLayer.d.ts:19](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/BaseLayer.d.ts#L19)
+[types/layers/BaseLayer.d.ts:19](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L19)
 
 ***
 
@@ -336,11 +336,11 @@
 
 #### Inherited from
 
-`Arc.shadow`
+`Base.shadow`
 
 #### Defined in
 
-[types/layers/BaseLayer.d.ts:8](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/BaseLayer.d.ts#L8)
+[types/layers/BaseLayer.d.ts:8](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L8)
 
 ***
 
@@ -354,7 +354,7 @@
 
 #### Defined in
 
-[types/layers/NgonLayer.d.ts:8](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/NgonLayer.d.ts#L8)
+[types/layers/NgonLayer.d.ts:8](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/NgonLayer.d.ts#L8)
 
 ***
 
@@ -368,7 +368,7 @@
 
 #### Defined in
 
-[types/layers/TextLayer.d.ts:8](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/TextLayer.d.ts#L8)
+[types/layers/TextLayer.d.ts:8](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/TextLayer.d.ts#L8)
 
 ***
 
@@ -382,7 +382,7 @@
 
 #### Defined in
 
-[types/layers/ArcLayer.d.ts:7](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/ArcLayer.d.ts#L7)
+[types/layers/ArcLayer.d.ts:7](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/ArcLayer.d.ts#L7)
 
 ***
 
@@ -392,11 +392,11 @@
 
 #### Inherited from
 
-`Arc.structureType`
+`Base.structureType`
 
 #### Defined in
 
-[types/layers/BaseLayer.d.ts:16](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/BaseLayer.d.ts#L16)
+[types/layers/BaseLayer.d.ts:16](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L16)
 
 ***
 
@@ -410,7 +410,7 @@
 
 #### Defined in
 
-[types/layers/TextLayer.d.ts:6](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/TextLayer.d.ts#L6)
+[types/layers/TextLayer.d.ts:6](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/TextLayer.d.ts#L6)
 
 ***
 
@@ -420,11 +420,11 @@
 
 #### Inherited from
 
-`Arc.type`
+`Base.type`
 
 #### Defined in
 
-[types/layers/BaseLayer.d.ts:5](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/BaseLayer.d.ts#L5)
+[types/layers/BaseLayer.d.ts:5](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L5)
 
 ***
 
@@ -438,7 +438,7 @@
 
 #### Defined in
 
-[types/layers/TextLayer.d.ts:9](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/TextLayer.d.ts#L9)
+[types/layers/TextLayer.d.ts:9](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/TextLayer.d.ts#L9)
 
 ***
 
@@ -452,7 +452,7 @@
 
 #### Defined in
 
-[types/layers/EllipseLayer.d.ts:6](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/EllipseLayer.d.ts#L6)
+[types/layers/EllipseLayer.d.ts:6](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/EllipseLayer.d.ts#L6)
 
 ***
 
@@ -462,11 +462,11 @@
 
 #### Inherited from
 
-`Arc.x`
+`Base.x`
 
 #### Defined in
 
-[types/layers/BaseLayer.d.ts:6](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/BaseLayer.d.ts#L6)
+[types/layers/BaseLayer.d.ts:6](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L6)
 
 ***
 
@@ -476,22 +476,26 @@
 
 #### Inherited from
 
-`Arc.y`
+`Base.y`
 
 #### Defined in
 
-[types/layers/BaseLayer.d.ts:7](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/layers/BaseLayer.d.ts#L7)
+[types/layers/BaseLayer.d.ts:7](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L7)
 
 ## Methods
 
 ### toJSON()
 
-> **toJSON**(): [`LazyCanvasLayer`](LazyCanvasLayer.md)
+> **toJSON**(): `Base`
 
 #### Returns
 
-[`LazyCanvasLayer`](LazyCanvasLayer.md)
+`Base`
+
+#### Inherited from
+
+`Base.toJSON`
 
 #### Defined in
 
-[types/LazyCanvasLayer.d.ts:16](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/LazyCanvasLayer.d.ts#L16)
+[types/layers/BaseLayer.d.ts:21](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/layers/BaseLayer.d.ts#L21)

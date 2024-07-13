@@ -7,4 +7,6 @@ export interface Quadratic extends Base {
     color: string | Gradient | Pattern;
     points: Array<{x: number, y: number}>;
     controlPoint: {x: number, y: number};
+
+    toJSON(): Quadratic;
 }

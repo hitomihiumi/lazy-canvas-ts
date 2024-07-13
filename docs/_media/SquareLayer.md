@@ -46,7 +46,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[structures/SquareLayer.ts:24](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/SquareLayer.ts#L24)
+[structures/SquareLayer.ts:24](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/SquareLayer.ts#L24)
 
 ## Properties
 
@@ -60,7 +60,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[structures/BaseLayer.ts:93](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L93)
+[structures/BaseLayer.ts:93](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L93)
 
 ## Methods
 
@@ -84,7 +84,7 @@ The alpha value of the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:171](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L171)
+[structures/BaseLayer.ts:171](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L171)
 
 ***
 
@@ -104,7 +104,7 @@ The color of the figure
 
 #### Defined in
 
-[structures/SquareLayer.ts:61](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/SquareLayer.ts#L61)
+[structures/SquareLayer.ts:61](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/SquareLayer.ts#L61)
 
 ***
 
@@ -124,7 +124,7 @@ Whether the figure should be filled or not
 
 #### Defined in
 
-[structures/SquareLayer.ts:43](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/SquareLayer.ts#L43)
+[structures/SquareLayer.ts:43](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/SquareLayer.ts#L43)
 
 ***
 
@@ -148,7 +148,7 @@ The global composite operation of the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:192](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L192)
+[structures/BaseLayer.ts:192](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L192)
 
 ***
 
@@ -172,7 +172,7 @@ The angle of rotation the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:182](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L182)
+[structures/BaseLayer.ts:182](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L182)
 
 ***
 
@@ -196,7 +196,7 @@ The degree of shadow blur
 
 #### Defined in
 
-[structures/BaseLayer.ts:141](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L141)
+[structures/BaseLayer.ts:141](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L141)
 
 ***
 
@@ -220,7 +220,7 @@ The shadow color for the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:131](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L131)
+[structures/BaseLayer.ts:131](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L131)
 
 ***
 
@@ -244,7 +244,7 @@ The X-axis offset of the shadow relative to the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:151](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L151)
+[structures/BaseLayer.ts:151](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L151)
 
 ***
 
@@ -268,7 +268,7 @@ The Y-axis offset of the shadow relative to the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:161](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L161)
+[structures/BaseLayer.ts:161](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L161)
 
 ***
 
@@ -288,7 +288,7 @@ The stroke of the figure
 
 #### Defined in
 
-[structures/SquareLayer.ts:51](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/SquareLayer.ts#L51)
+[structures/SquareLayer.ts:51](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/SquareLayer.ts#L51)
 
 ***
 
@@ -308,7 +308,7 @@ The width of the figure
 
 #### Defined in
 
-[structures/SquareLayer.ts:33](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/SquareLayer.ts#L33)
+[structures/SquareLayer.ts:33](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/SquareLayer.ts#L33)
 
 ***
 
@@ -332,7 +332,7 @@ The x position of the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:111](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L111)
+[structures/BaseLayer.ts:111](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L111)
 
 ***
 
@@ -356,7 +356,7 @@ The y position of the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:121](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L121)
+[structures/BaseLayer.ts:121](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L121)
 
 ***
 
@@ -370,7 +370,7 @@ The y position of the layer
 
 ##### align
 
-> **align**: `"left"` \| `"center"` \| `"right"` \| `"start"` \| `"end"`
+> **align**: `"start"` \| `"end"` \| `"left"` \| `"right"` \| `"center"`
 
 ##### alpha
 
@@ -524,7 +524,7 @@ The y position of the layer
 
 ###### Returns
 
-[`LazyCanvasLayer`](../interfaces/LazyCanvasLayer.md)
+`Base`
 
 #### Inherited from
 
@@ -532,4 +532,4 @@ The y position of the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:198](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/structures/BaseLayer.ts#L198)
+[structures/BaseLayer.ts:198](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L198)

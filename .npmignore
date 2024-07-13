@@ -2,12 +2,14 @@
 node_modules
 test/
 docs/
+docs-old/
 src/
 
 *.ts
 !*.d.ts
 tsconfig.json
 package-lock.json
+typedoc.json
 
 fonts
 gitignore

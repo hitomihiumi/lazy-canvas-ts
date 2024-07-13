@@ -44,7 +44,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Filter.ts:26](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Filter.ts#L26)
+[utils/Filter.ts:26](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Filter.ts#L26)
 
 ## Properties
 
@@ -54,7 +54,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Filter.ts:24](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Filter.ts#L24)
+[utils/Filter.ts:24](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Filter.ts#L24)
 
 ## Methods
 
@@ -72,7 +72,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Filter.ts:37](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Filter.ts#L37)
+[utils/Filter.ts:37](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Filter.ts#L37)
 
 ***
 
@@ -90,7 +90,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Filter.ts:31](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Filter.ts#L31)
+[utils/Filter.ts:31](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Filter.ts#L31)
 
 ***
 
@@ -122,4 +122,4 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Filter.ts:44](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Filter.ts#L44)
+[utils/Filter.ts:44](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Filter.ts#L44)

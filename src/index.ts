@@ -31,6 +31,7 @@ import { LazyCanvasGradient } from "./types/LazyCanvasGradient";
 import { LazyCanvasPattern } from "./types/LazyCanvasPattern";
 import { LazyCanvasFont } from "./types/LazyCanvasFont";
 import { LazyCanvasPlugin } from "./types/LazyCanvasPlugin";
+import { LazyCanvasMethod } from "./types/LazyCanvasMethod";
 
 export {
     LazyCanvas,
@@ -65,6 +66,7 @@ export {
     LazyCanvasGradient,
     LazyCanvasPattern,
     LazyCanvasFont,
+    LazyCanvasMethod,
     LazyCanvasPlugin,
     RenderOutput,
     StringRenderOutput,

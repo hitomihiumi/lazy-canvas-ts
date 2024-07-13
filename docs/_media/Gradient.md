@@ -88,7 +88,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Gradient.ts:71](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Gradient.ts#L71)
+[utils/Gradient.ts:71](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Gradient.ts#L71)
 
 ## Properties
 
@@ -98,7 +98,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Gradient.ts:69](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Gradient.ts#L69)
+[utils/Gradient.ts:69](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Gradient.ts#L69)
 
 ## Methods
 
@@ -118,7 +118,7 @@ The color points of the gradient
 
 #### Defined in
 
-[utils/Gradient.ts:84](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Gradient.ts#L84)
+[utils/Gradient.ts:84](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Gradient.ts#L84)
 
 ***
 
@@ -138,7 +138,7 @@ The points of the gradient
 
 #### Defined in
 
-[utils/Gradient.ts:102](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Gradient.ts#L102)
+[utils/Gradient.ts:102](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Gradient.ts#L102)
 
 ***
 
@@ -156,7 +156,7 @@ The points of the gradient
 
 #### Defined in
 
-[utils/Gradient.ts:116](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Gradient.ts#L116)
+[utils/Gradient.ts:116](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Gradient.ts#L116)
 
 ***
 
@@ -174,7 +174,7 @@ The points of the gradient
 
 #### Defined in
 
-[utils/Gradient.ts:129](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Gradient.ts#L129)
+[utils/Gradient.ts:129](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Gradient.ts#L129)
 
 ***
 
@@ -192,7 +192,7 @@ The points of the gradient
 
 #### Defined in
 
-[utils/Gradient.ts:123](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Gradient.ts#L123)
+[utils/Gradient.ts:123](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Gradient.ts#L123)
 
 ***
 
@@ -240,4 +240,4 @@ The points of the gradient
 
 #### Defined in
 
-[utils/Gradient.ts:136](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/utils/Gradient.ts#L136)
+[utils/Gradient.ts:136](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Gradient.ts#L136)

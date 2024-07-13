@@ -32,7 +32,7 @@ const lazy = new LazyCanvas()
 
 #### Parameters
 
-• **data?**: `LazyCanvasMethod`
+• **data?**: [`LazyCanvasMethod`](../interfaces/LazyCanvasMethod.md)
 
 #### Returns
 
@@ -40,17 +40,17 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[api/BaseMethod.ts:22](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/api/BaseMethod.ts#L22)
+[api/BaseMethod.ts:22](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/api/BaseMethod.ts#L22)
 
 ## Properties
 
 ### data
 
-> **data**: `LazyCanvasMethod`
+> **data**: [`LazyCanvasMethod`](../interfaces/LazyCanvasMethod.md)
 
 #### Defined in
 
-[api/BaseMethod.ts:20](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/api/BaseMethod.ts#L20)
+[api/BaseMethod.ts:20](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/api/BaseMethod.ts#L20)
 
 ## Methods
 
@@ -68,7 +68,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[api/BaseMethod.ts:32](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/api/BaseMethod.ts#L32)
+[api/BaseMethod.ts:32](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/api/BaseMethod.ts#L32)
 
 ***
 
@@ -86,7 +86,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[api/BaseMethod.ts:26](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/api/BaseMethod.ts#L26)
+[api/BaseMethod.ts:26](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/api/BaseMethod.ts#L26)
 
 ***
 
@@ -110,8 +110,8 @@ const lazy = new LazyCanvas()
 
 ###### Returns
 
-`LazyCanvasMethod`
+[`LazyCanvasMethod`](../interfaces/LazyCanvasMethod.md)
 
 #### Defined in
 
-[api/BaseMethod.ts:38](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/api/BaseMethod.ts#L38)
+[api/BaseMethod.ts:38](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/api/BaseMethod.ts#L38)

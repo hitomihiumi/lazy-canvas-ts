@@ -14,7 +14,7 @@
 
 #### Defined in
 
-[types/LazyCanvasGradient.d.ts:5](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/LazyCanvasGradient.d.ts#L5)
+[types/LazyCanvasGradient.d.ts:5](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasGradient.d.ts#L5)
 
 ***
 
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[types/LazyCanvasGradient.d.ts:3](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/LazyCanvasGradient.d.ts#L3)
+[types/LazyCanvasGradient.d.ts:3](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasGradient.d.ts#L3)
 
 ***
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[types/LazyCanvasGradient.d.ts:4](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/LazyCanvasGradient.d.ts#L4)
+[types/LazyCanvasGradient.d.ts:4](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasGradient.d.ts#L4)
 
 ***
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[types/LazyCanvasGradient.d.ts:7](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/LazyCanvasGradient.d.ts#L7)
+[types/LazyCanvasGradient.d.ts:7](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasGradient.d.ts#L7)
 
 ***
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[types/LazyCanvasGradient.d.ts:6](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/LazyCanvasGradient.d.ts#L6)
+[types/LazyCanvasGradient.d.ts:6](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasGradient.d.ts#L6)
 
 ***
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[types/LazyCanvasGradient.d.ts:2](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/LazyCanvasGradient.d.ts#L2)
+[types/LazyCanvasGradient.d.ts:2](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasGradient.d.ts#L2)
 
 ***
 
@@ -74,7 +74,7 @@
 
 #### Defined in
 
-[types/LazyCanvasGradient.d.ts:8](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/LazyCanvasGradient.d.ts#L8)
+[types/LazyCanvasGradient.d.ts:8](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasGradient.d.ts#L8)
 
 ## Methods
 
@@ -88,4 +88,4 @@
 
 #### Defined in
 
-[types/LazyCanvasGradient.d.ts:10](https://github.com/Asayukiii/lazy-canvas-ts/blob/eede1ecae82026bf7ec8c2e6dc894fb1a062462a/src/types/LazyCanvasGradient.d.ts#L10)
+[types/LazyCanvasGradient.d.ts:10](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasGradient.d.ts#L10)

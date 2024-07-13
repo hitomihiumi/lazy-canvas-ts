@@ -39,6 +39,7 @@
 - [LazyCanvasFont](interfaces/LazyCanvasFont.md)
 - [LazyCanvasGradient](interfaces/LazyCanvasGradient.md)
 - [LazyCanvasLayer](interfaces/LazyCanvasLayer.md)
+- [LazyCanvasMethod](interfaces/LazyCanvasMethod.md)
 - [LazyCanvasPattern](interfaces/LazyCanvasPattern.md)
 
 ## Type Aliases

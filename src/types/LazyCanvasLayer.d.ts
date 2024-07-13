@@ -11,7 +11,6 @@ import { Quadratic } from "./layers/QuadraticLayer";
 import { Rectangle } from "./layers/RectangleLayer";
 import { Square } from "./layers/SquareLayer";
 import { Text } from "./layers/TextLayer";
+import { Base } from "./layers/BaseLayer";
 
-export interface LazyCanvasLayer extends Arc, ArcTo, Bezier, Circle, Ellipse, EllipseImage, Image, Line, Ngon, Quadratic, Rectangle, Square, Text {
-    toJSON(): LazyCanvasLayer;
-}
+export interface LazyCanvasLayer extends Base, Arc, ArcTo, Bezier, Circle, Ellipse, EllipseImage, Image, Line, Ngon, Quadratic, Rectangle, Square, Text {}
