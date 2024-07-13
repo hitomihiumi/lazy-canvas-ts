@@ -1,4 +1,4 @@
-import { LazyError } from "../types/LazyUtils";
+import { LazyError } from "./LazyUtils";
 
 export abstract class LazyCanvasPlugin {
     public onload(lazycanvas: any): void {

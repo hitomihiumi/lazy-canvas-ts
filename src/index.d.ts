@@ -24,6 +24,8 @@ import { Font } from "./utils/Font";
 
 import { isValidColor, color, isImageUrlValid, lazyLoadImage, saveFile, textMetrics, generateRandomName } from "./utils/utils";
 
+import { BaseMethod } from "./api/BaseMethod";
+
 import { LazyCanvasLayer } from "./types/LazyCanvasLayer";
 import { LazyCanvasData } from "./types/LazyCanvasData";
 import { LazyCanvasFilter } from "./types/LazyCanvasFilter";
@@ -67,5 +69,6 @@ export {
     LazyCanvasFont,
     LazyCanvasPlugin,
     RenderOutput,
-    StringRenderOutput
+    StringRenderOutput,
+    BaseMethod
 };

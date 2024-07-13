@@ -11,6 +11,7 @@ export class Gradient {
         this.data.colorPoints = [];
         this.data.points = [];
         this.data.structureType = 'color';
+        this.data.startAngle = 0;
     }
 
     /**

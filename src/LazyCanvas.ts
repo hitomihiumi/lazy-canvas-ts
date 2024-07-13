@@ -10,9 +10,8 @@ import { LazyCanvasFont } from "./types/LazyCanvasFont";
 import { LazyError, LazyLog } from "./types/LazyUtils";
 import { LazyCanvasPattern } from "./types/LazyCanvasPattern";
 import { LazyCanvasFilter } from "./types/LazyCanvasFilter";
-import { Font } from "./utils/Font";
-import { BaseLayer } from './structures/BaseLayer';
-import { LazyCanvasMethod } from './types/LazyCanvasMethod';
+import { Font } from "./utils/Font";``
+import { BaseMethod } from "./api/BaseMethod";
 
 export enum RenderOutput {
     Buffer,
@@ -70,9 +69,10 @@ export class LazyCanvas {
         return this;
     }
 
-    addLayers(...layers: LazyCanvasLayer[]) {
+    addLayers(...layers: Partial<LazyCanvasLayer>[]) {
         if (!layers) throw new LazyError("No layers data provided");
         for (const l of layers) {
+            // @ts-ignore
             this.data.layers.push(l.toJSON());
         }
         return this;
@@ -267,7 +267,7 @@ export class LazyCanvas {
         return this;
     }
 
-    loadMethods(...methods: LazyCanvasMethod[]) {
+    loadMethods(...methods: BaseMethod[]) {
         if (!methods) throw new LazyError("No methods provided");
         for (const method of methods) {
             let load = method.toJSON();
@@ -770,7 +770,7 @@ export class LazyCanvas {
                 if (WhatINeed === 'buffer' || WhatINeed === RenderOutput.Buffer) return canvas.toBuffer('image/png');
                 else if (WhatINeed === 'ctx' || WhatINeed === RenderOutput.Context) return ctx;
             } catch (e: any) {
-                LazyLog.log(e);
+                LazyLog.log(e, "error");
                 return;
             }
     }

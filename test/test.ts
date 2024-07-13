@@ -9,7 +9,10 @@ import {
     generateRandomName,
     saveFile,
     Gradient,
-    RectangleLayer
+    RectangleLayer,
+    BaseMethod,
+    BaseLayer,
+    isImageUrlValid
 } from '../dist'
 
 let font = new Font()
@@ -46,6 +49,7 @@ let border = new EllipseLayer()
             .addColorPoints({ color: '#fff', position: 0 }, { color: '#000', position: 1 })
             .setPoints({ x: 0, y: 0}, { x: 600, y: 120})
             .setRadius(100)
+            .setStartAngle(0)
     )
     .setFilled(false)
     .setStroke(1)
@@ -145,16 +149,29 @@ let newlevelText = new TextLayer()
 const lazy = new LazyCanvas()
     .createNewCanvas(600, 120)
     .loadFonts(font)
-    .addLayers(background, blackout, border, avatar, avatarBorder, prewlevel, newlevel, levelup, arrowbase, arrowup, arrowdown, prewlevelText, newlevelText)
+    .addLayers(background,
+        blackout,
+        border,
+        avatar,
+        avatarBorder,
+        prewlevel,
+        newlevel,
+        levelup,
+        arrowbase,
+        arrowup,
+        arrowdown,
+        prewlevelText,
+        newlevelText)
 
-console.log(lazy.getData())
+//console.log(lazy.getData())
 
-console.log(lazy.getData().layers)
+//console.log(lazy.getData().layers)
 
-console.log(generateRandomName())
+//.log(generateRandomName())
 
 async function main() {
     let data = await lazy.renderImage()
+    console.log(data)
     await saveFile(data, 'png', 'output')
 }
 
