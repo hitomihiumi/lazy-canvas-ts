@@ -8,6 +8,4 @@ export interface Ngon extends Base {
     sides: number;
     fill: boolean;
     radius: number;
-
-    toJSON(): Ngon;
 }

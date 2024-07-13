@@ -42,7 +42,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Font.ts:24](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Font.ts#L24)
+[utils/Font.ts:24](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/utils/Font.ts#L24)
 
 ## Properties
 
@@ -52,7 +52,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[utils/Font.ts:22](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Font.ts#L22)
+[utils/Font.ts:22](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/utils/Font.ts#L22)
 
 ## Methods
 
@@ -72,7 +72,7 @@ The font name
 
 #### Defined in
 
-[utils/Font.ts:32](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Font.ts#L32)
+[utils/Font.ts:32](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/utils/Font.ts#L32)
 
 ***
 
@@ -101,7 +101,7 @@ The path to the font file
 
 #### Defined in
 
-[utils/Font.ts:53](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Font.ts#L53)
+[utils/Font.ts:53](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/utils/Font.ts#L53)
 
 ***
 
@@ -111,7 +111,7 @@ The path to the font file
 
 #### Parameters
 
-• **weight**: `"normal"` \| `"bold"` \| `"italic"` \| `"bold italic"` \| `"regular"` \| `"semi-bold"` \| `"extra-bold"`
+• **weight**: `"normal"` \| `"bold"` \| `"italic"` \| `"bold italic"` \| `"regular"` \| `"semi-bold"` \| `"extra-bold"` \| `"light"` \| `"extra-light"`
 
 The font weight
 
@@ -121,7 +121,7 @@ The font weight
 
 #### Defined in
 
-[utils/Font.ts:41](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Font.ts#L41)
+[utils/Font.ts:41](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/utils/Font.ts#L41)
 
 ***
 
@@ -147,7 +147,7 @@ The font weight
 
 ##### weight
 
-> **weight**: `string`
+> **weight**: `"normal"` \| `"bold"` \| `"italic"` \| `"bold italic"` \| `"regular"` \| `"semi-bold"` \| `"extra-bold"` \| `"light"` \| `"extra-light"`
 
 ##### toJSON()
 
@@ -157,4 +157,4 @@ The font weight
 
 #### Defined in
 
-[utils/Font.ts:59](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/Font.ts#L59)
+[utils/Font.ts:59](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/utils/Font.ts#L59)

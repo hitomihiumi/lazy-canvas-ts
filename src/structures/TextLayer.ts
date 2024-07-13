@@ -82,7 +82,7 @@ export class TextLayer extends BaseLayer {
      * @param {string} weight - The weight of the text
      * Weight types: normal, bold, italic, bold italic, regular
      */
-    setWeight(weight: 'normal' | 'bold' | 'italic' | 'bold italic' | 'regular' | 'semi-bold' | 'extra-bold') {
+    setWeight(weight: 'normal' | 'bold' | 'italic' | 'bold italic' | 'regular' | 'semi-bold' | 'extra-bold' | 'light' | 'extra-light') {
         if (!weight) throw new LazyError('Weight must be provided');
         this.data.weight = weight;
         return this;

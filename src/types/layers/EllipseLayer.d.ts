@@ -9,6 +9,4 @@ export interface Ellipse extends Base {
     stroke: number;
     radius: number;
     color: string | Gradient | Pattern;
-
-    toJSON(): Ellipse;
 }

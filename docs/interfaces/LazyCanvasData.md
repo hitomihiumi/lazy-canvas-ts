@@ -14,7 +14,7 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:6](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L6)
+[types/LazyCanvasData.d.ts:6](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L6)
 
 ***
 
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:7](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L7)
+[types/LazyCanvasData.d.ts:7](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L7)
 
 ***
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:13](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L13)
+[types/LazyCanvasData.d.ts:13](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L13)
 
 ***
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:11](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L11)
+[types/LazyCanvasData.d.ts:11](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L11)
 
 ***
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:9](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L9)
+[types/LazyCanvasData.d.ts:9](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L9)
 
 ***
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:10](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L10)
+[types/LazyCanvasData.d.ts:10](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L10)
 
 ***
 
@@ -74,7 +74,7 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:12](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L12)
+[types/LazyCanvasData.d.ts:12](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L12)
 
 ***
 
@@ -84,7 +84,7 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:5](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L5)
+[types/LazyCanvasData.d.ts:5](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L5)
 
 ***
 
@@ -94,7 +94,7 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:14](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L14)
+[types/LazyCanvasData.d.ts:14](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L14)
 
 ***
 
@@ -104,7 +104,7 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:8](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L8)
+[types/LazyCanvasData.d.ts:8](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L8)
 
 ## Methods
 
@@ -118,4 +118,4 @@
 
 #### Defined in
 
-[types/LazyCanvasData.d.ts:16](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasData.d.ts#L16)
+[types/LazyCanvasData.d.ts:16](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasData.d.ts#L16)

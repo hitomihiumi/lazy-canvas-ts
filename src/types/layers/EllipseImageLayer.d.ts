@@ -7,6 +7,4 @@ export interface EllipseImage extends Base {
     height: number;
     radius: number;
     filter: Filter;
-
-    toJSON(): EllipseImage;
 }

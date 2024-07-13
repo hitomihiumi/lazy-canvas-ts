@@ -7,6 +7,4 @@ export interface Bezier extends Base {
     color: string | Gradient | Pattern;
     points: Array<{x: number, y: number}>;
     controlPoints: Array<{x: number, y: number}>;
-
-    toJSON(): Bezier;
 }

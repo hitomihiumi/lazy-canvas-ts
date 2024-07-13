@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[types/LazyCanvasPattern.d.ts:4](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasPattern.d.ts#L4)
+[types/LazyCanvasPattern.d.ts:4](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasPattern.d.ts#L4)
 
 ***
 
@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[types/LazyCanvasPattern.d.ts:9](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasPattern.d.ts#L9)
+[types/LazyCanvasPattern.d.ts:9](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasPattern.d.ts#L9)
 
 ***
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[types/LazyCanvasPattern.d.ts:8](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasPattern.d.ts#L8)
+[types/LazyCanvasPattern.d.ts:8](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasPattern.d.ts#L8)
 
 ## Methods
 
@@ -56,4 +56,4 @@
 
 #### Defined in
 
-[types/LazyCanvasPattern.d.ts:11](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/types/LazyCanvasPattern.d.ts#L11)
+[types/LazyCanvasPattern.d.ts:11](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/types/LazyCanvasPattern.d.ts#L11)

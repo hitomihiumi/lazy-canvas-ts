@@ -9,6 +9,4 @@ export interface Arc extends Base {
     radius: number;
     angles: number[];
     clockwise: boolean;
-
-    toJSON(): Arc;
 }

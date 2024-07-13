@@ -38,7 +38,7 @@ export class Font {
     /**
      * @param {string} weight - The font weight
      */
-    setWeight(weight: 'normal' | 'bold' | 'italic' | 'bold italic' | 'regular' | 'semi-bold' | 'extra-bold') {
+    setWeight(weight: 'normal' | 'bold' | 'italic' | 'bold italic' | 'regular' | 'semi-bold' | 'extra-bold' | 'light' | 'extra-light') {
         if (!weight) throw new Error('Weight must be provided');
         this.data.weight = weight;
         return this;

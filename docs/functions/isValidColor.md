@@ -29,4 +29,4 @@ console.log(isValidColor(`#ff8a8a`))
 
 ## Defined in
 
-[utils/utils.ts:16](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/utils/utils.ts#L16)
+[utils/utils.ts:16](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/utils/utils.ts#L16)

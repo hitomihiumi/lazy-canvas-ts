@@ -6,7 +6,7 @@ export interface Text extends Base {
     text: string;
     font: string;
     size: number;
-    weight: string;
+    weight: 'normal' | 'bold' | 'italic' | 'bold italic' | 'regular' | 'semi-bold' | 'extra-bold' | 'light' | 'extra-light';
     align: 'left' | 'center' | 'right' | 'start' | 'end';
     multiline: boolean;
     color: string | Gradient | Pattern;
@@ -16,6 +16,4 @@ export interface Text extends Base {
     fill: boolean;
     direction: 'ltr' | 'rtl' | 'inherit';
     baseline: 'alphabetic' | 'top' | 'hanging' | 'middle' | 'ideographic' | 'bottom';
-
-    toJSON(): Text;
 }

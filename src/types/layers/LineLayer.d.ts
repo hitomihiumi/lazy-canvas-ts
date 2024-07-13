@@ -7,6 +7,4 @@ export interface Line extends Base {
     color: string | Gradient | Pattern;
     points: Array<{x: number, y: number}>;
     lineDash: Array<number>;
-
-    toJSON(): Line;
 }

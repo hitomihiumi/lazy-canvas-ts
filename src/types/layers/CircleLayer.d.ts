@@ -7,6 +7,4 @@ export interface Circle extends Base {
     fill: boolean;
     stroke: number;
     color: string | Gradient | Pattern;
-
-    toJSON(): Circle;
 }

@@ -199,7 +199,7 @@ export function drawMultilineText(ctx: SKRSContext2D, text: string, opts: any) {
     if (!opts.rect.height)
         opts.rect.height = ctx.canvas.height - opts.rect.y
 
-    console.log(opts)
+    //console.log(opts)
 
     const words = text.split(' ')
 

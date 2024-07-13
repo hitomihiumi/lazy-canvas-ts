@@ -13,7 +13,7 @@ import {
     BaseMethod,
     BaseLayer,
     isImageUrlValid
-} from '../dist'
+} from '../src'
 
 let font = new Font()
     .setFamily("JoeKubert")

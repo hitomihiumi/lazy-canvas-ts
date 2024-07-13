@@ -7,6 +7,4 @@ export interface Square extends Base {
     fill: boolean;
     stroke: number;
     color: string | Gradient | Pattern;
-
-    toJSON(): Square;
 }

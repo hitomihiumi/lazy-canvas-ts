@@ -562,13 +562,13 @@ export class LazyCanvas {
                 ctx.rotate((Math.PI/180) * data.angle);
                 ctx.translate(-data.x, -data.y);
             } else if (data.align === "left" || data.align === "start") {
-                ctx.translate(data.x + (data.size * data.text.length) / 2, data.y + data.size / 2);
+                ctx.translate(data.x + (data.size * data.text.length) / 2, data.y);
                 ctx.rotate((Math.PI/180) * data.angle);
-                ctx.translate(-(data.x + (data.size * data.text.length) / 2), -(data.y + data.size / 2));
+                ctx.translate(-(data.x + (data.size * data.text.length) / 2), -data.y);
             } else if (data.align === "right" || data.align === "end") {
-                ctx.translate(data.x - (data.size * data.text.length) / 2, data.y + data.size / 2);
+                ctx.translate(data.x - (data.size * data.text.length) / 2, data.y);
                 ctx.rotate((Math.PI/180) * data.angle);
-                ctx.translate(-(data.x - (data.size * data.text.length) / 2), -(data.y - data.size / 2));
+                ctx.translate(-(data.x - (data.size * data.text.length) / 2), -data.y);
             }
             ctx.font = `${data.weight} ${Number(data.size)}px ${data.font}`;
             ctx.textAlign = data.align;
@@ -695,12 +695,13 @@ export class LazyCanvas {
 
     async patternRender(ctx: SKRSContext2D, data: LazyCanvasPattern) {
         return new Promise(async function(resolve: (arg0: CanvasPattern | null) => any, reject: any) {
-            if (data.pattern.type === "image") {
-                let image = await lazyLoadImage(data.pattern.data);
-                // @ts-ignore
-                return resolve(ctx.createPattern(image, data.patternType));
-            } else if (data.pattern.type === "canvas") {
-                let lazy = data.pattern.data;
+            try {
+                if (data.pattern.type === "image") {
+                    let image = await lazyLoadImage(data.pattern.data);
+                    // @ts-ignore
+                    return resolve(ctx.createPattern(image, data.patternType));
+                } else if (data.pattern.type === "canvas") {
+                    let lazy = data.pattern.data;
                     // @ts-ignore
                     lazy.renderImage().then(async (pattern) => {
                         //await saveFile(pattern, 'png', 'pattern')
@@ -709,6 +710,11 @@ export class LazyCanvas {
                         //console.log(ctx.createPattern(image, data.patternType));
                         return resolve(ctx.createPattern(image, data.patternType));
                     });
+                }
+            } catch (e) {
+                LazyLog.log(String(e), "error");
+                // @ts-ignore
+                return reject(ctx.createPattern(await jimp.read(String(this.data.errorImage)), data.patternType));
             }
         }.bind(this));
     }

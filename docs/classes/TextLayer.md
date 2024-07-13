@@ -66,7 +66,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[structures/TextLayer.ts:44](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L44)
+[structures/TextLayer.ts:44](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L44)
 
 ## Properties
 
@@ -80,7 +80,7 @@ const lazy = new LazyCanvas()
 
 #### Defined in
 
-[structures/BaseLayer.ts:93](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L93)
+[structures/BaseLayer.ts:93](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L93)
 
 ## Methods
 
@@ -90,7 +90,7 @@ const lazy = new LazyCanvas()
 
 #### Parameters
 
-• **align**: `"start"` \| `"end"` \| `"left"` \| `"right"` \| `"center"`
+• **align**: `"left"` \| `"center"` \| `"right"` \| `"start"` \| `"end"`
 
 The alignment of the text
 Align types: left, center, right, start, end
@@ -101,7 +101,7 @@ Align types: left, center, right, start, end
 
 #### Defined in
 
-[structures/TextLayer.ts:105](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L105)
+[structures/TextLayer.ts:105](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L105)
 
 ***
 
@@ -125,7 +125,7 @@ The alpha value of the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:171](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L171)
+[structures/BaseLayer.ts:171](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L171)
 
 ***
 
@@ -145,7 +145,7 @@ The baseline of the text
 
 #### Defined in
 
-[structures/TextLayer.ts:159](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L159)
+[structures/TextLayer.ts:159](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L159)
 
 ***
 
@@ -165,7 +165,7 @@ The color of the text
 
 #### Defined in
 
-[structures/TextLayer.ts:94](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L94)
+[structures/TextLayer.ts:94](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L94)
 
 ***
 
@@ -185,7 +185,7 @@ The direction of the text
 
 #### Defined in
 
-[structures/TextLayer.ts:150](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L150)
+[structures/TextLayer.ts:150](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L150)
 
 ***
 
@@ -205,7 +205,7 @@ Whether the figure should be text or not
 
 #### Defined in
 
-[structures/TextLayer.ts:142](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L142)
+[structures/TextLayer.ts:142](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L142)
 
 ***
 
@@ -225,7 +225,7 @@ The name of the font
 
 #### Defined in
 
-[structures/TextLayer.ts:65](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L65)
+[structures/TextLayer.ts:65](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L65)
 
 ***
 
@@ -245,7 +245,7 @@ The size of the text
 
 #### Defined in
 
-[structures/TextLayer.ts:74](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L74)
+[structures/TextLayer.ts:74](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L74)
 
 ***
 
@@ -269,7 +269,7 @@ The global composite operation of the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:192](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L192)
+[structures/BaseLayer.ts:192](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L192)
 
 ***
 
@@ -289,7 +289,7 @@ Max height zone of the text
 
 #### Defined in
 
-[structures/TextLayer.ts:132](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L132)
+[structures/TextLayer.ts:132](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L132)
 
 ***
 
@@ -309,7 +309,7 @@ Whether the text should be multiline or not
 
 #### Defined in
 
-[structures/TextLayer.ts:114](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L114)
+[structures/TextLayer.ts:114](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L114)
 
 ***
 
@@ -333,7 +333,7 @@ The angle of rotation the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:182](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L182)
+[structures/BaseLayer.ts:182](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L182)
 
 ***
 
@@ -357,7 +357,7 @@ The degree of shadow blur
 
 #### Defined in
 
-[structures/BaseLayer.ts:141](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L141)
+[structures/BaseLayer.ts:141](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L141)
 
 ***
 
@@ -381,7 +381,7 @@ The shadow color for the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:131](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L131)
+[structures/BaseLayer.ts:131](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L131)
 
 ***
 
@@ -405,7 +405,7 @@ The X-axis offset of the shadow relative to the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:151](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L151)
+[structures/BaseLayer.ts:151](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L151)
 
 ***
 
@@ -429,7 +429,7 @@ The Y-axis offset of the shadow relative to the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:161](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L161)
+[structures/BaseLayer.ts:161](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L161)
 
 ***
 
@@ -449,7 +449,7 @@ The text to display
 
 #### Defined in
 
-[structures/TextLayer.ts:56](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L56)
+[structures/TextLayer.ts:56](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L56)
 
 ***
 
@@ -459,7 +459,7 @@ The text to display
 
 #### Parameters
 
-• **weight**: `"normal"` \| `"bold"` \| `"italic"` \| `"bold italic"` \| `"regular"` \| `"semi-bold"` \| `"extra-bold"`
+• **weight**: `"normal"` \| `"bold"` \| `"italic"` \| `"bold italic"` \| `"regular"` \| `"semi-bold"` \| `"extra-bold"` \| `"light"` \| `"extra-light"`
 
 The weight of the text
 Weight types: normal, bold, italic, bold italic, regular
@@ -470,7 +470,7 @@ Weight types: normal, bold, italic, bold italic, regular
 
 #### Defined in
 
-[structures/TextLayer.ts:85](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L85)
+[structures/TextLayer.ts:85](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L85)
 
 ***
 
@@ -490,7 +490,7 @@ Max width zone of the text
 
 #### Defined in
 
-[structures/TextLayer.ts:122](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/TextLayer.ts#L122)
+[structures/TextLayer.ts:122](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/TextLayer.ts#L122)
 
 ***
 
@@ -514,7 +514,7 @@ The x position of the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:111](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L111)
+[structures/BaseLayer.ts:111](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L111)
 
 ***
 
@@ -538,7 +538,7 @@ The y position of the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:121](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L121)
+[structures/BaseLayer.ts:121](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L121)
 
 ***
 
@@ -552,7 +552,7 @@ The y position of the layer
 
 ##### align
 
-> **align**: `"start"` \| `"end"` \| `"left"` \| `"right"` \| `"center"`
+> **align**: `"left"` \| `"center"` \| `"right"` \| `"start"` \| `"end"`
 
 ##### alpha
 
@@ -688,7 +688,7 @@ The y position of the layer
 
 ##### weight
 
-> **weight**: `string`
+> **weight**: `"normal"` \| `"bold"` \| `"italic"` \| `"bold italic"` \| `"regular"` \| `"semi-bold"` \| `"extra-bold"` \| `"light"` \| `"extra-light"`
 
 ##### width
 
@@ -706,7 +706,7 @@ The y position of the layer
 
 ###### Returns
 
-`Base`
+[`LazyCanvasLayer`](../interfaces/LazyCanvasLayer.md)
 
 #### Inherited from
 
@@ -714,4 +714,4 @@ The y position of the layer
 
 #### Defined in
 
-[structures/BaseLayer.ts:198](https://github.com/hitomihiumi/lazy-canvas-ts/blob/2f56b7524690b04d018a0bb1b24e9f83eddf6fcf/src/structures/BaseLayer.ts#L198)
+[structures/BaseLayer.ts:198](https://github.com/hitomihiumi/lazy-canvas-ts/blob/3e38e3638c393841b578a470cffea72245bb77ec/src/structures/BaseLayer.ts#L198)
