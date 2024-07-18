@@ -3,6 +3,7 @@ node_modules
 test/
 docs/
 docs-old/
+docs-out/
 src/
 
 *.ts

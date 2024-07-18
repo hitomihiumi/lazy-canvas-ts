@@ -9,6 +9,10 @@ This is a simple module designed to simplify the interaction with canvas, for pe
 1. Install the module by using `npm i @hitomihiumi/lazy-canvas`
 2. Enjoy!
 
+## Documentation
+
+You can find the documentation [here](https://hitomihiumi.github.io/)
+
 ## Example
 
 ```js
@@ -136,46 +140,6 @@ main()
 ```
 
 ![Example Image](https://i.imgur.com/pqAft2K.png)
-
-## Documentation
-
-Class documentation can be found below by clicking on the appropriate class names.
-
-### Main Classes
-
-- [LazyCanvas](./docs/classes/LazyCanvas.md)
-- [Font](./docs/classes/Font.md)
-- [Gradient](./docs/classes/Gradient.md)
-- [Filter](./docs/classes/Filter.md)
-- [Pattern](./docs/classes/Pattern.md)
-
-### Layers
-
-- [CircleLayer](./docs/classes/CircleLayer.md)
-- [EllipseLayer](./docs/classes/EllipseLayer.md)
-- [SquareLayer](./docs/classes/SquareLayer.md)
-- [RectangleLayer](./docs/classes/RectangleLayer.md)
-- [LineLayer](./docs/classes/LineLayer.md)
-- [NgonLayer](./docs/classes/NgonLayer.md)
-- [ImageLayer](./docs/classes/ImageLayer.md)
-- [EllipseImageLayer](./docs/classes/EllipseImageLayer.md)
-- [TextLayer](./docs/classes/TextLayer.md)
-- [ArcLayer](./docs/classes/ArcLayer.md)
-- [ArcToLayer](./docs/classes/ArcToLayer.md)
-- [BezierLayer](./docs/classes/BezierLayer.md)
-- [QuadraticLayer](./docs/classes/QuadraticLayer.md)
-
-### Extentions
-
-- [BaseLayer](./docs/classes/BaseLayer.md)
-- [BaseMethod](./docs/classes/BaseMethod.md)
-- **Utils**
-  - [isValidColor](./docs/functions/isValidColor.md)
-  - [lazyLoadImage](./docs/functions/lazyLoadImage.md)
-  - [isImageUrlValid](./docs/functions/isImageUrlValid.md)
-  - [textMetrics](./docs/functions/textMetrics.md)
-  - [saveFile](./docs/functions/saveFile.md)
-  - [generateRandomName](./docs/functions/generateRandomName.md)
 
 ## To Do
 
