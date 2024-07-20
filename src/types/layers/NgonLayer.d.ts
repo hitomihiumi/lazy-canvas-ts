@@ -1,6 +1,7 @@
 import { Base } from "./BaseLayer";
 import { Gradient } from "../../utils/Gradient";
 import { Pattern } from "../../utils/Pattern";
+import { LazyCanvasOutline } from "../LazyCanvasOutline";
 
 export interface Ngon extends Base {
     stroke: number;
@@ -8,4 +9,5 @@ export interface Ngon extends Base {
     sides: number;
     fill: boolean;
     radius: number;
+    outline: LazyCanvasOutline;
 }

@@ -1,6 +1,7 @@
 import { Base } from "./BaseLayer";
 import { Gradient } from "../../utils/Gradient";
 import { Pattern } from "../../utils/Pattern";
+import { LazyCanvasOutline } from "../LazyCanvasOutline";
 
 export interface Text extends Base {
     text: string;
@@ -10,6 +11,7 @@ export interface Text extends Base {
     align: 'left' | 'center' | 'right' | 'start' | 'end';
     multiline: boolean;
     color: string | Gradient | Pattern;
+    outline: LazyCanvasOutline;
 
     width: number;
     height: number;

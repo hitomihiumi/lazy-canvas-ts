@@ -139,7 +139,7 @@ async function main() {
 main()
 ```
 
-![Example Image](https://i.imgur.com/pqAft2K.png)
+![Example Image](https://i.imgur.com/JZ8ghuq.png)
 
 ## To Do
 

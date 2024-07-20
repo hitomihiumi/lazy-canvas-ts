@@ -4,6 +4,7 @@ import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
+import { Outline } from '../utils/Outline';
 
 /**
  * @example
@@ -159,6 +160,14 @@ export class TextLayer extends BaseLayer {
     setBaseline(baseline: 'alphabetic' | 'top' | 'hanging' | 'middle' | 'ideographic' | 'bottom') {
         if (!baseline) throw new LazyError('Baseline must be provided');
         this.data.baseline = baseline;
+        return this;
+    }
+
+    /**
+     * @param {Outline} outline - The outline of the figure
+     */
+    setOutline(outline: Outline) {
+        this.data.outline = outline.toJSON();
         return this;
     }
 }

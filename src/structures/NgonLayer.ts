@@ -4,6 +4,7 @@ import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
+import { Outline } from '../utils/Outline';
 
 /**
  * @example
@@ -24,6 +25,7 @@ export class NgonLayer extends BaseLayer {
         super(data);
         this.data.type = 'ngon';
         this.data.fill = true;
+        this.data.centering = 'new';
     }
 
     /**
@@ -72,6 +74,14 @@ export class NgonLayer extends BaseLayer {
         if (!color) throw new LazyError('Color must be provided');
         if (!isValidColor(color)) throw new LazyError('Color must be a valid color');
         this.data.color = color;
+        return this;
+    }
+
+    /**
+     * @param {Outline} outline - The outline of the figure
+     */
+    setOutline(outline: Outline) {
+        this.data.outline = outline.toJSON();
         return this;
     }
 }

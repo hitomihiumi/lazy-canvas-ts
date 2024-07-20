@@ -70,7 +70,7 @@ export async function color(ctx: SKRSContext2D, colorParam: string | LazyCanvasG
  * const { lazyLoadImage } = require('@hitomihiumi/lazy-canvas')
  * //...
  * console.log(lazyLoadImage(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`)) 
- * // returns Promise<HTMLimageElement>
+ * // returns Promise<Image>
  * console.log(await lazyLoadImage(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`)) 
  * // returns image
  */
@@ -147,7 +147,7 @@ export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, wi
 }
 
 /**
- * Saves LazyCanvas* as a file.
+ * Saves LazyCanvas as a file.
  * @example
  * const { saveFile, LazyCanvas } = require('@hitomihiumi/lazy-canvas')
  * //...
@@ -229,7 +229,7 @@ export function drawMultilineText(ctx: SKRSContext2D, text: string, opts: any) {
 
         lines.push({ text: line, x: x, y: y })
 
-        if (y > opts.rect.height)
+        if (y > y + opts.rect.height)
             break
 
     }

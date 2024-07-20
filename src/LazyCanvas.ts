@@ -449,24 +449,26 @@ export class LazyCanvas {
 
     circle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
+        let dataCopy = this.centring(data);
         if (filled === true) {
-            this.fillRoundedRect(ctx, data.x, data.y, data.radius * 2, data.radius * 2, data.radius);
+            this.fillRoundedRect(ctx, dataCopy.x, dataCopy.y, dataCopy.radius * 2, dataCopy.radius * 2, dataCopy.radius);
         } else {
-            this.outerlineRounded(ctx, data.x, data.y, data.radius * 2, data.radius * 2, data.radius, data.stroke);
+            this.outerlineRounded(ctx, dataCopy.x, dataCopy.y, dataCopy.radius * 2, dataCopy.radius * 2, dataCopy.radius, dataCopy.stroke);
+            ctx.lineWidth = 1;
         }
         ctx.closePath();
     }
 
     ellipse(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
+        let dataCopy = this.centring(data);
         ctx.save();
-        ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
-        ctx.rotate((Math.PI/180) * data.angle);
-        ctx.translate(-(data.x + data.width / 2), -(data.y + data.height / 2));
+        this.rotate(ctx, dataCopy)
         if (filled === true) {
-            this.fillRoundedRect(ctx, data.x, data.y, data.width, data.height, data.radius);
+            this.fillRoundedRect(ctx, dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.height, dataCopy.radius);
         } else {
-            this.outerlineRounded(ctx, data.x, data.y, data.width, data.height, data.radius, data.stroke);
+            this.outerlineRounded(ctx, dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.height, dataCopy.radius, dataCopy.stroke);
+            ctx.lineWidth = 1;
         }
         ctx.restore();
         ctx.closePath();
@@ -474,14 +476,15 @@ export class LazyCanvas {
 
     square(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
+        let dataCopy = this.centring(data);
         ctx.save();
-        ctx.translate(data.x + data.width / 2, data.y + data.width / 2);
-        ctx.rotate((Math.PI/180) * data.angle);
-        ctx.translate(-(data.x + data.width / 2), -(data.y + data.width / 2));
+        this.rotate(ctx, dataCopy)
         if (filled === true) {
-            ctx.fillRect(data.x, data.y, data.width, data.width);
+            ctx.fillRect(dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.width);
         } else {
-            ctx.strokeRect(data.x, data.y, data.width, data.width);
+            ctx.lineWidth = dataCopy.stroke;
+            ctx.strokeRect(dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.width);
+            ctx.lineWidth = 1;
         }
         ctx.restore();
         ctx.closePath();
@@ -489,14 +492,15 @@ export class LazyCanvas {
 
     rectangle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
+        let dataCopy = this.centring(data);
         ctx.save();
-        ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
-        ctx.rotate((Math.PI/180) * data.angle);
-        ctx.translate(-(data.x + data.width / 2), -(data.y + data.height / 2));
+        this.rotate(ctx, dataCopy)
         if (filled) {
-            ctx.fillRect(data.x, data.y, data.width, data.height);
+            ctx.fillRect(dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.height);
         } else {
-            ctx.strokeRect(data.x, data.y, data.width, data.height);
+            ctx.lineWidth = dataCopy.stroke;
+            ctx.strokeRect(dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.height);
+            ctx.lineWidth = 1;
         }
         ctx.restore();
         ctx.closePath();
@@ -504,16 +508,22 @@ export class LazyCanvas {
 
     ngon(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
+        ctx.save();
+        this.rotate(ctx, data)
         ctx.moveTo(data.x + data.radius * Math.cos(0 + data.angle), data.y + data.radius * Math.sin(0 + data.angle));
-        for (let i = 1; i < data.sides + 1; i++) {
+        ctx.lineJoin = "miter";
+        for (let i = 1; i < data.sides + 2; i++) {
             ctx.lineTo(data.x + data.radius * Math.cos(i * 2 * Math.PI / data.sides + data.angle), data.y + data.radius * Math.sin(i * 2 * Math.PI / data.sides + data.angle));
         }
+        ctx.lineJoin = "round";
         if (filled === true) {
             ctx.fill();
         } else {
             ctx.lineWidth = data.stroke;
             ctx.stroke();
+            ctx.lineWidth = 1;
         }
+        ctx.restore();
         ctx.closePath();
     }
 
@@ -693,6 +703,67 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    async image(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+        ctx.beginPath();
+        let dataCopy = this.centring(data);
+        let image;
+        try {
+            // @ts-ignore
+            if (typeof dataCopy.image === "object") image = await jimp.read(dataCopy.image)
+            else image = await jimp.read(String(dataCopy.image));
+        } catch (e) {
+            LazyLog.log(e + `\nTry to load the error image`, "warn")
+            if (!this.data.errorImage) {
+                image = await jimp.read(String(this.data.errorImage));
+            }
+        }
+        if (dataCopy.filter) await this.filterApply(image, dataCopy.filter.toJSON());
+
+        ctx.save();
+        this.rotate(ctx, dataCopy)
+
+        // @ts-ignore
+        image = await image.getBufferAsync('image/png');
+
+        image = await loadImage(image);
+        ctx.drawImage(image, dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.height);
+        ctx.restore();
+        ctx.closePath();
+    }
+
+    async ellipseImage(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+        ctx.beginPath();
+        let dataCopy = this.centring(data);
+        let image;
+        try {
+            if (typeof dataCopy.image === "object") {
+                // @ts-ignore
+                image = await jimp.read(dataCopy.image)
+            }
+            else image = await jimp.read(String(dataCopy.image));
+        } catch (e) {
+            LazyLog.log(e + `\nTry to load the error image`, "warn")
+            // @ts-ignore
+            if (!this.data.errorImage) {
+                // @ts-ignore
+                image = await jimp.read(String(this.data.errorImage));
+            }
+        }
+
+        if (dataCopy.filter) await this.filterApply(image, dataCopy.filter.toJSON());
+
+        ctx.save();
+        this.rotate(ctx, dataCopy)
+
+        // @ts-ignore
+        image = await image.getBufferAsync('image/png');
+
+        image = await loadImage(image);
+        this.clipper(ctx, image, dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.height, dataCopy.radius);
+        ctx.restore();
+        ctx.closePath();
+    }
+
     async patternRender(ctx: SKRSContext2D, data: LazyCanvasPattern) {
         return new Promise(async function(resolve: (arg0: CanvasPattern | null) => any, reject: any) {
             try {
@@ -728,6 +799,220 @@ export class LazyCanvas {
         else col = await color(ctx, data);
 
         return col;
+    }
+
+    outlineCenter(dataCopy: LazyCanvasLayer) {
+        if (dataCopy.centering === 'legacy' || dataCopy.type === 'text') {
+            switch (dataCopy.type) {
+                case "circle":
+                    switch (dataCopy.outline.type) {
+                        case "outer":
+                            dataCopy.radius += dataCopy.outline.stroke;
+                            dataCopy.x -= dataCopy.outline.stroke;
+                            dataCopy.y -= dataCopy.outline.stroke;
+                            break;
+                        case "inner":
+                            dataCopy.radius -= dataCopy.outline.stroke / 2;
+                            dataCopy.x += dataCopy.outline.stroke / 2;
+                            dataCopy.y += dataCopy.outline.stroke / 2;
+                            break;
+                        case "center":
+                            dataCopy.radius += dataCopy.outline.stroke / 2;
+                            dataCopy.x -= dataCopy.outline.stroke / 2;
+                            dataCopy.y -= dataCopy.outline.stroke / 2;
+                            break;
+                    }
+                    break;
+                case "ngon":
+                    switch (dataCopy.outline.type) {
+                        case "outer":
+                            dataCopy.radius += dataCopy.outline.stroke;
+                            dataCopy.x -= dataCopy.outline.stroke;
+                            dataCopy.y -= dataCopy.outline.stroke;
+                            break;
+                        case "inner":
+                            dataCopy.radius -= dataCopy.outline.stroke;
+                            dataCopy.x += dataCopy.outline.stroke;
+                            dataCopy.y += dataCopy.outline.stroke;
+                            break;
+                        case "center":
+                            dataCopy.radius += dataCopy.outline.stroke / 2;
+                            dataCopy.x -= dataCopy.outline.stroke / 2;
+                            dataCopy.y -= dataCopy.outline.stroke / 2;
+                            break;
+                    }
+                    break;
+                case "ellipse":
+                case "ellipseimage":
+                    switch (dataCopy.outline.type) {
+                        case "outer":
+                            dataCopy.width += dataCopy.outline.stroke;
+                            dataCopy.height += dataCopy.outline.stroke;
+                            dataCopy.x -= (dataCopy.outline.stroke / 4);
+                            dataCopy.y -= (dataCopy.outline.stroke / 4);
+                            break;
+                        case "inner":
+                            dataCopy.width -= dataCopy.outline.stroke / 2;
+                            dataCopy.height -= dataCopy.outline.stroke / 2;
+                            dataCopy.x += (dataCopy.outline.stroke / 4);
+                            dataCopy.y += (dataCopy.outline.stroke / 4);
+                            break;
+                        case "center":
+                            dataCopy.width += dataCopy.outline.stroke / 2;
+                            dataCopy.height += dataCopy.outline.stroke / 2;
+                            dataCopy.x -= (dataCopy.outline.stroke / 4);
+                            dataCopy.y -= (dataCopy.outline.stroke / 4);
+                            break;
+                    }
+                    break;
+                case "rectangle":
+                case "image":
+                    switch (dataCopy.outline.type) {
+                        case "outer":
+                            dataCopy.width += dataCopy.outline.stroke;
+                            dataCopy.height += dataCopy.outline.stroke;
+                            dataCopy.x -= dataCopy.outline.stroke / 2;
+                            dataCopy.y -= dataCopy.outline.stroke / 2;
+                            break;
+                        case "inner":
+                            dataCopy.width -= dataCopy.outline.stroke;
+                            dataCopy.height -= dataCopy.outline.stroke;
+                            dataCopy.x += dataCopy.outline.stroke / 2;
+                            dataCopy.y += dataCopy.outline.stroke / 2;
+                            break;
+                        case "center":
+                            dataCopy.width += dataCopy.outline.stroke / 2;
+                            dataCopy.height += dataCopy.outline.stroke / 2;
+                            dataCopy.x -= dataCopy.outline.stroke / 2;
+                            dataCopy.y -= dataCopy.outline.stroke / 2;
+                            break;
+                    }
+                    break;
+                case "square":
+                    switch (dataCopy.outline.type) {
+                        case "outer":
+                            dataCopy.width += dataCopy.outline.stroke;
+                            dataCopy.x -= dataCopy.outline.stroke;
+                            dataCopy.y -= dataCopy.outline.stroke;
+                            break;
+                        case "inner":
+                            dataCopy.width -= dataCopy.outline.stroke;
+                            dataCopy.x += dataCopy.outline.stroke / 2;
+                            dataCopy.y += dataCopy.outline.stroke / 2;
+                            break;
+                        case "center":
+                            dataCopy.width += dataCopy.outline.stroke / 2;
+                            dataCopy.x -= dataCopy.outline.stroke / 2;
+                            dataCopy.y -= dataCopy.outline.stroke / 2;
+                            break;
+                    }
+                    break;
+                case "text":
+                    dataCopy.fill = false;
+                    break;
+            }
+        }
+        return dataCopy;
+    }
+
+    async outLineRender(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+        let dataCopy = { ...data };
+        dataCopy.stroke = dataCopy.outline.stroke;
+        dataCopy.color = dataCopy.outline.color;
+        dataCopy = this.outlineCenter(dataCopy);
+        ctx.strokeStyle = await this.colorRender(ctx, dataCopy.color);
+        switch (dataCopy.type) {
+            case "circle":
+                this.circle(ctx, dataCopy, false);
+                break;
+            case "ellipse":
+                this.ellipse(ctx, dataCopy, false);
+                break;
+            case "square":
+                this.square(ctx, dataCopy, false);
+                break;
+            case "rectangle":
+                this.rectangle(ctx, dataCopy, false);
+                break;
+            case "ngon":
+                this.ngon(ctx, dataCopy, false);
+                break;
+            case "image":
+                this.rectangle(ctx, dataCopy, false);
+                break;
+            case "ellipseimage":
+                this.ellipse(ctx, dataCopy, false);
+                break;
+            case "text":
+                dataCopy.fill = false;
+                this.textRender(ctx, dataCopy);
+                break;
+            default:
+                return;
+        }
+    }
+
+    centring(data: LazyCanvasLayer) {
+        let dataCopy = { ...data };
+        if (dataCopy.centering === 'new') {
+            switch (dataCopy.type) {
+                case "circle":
+                    dataCopy.x -= dataCopy.radius
+                    dataCopy.y -= dataCopy.radius
+                    break;
+                case "ellipse":
+                case "rectangle":
+                case "image":
+                case "ellipseimage":
+                    dataCopy.x -= dataCopy.width / 2
+                    dataCopy.y -= dataCopy.height / 2
+                    break;
+                case "square":
+                    dataCopy.x -= dataCopy.width / 2
+                    dataCopy.y -= dataCopy.width / 2
+                    break;
+                default:
+                    break;
+            }
+        }
+        return dataCopy;
+    }
+
+    rotate(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+        if (data.angle) {
+            switch (data.type) {
+                case "ngon":
+                    ctx.translate(data.x, data.y);
+                    ctx.rotate((Math.PI/180) * data.angle);
+                    ctx.translate(-data.x, -data.y);
+                    break;
+                case "ellipse":
+                case "rectangle":
+                case "image":
+                case "ellipseimage":
+                    if (data.centering === 'new') {
+                        ctx.translate(data.x, data.y);
+                        ctx.rotate((Math.PI/180) * data.angle);
+                        ctx.translate(-data.x, -data.y);
+                    } else {
+                        ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
+                        ctx.rotate((Math.PI/180) * data.angle);
+                        ctx.translate(-(data.x + data.width / 2), -(data.y + data.height / 2));
+                    }
+                    break;
+                case "square":
+                    if (data.centering === 'new') {
+                        ctx.translate(data.x, data.y);
+                        ctx.rotate((Math.PI/180) * data.angle);
+                        ctx.translate(-data.x, -data.y);
+                    } else {
+                        ctx.translate(data.x + data.width / 2, data.y + data.width / 2);
+                        ctx.rotate((Math.PI/180) * data.angle);
+                        ctx.translate(-(data.x + data.width / 2), -(data.y + data.width / 2));
+                    }
+                    break;
+            }
+        }
     }
 
     async renderImage(WhatINeed: StringRenderOutput | RenderOutput = "buffer"): Promise<NodeJS.ArrayBufferView | SKRSContext2D | undefined> {
@@ -769,7 +1054,8 @@ export class LazyCanvas {
 
                     if (!data.angle) data.angle = 0;
 
-                    let image;
+                    if (!data.centering) data.centering = 'legacy';
+
                     switch (data.type) {
                         case "circle":
                             this.circle(ctx, data, data.fill);
@@ -792,64 +1078,11 @@ export class LazyCanvas {
                             // data = { points: [{ x: 10, y: 10 }, { x: 100, y: 100 }], stroke: 1, color: "red" }
                             break;
                         case "ellipseimage":
-                            ctx.beginPath();
-                            try {
-                                if (typeof data.image === "object") {
-                                    // @ts-ignore
-                                    image = await jimp.read(data.image)
-                                }
-                                else image = await jimp.read(String(data.image));
-                            } catch (e) {
-                                LazyLog.log(e + `\nTry to load the error image`, "warn")
-                                // @ts-ignore
-                                if (!this.data.errorImage) {
-                                    // @ts-ignore
-                                    image = await jimp.read(String(this.data.errorImage));
-                                }
-                            }
-
-                            if (data.filter) await this.filterApply(image, data.filter.toJSON());
-
-                            ctx.save();
-                            ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
-                            ctx.rotate((Math.PI/180) * data.angle);
-                            ctx.translate(-(data.x + data.width / 2), -(data.y + data.height / 2));
-
-                            // @ts-ignore
-                            image = await image.getBufferAsync('image/png');
-
-                            image = await loadImage(image);
-                            this.clipper(ctx, image, data.x, data.y, data.width, data.height, data.radius);
-                            ctx.restore();
-                            ctx.closePath();
+                            await this.ellipseImage(ctx, data);
                             // data = { x: 10, y: 10, width: 100, height: 50, radius: 30, image: "url" }
                             break;
                         case "image":
-                            ctx.beginPath();
-                            try {
-                                // @ts-ignore
-                                if (typeof data.image === "object") image = await jimp.read(data.image)
-                                else image = await jimp.read(String(data.image));
-                            } catch (e) {
-                                LazyLog.log(e + `\nTry to load the error image`, "warn")
-                                if (!this.data.errorImage) {
-                                    image = await jimp.read(String(this.data.errorImage));
-                                }
-                            }
-                            if (data.filter) await this.filterApply(image, data.filter.toJSON());
-
-                            ctx.save();
-                            ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
-                            ctx.rotate((Math.PI/180) * data.angle);
-                            ctx.translate(-(data.x + data.width / 2), -(data.y + data.height / 2));
-
-                            // @ts-ignore
-                            image = await image.getBufferAsync('image/png');
-
-                            image = await loadImage(image);
-                            ctx.drawImage(image, data.x, data.y, data.width, data.height);
-                            ctx.restore();
-                            ctx.closePath();
+                            await this.image(ctx, data);
                             // data = { x: 10, y: 10, w: 100, h: 50, image: "url" }
                             break;
                         case "text":
@@ -893,6 +1126,9 @@ export class LazyCanvas {
                         ctx.shadowColor = "transparent";
                         ctx.shadowOffsetX = 0;
                         ctx.shadowOffsetY = 0;
+                    }
+                    if (data.outline) {
+                        await this.outLineRender(ctx, data);
                     }
                     ctx.closePath();
                 }

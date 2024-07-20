@@ -4,6 +4,7 @@ import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
+import { Outline } from '../utils/Outline';
 
 /**
  * @example
@@ -26,6 +27,7 @@ export class RectangleLayer extends BaseLayer {
         super(data);
         this.data.type = 'rectangle';
         this.data.fill = true;
+        this.data.centering = 'new';
     }
 
     /**
@@ -73,6 +75,24 @@ export class RectangleLayer extends BaseLayer {
         if (!color) throw new LazyError('Color must be provided');
         if (!isValidColor(color)) throw new LazyError('Color must be a valid color');
         this.data.color = color;
+        return this;
+    }
+
+    /**
+     * @param {Outline} outline - The outline of the figure
+     */
+    setOutline(outline: Outline) {
+        this.data.outline = outline.toJSON();
+        return this;
+    }
+
+    /**
+     * @param {'legacy' | 'new'} centering - The centering of the layer
+     */
+    setCentering(centering: 'legacy' | 'new') {
+        if (!centering) throw new LazyError('Centering must be provided');
+        if (centering !== 'legacy' && centering !== 'new') throw new LazyError('Centering must be legacy or new');
+        this.data.centering = centering;
         return this;
     }
 

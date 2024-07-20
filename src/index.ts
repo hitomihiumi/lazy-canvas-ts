@@ -19,6 +19,7 @@ import { Filter } from "./utils/Filter";
 import { Gradient } from "./utils/Gradient";
 import { Pattern } from "./utils/Pattern";
 import { Font } from "./utils/Font";
+import { Outline } from "./utils/Outline";
 
 import { isValidColor, color, isImageUrlValid, lazyLoadImage, saveFile, textMetrics, generateRandomName } from "./utils/utils";
 
@@ -32,6 +33,7 @@ import { LazyCanvasPattern } from "./types/LazyCanvasPattern";
 import { LazyCanvasFont } from "./types/LazyCanvasFont";
 import { LazyCanvasPlugin } from "./types/LazyCanvasPlugin";
 import { LazyCanvasMethod } from "./types/LazyCanvasMethod";
+import { LazyCanvasOutline } from "./types/LazyCanvasOutline";
 
 export {
     LazyCanvas,
@@ -70,5 +72,7 @@ export {
     LazyCanvasPlugin,
     RenderOutput,
     StringRenderOutput,
-    BaseMethod
+    BaseMethod,
+    LazyCanvasOutline,
+    Outline
 };

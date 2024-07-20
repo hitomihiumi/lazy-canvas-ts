@@ -4,6 +4,7 @@ import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
+import { Outline } from '../utils/Outline';
 
 /**
  * @example
@@ -27,6 +28,7 @@ export class EllipseLayer extends BaseLayer {
         super(data);
         this.data.type = 'ellipse';
         this.data.fill = true;
+        this.data.centering = 'new';
     }
 
     /**
@@ -84,6 +86,24 @@ export class EllipseLayer extends BaseLayer {
         if (!radius) throw new LazyError('Radius must be provided');
         if (isNaN(radius)) throw new LazyError('Radius must be a number');
         this.data.radius = radius;
+        return this;
+    }
+
+    /**
+     * @param {Outline} outline - The outline of the figure
+     */
+    setOutline(outline: Outline) {
+        this.data.outline = outline.toJSON();
+        return this;
+    }
+
+    /**
+     * @param {'legacy' | 'new'} centering - The centering of the layer
+     */
+    setCentering(centering: 'legacy' | 'new') {
+        if (!centering) throw new LazyError('Centering must be provided');
+        if (centering !== 'legacy' && centering !== 'new') throw new LazyError('Centering must be legacy or new');
+        this.data.centering = centering;
         return this;
     }
 
