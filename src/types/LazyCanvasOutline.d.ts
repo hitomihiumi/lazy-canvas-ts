@@ -5,4 +5,5 @@ export interface LazyCanvasOutline {
     stroke: number;
     color: string | Gradient | Pattern;
     type: 'inner' | 'outer' | 'center';
+    alpha: number;
 }

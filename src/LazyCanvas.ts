@@ -1128,6 +1128,11 @@ export class LazyCanvas {
                         ctx.shadowOffsetY = 0;
                     }
                     if (data.outline) {
+                        if (data.outline.alpha) {
+                            ctx.globalAlpha = data.outline.alpha;
+                        } else {
+                            ctx.globalAlpha = 1;
+                        }
                         await this.outLineRender(ctx, data);
                     }
                     ctx.closePath();

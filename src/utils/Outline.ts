@@ -63,6 +63,16 @@ export class Outline {
         return this;
     }
 
+    /**
+     * @param {number} alpha - The alpha of the figure
+     */
+    setAlpha(alpha: number) {
+        if (!alpha) throw new Error('Alpha must be provided');
+        if (isNaN(alpha)) throw new Error('Alpha must be a number');
+        this.data.alpha = alpha;
+        return this;
+    }
+
     toJSON(): LazyCanvasOutline {
         return { ...this.data };
     }
