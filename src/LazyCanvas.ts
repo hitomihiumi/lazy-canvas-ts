@@ -1,8 +1,7 @@
 import { createCanvas, loadImage, GlobalFonts, SKRSContext2D } from '@napi-rs/canvas';
 import * as jimp from 'jimp';
 import { resolve } from 'path';
-// @ts-ignore
-import { isImageUrlValid, isValidColor, color, lazyLoadImage, drawMultilineText } from './utils/utils';
+import { color, lazyLoadImage, drawMultilineText } from './utils/utils';
 import { LazyCanvasPlugin } from './types/LazyCanvasPlugin';
 import { LazyCanvasData } from './types/LazyCanvasData';
 import { LazyCanvasLayer } from "./types/LazyCanvasLayer";
@@ -197,153 +196,49 @@ export class LazyCanvas {
         if (!layers) throw new LazyError("No layers data provided");
         for (const l of layers) {
             // @ts-ignore
-            this.data.layers.push(l.toJSON());
+            this.data.layers.push(l);
         }
         return this;
     }
 
-    removeLayer(data: LazyCanvasLayer) {
-        if (!data) throw new LazyError("No data provided");
-        this.data.layers = this.data.layers.filter(l => l !== data);
-        return this;
-    }
-
-    moveLayer(data: LazyCanvasLayer, index: number) {
-        if (!data || !index) throw new LazyError("No data or index provided");
-        this.data.layers.splice(index, 0, this.data.layers.splice(this.data.layers.indexOf(data), 1)[0]);
-        return this;
-    }
-
-    modifyLayer(index: number, param: string, newData: any) {
-        if ((!index && index !== 0) || !param || (!newData && newData !== 0)) throw new LazyError("No index or param or newData provided");
-        if (!this.data.layers[index]) throw new LazyError("No layer found with that index");
-        if (!(param in this.data.layers[index])) throw new LazyError("Invalid param provided");
-        switch (param) {
-            case "x":
-                this.data.layers[index].x = newData;
-                if (isNaN(newData)) throw new LazyError("X must be a number");
-                break;
-            case "y":
-                this.data.layers[index].y = newData;
-                if (isNaN(newData)) throw new LazyError("Y must be a number");
-                break;
-            case "width":
-                if (isNaN(newData)) throw new LazyError("Width must be a number");
-                this.data.layers[index].width = newData;
-                break;
-            case "height":
-                if (isNaN(newData)) throw new LazyError("Height must be a number");
-                this.data.layers[index].height = newData;
-                break;
-            case "radius":
-                if (isNaN(newData)) throw new LazyError("Radius must be a number");
-                this.data.layers[index].radius = newData;
-                break;
-            case "stroke":
-                if (isNaN(newData)) throw new LazyError("Stroke must be a number");
-                this.data.layers[index].stroke = newData;
-                break;
-            case "color":
-                if (!isValidColor(newData)) throw new LazyError("Color must be a valid color");
-                this.data.layers[index].color = newData;
-                break;
-            case "text":
-                this.data.layers[index].text = newData;
-                break;
-            case "size":
-                if (isNaN(newData)) throw new LazyError("Size must be a number");
-                this.data.layers[index].size = newData;
-                break;
-            case "font":
-                this.data.layers[index].font = newData;
-                break;
-            case "align":
-                if (['start', 'end', 'left', 'right', 'center'].includes(newData) === false) throw new LazyError("Align must be start, end, left, right or center");
-                this.data.layers[index].align = newData;
-                break;
-            case "weight":
-                if (['normal', 'bold', 'italic', 'bold italic', 'regular'].includes(newData) === false) throw new LazyError("Weight must be bold, italic or regular");
-                this.data.layers[index].weight = newData;
-                break;
-            case "multiline":
-                if (typeof newData !== "boolean") throw new LazyError("Multiline must be a true or false value");
-                this.data.layers[index].multiline = newData;
-                break;
-            case "image":
-                if (!isImageUrlValid(newData)) throw new LazyError("Image must be a valid URL");
-                this.data.layers[index].image = newData;
-                break;
-            case "fill":
-                if (typeof newData !== "boolean") throw new LazyError("Filled must be a true or false value");
-                this.data.layers[index].fill = newData;
-                break;
-            case "points":
-                if (!newData) throw new LazyError("No points provided");
-                this.data.layers[index].points = newData;
-                break;
-            case "sides":
-                if (isNaN(newData)) throw new LazyError("Sides must be a number");
-                this.data.layers[index].sides = newData;
-                break;
-            case "shadowBlur":
-                if (isNaN(newData)) throw new LazyError("ShadowBlur must be a number");
-                this.data.layers[index].shadow.shadowBlur = newData;
-                break;
-            case "shadowColor":
-                if (!isValidColor(newData)) throw new LazyError("ShadowColor must be a valid color");``
-                this.data.layers[index].shadow.shadowColor = newData;
-                break;
-            case "shadowOffsetX":
-                if (isNaN(newData)) throw new LazyError("ShadowOffsetX must be a number");
-                this.data.layers[index].shadow.shadowOffsetX = newData;
-                break;
-            case "shadowOffsetY":
-                if (isNaN(newData)) throw new LazyError("ShadowOffsetY must be a number");
-                this.data.layers[index].shadow.shadowOffsetY = newData;
-                break;
-            case "alpha":
-                if (isNaN(newData)) throw new LazyError("Alpha must be a number");
-                if (newData > 1 || newData < 0) throw new LazyError("Alpha must be between 0 and 1");
-                this.data.layers[index].alpha = newData;
-                break;
-            case "angle":
-                if (isNaN(newData)) throw new LazyError("Angle must be a number");
-                this.data.layers[index].angle = newData;
-                break;
-            case "filter":
-                this.data.layers[index].filter = newData.toJSON();
-                break;
-            case "angles":
-                if (!newData) throw new LazyError("No angles provided");
-                this.data.layers[index].angles = newData;
-                break;
-            case "clockwise":
-                if (typeof newData !== "boolean") throw new LazyError("Clockwise must be a true or false value");
-                this.data.layers[index].clockwise = newData;
-                break;
-            case "controlPoints":
-                if (!newData) throw new LazyError("No control points provided");
-                this.data.layers[index].controlPoints = newData;
-                break;
-            case "controlPoint":
-                if (!newData) throw new LazyError("No control point provided");
-                this.data.layers[index].controlPoint = newData;
-                break;
-            default:
-                throw new LazyError("Invalid param provided");
+    removeLayer(id: number | string) {
+        if (!id) throw new LazyError("No id provided");
+        if (typeof id === "string") {
+            this.data.layers = this.data.layers.filter(l => l.id !== id);
+        } else {
+            this.data.layers.splice(id, 1);
         }
-
         return this;
     }
 
-    getLayer(index: number) {
-        if (!index && index !== 0) throw new LazyError("No index provided");
-        return this.data.layers[index];
+    moveLayer(id: number | string, to: number) {
+        if (!id) throw new LazyError("No id provided");
+        if (!to) throw new LazyError("No position provided");
+        if (typeof id === "string") {
+            let layer = this.data.layers.find(l => l.id === id);
+            if (!layer) throw new LazyError("Layer not found");
+            this.data.layers = this.data.layers.filter(l => l.id !== id);
+            this.data.layers.splice(to, 0, layer);
+        }
     }
 
-    getIndexOfLayer(data: LazyCanvasLayer) {
-        if (!data) throw new LazyError("No data provided");
-        return this.data.layers.indexOf(data);
+    getLayer(id: number | string): LazyCanvasLayer {
+        if (!id) throw new LazyError("No id provided");
+        let layer;
+        if (typeof id === "string") {
+            layer = this.data.layers.find(l => l.id === id);
+            if (!layer) throw new LazyError("Layer not found");
+        } else {
+            layer = this.data.layers[id];
+        }
+        return layer;
+    }
+
+    getIndexOfLayer(id: string): number {
+        if (!id) throw new LazyError("No id provided");
+        let layer = this.data.layers.find(l => l.id === id);
+        if (!layer) return -1;
+        return this.data.layers.indexOf(layer);
     }
 
     clearCanvas() {
@@ -802,7 +697,7 @@ export class LazyCanvas {
     }
 
     outlineCenter(dataCopy: LazyCanvasLayer) {
-        if (dataCopy.centering === 'legacy' || dataCopy.type === 'text') {
+        if (dataCopy.centering === 'legacy') {
             switch (dataCopy.type) {
                 case "circle":
                     switch (dataCopy.outline.type) {
@@ -906,9 +801,6 @@ export class LazyCanvas {
                             dataCopy.y -= dataCopy.outline.stroke / 2;
                             break;
                     }
-                    break;
-                case "text":
-                    dataCopy.fill = false;
                     break;
             }
         }
@@ -1017,12 +909,12 @@ export class LazyCanvas {
 
     async renderImage(WhatINeed: StringRenderOutput | RenderOutput = "buffer"): Promise<NodeJS.ArrayBufferView | SKRSContext2D | undefined> {
             try {
-                // @ts-ignore
                 let canvas = createCanvas(this.data.width, this.data.height);
                 let ctx = canvas.getContext("2d");
 
-                // @ts-ignore
-                for (const data of this.data.layers) {
+                for (let data of this.data.layers) {
+                    data = data.toJSON();
+
                     if (data.globalComposite) ctx.globalCompositeOperation = data.globalComposite;
                     else ctx.globalCompositeOperation = "source-over";
 

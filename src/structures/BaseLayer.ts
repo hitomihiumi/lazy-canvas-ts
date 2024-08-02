@@ -128,7 +128,7 @@ export class BaseLayer {
     /**
      * @param {string} color - The shadow color for the layer
      */
-    setShadowColor(color: string | Gradient | Pattern) {
+    setShadowColor(color: string) {
         if (!color) throw new LazyError('Color must be provided');
         if (!isValidColor(color)) throw new LazyError('Color must be a valid hex color');
         this.data.shadow.shadowColor = color;
@@ -193,6 +193,12 @@ export class BaseLayer {
         if (!operation) throw new LazyError('Operation must be provided');
         this.data.globalComposite = operation;
         return this;
+    }
+
+    setID(id: string) {
+        if (!id) throw new LazyError('ID must be provided');
+        this.data.id = id;
+        return
     }
 
     toJSON() {

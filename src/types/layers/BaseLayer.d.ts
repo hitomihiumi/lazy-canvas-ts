@@ -3,6 +3,7 @@ import { Pattern } from "../../utils/Pattern";
 
 export interface Base {
     type: string;
+    id: string;
     x: number;
     y: number;
     shadow: {

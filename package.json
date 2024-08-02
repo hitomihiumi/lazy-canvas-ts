@@ -30,15 +30,15 @@
     "@napi-rs/canvas": "^0.1.53",
     "jimp": "^0.22.12",
     "path": "^0.12.7",
-    "tslib": "^2.6.3",
-    "typescript": "^5.4.5"
+    "tslib": "^2.6.3"
   },
   "devDependencies": {
     "@types/jimp": "^0.2.28",
     "typedoc": "^0.26.4",
     "typedoc-material-theme": "^1.1.0",
     "typedoc-plugin-extras": "^3.1.0",
-    "typedoc-plugin-markdown": "^4.2.1"
+    "typedoc-plugin-markdown": "^4.2.1",
+    "typescript": "^5.4.5"
   },
   "types": "./dist/index.d.ts",
   "bugs": {
