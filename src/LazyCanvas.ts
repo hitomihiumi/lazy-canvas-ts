@@ -195,6 +195,7 @@ export class LazyCanvas {
     addLayers(...layers: Partial<LazyCanvasLayer>[]) {
         if (!layers) throw new LazyError("No layers data provided");
         for (const l of layers) {
+            if (l.id && this.data.layers.find(layer => layer.id === l.id)) throw new LazyError("Layer with this id already exists");
             // @ts-ignore
             this.data.layers.push(l);
         }

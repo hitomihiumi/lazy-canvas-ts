@@ -11,7 +11,7 @@ This is a simple module designed to simplify the interaction with canvas, for pe
 
 ## Documentation
 
-You can find the documentation [here](https://hitomihiumi.github.io/)
+You can find the documentation [here](https://hitomihiumi.xyz/)
 
 ## Example
 
