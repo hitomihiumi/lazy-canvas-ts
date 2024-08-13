@@ -144,7 +144,7 @@ export type StringRenderOutput = "buffer" | "ctx";
  */
 export class LazyCanvas {
 
-    private data: LazyCanvasData;
+    public data: LazyCanvasData;
     public plugins: LazyCanvasPlugin[] | undefined;
 
     constructor(options?: { plugins?: LazyCanvasPlugin[], data?: LazyCanvasData }) {
@@ -174,7 +174,7 @@ export class LazyCanvas {
      * @param data - The main array with all data
      * If you want to create a new canvas, you can use the createNewCanvas method
      */
-    setData(data: LazyCanvasData) {
+    public setData(data: LazyCanvasData) {
         if (!data) throw new LazyError("No data provided");
         this.data = data;
         return this;
@@ -185,91 +185,91 @@ export class LazyCanvas {
      * @param height - The height of the canvas
      * Creates a new canvas with the provided width and height
      */
-    createNewCanvas(width: number, height: number) {
+    public createNewCanvas(width: number, height: number) {
         if (!width || !height) throw new LazyError("No width or height provided");
         this.data.width = width;
         this.data.height = height;
         return this;
     }
 
-    addLayers(...layers: Partial<LazyCanvasLayer>[]) {
+    public addLayers(...layers: Partial<LazyCanvasLayer>[]) {
         if (!layers) throw new LazyError("No layers data provided");
         for (const l of layers) {
-            if (l.id && this.data.layers.find(layer => layer.id === l.id)) throw new LazyError("Layer with this id already exists");
             // @ts-ignore
-            this.data.layers.push(l);
+            if (l.id && this.data.layers.find(layer => layer.toJSON().id === l.toJSON().id)) throw new LazyError("Layer with this id already exists");
+            this.data.layers.push(l as LazyCanvasLayer);
         }
         return this;
     }
 
-    removeLayer(id: number | string) {
+    public removeLayer(id: number | string) {
         if (!id) throw new LazyError("No id provided");
         if (typeof id === "string") {
-            this.data.layers = this.data.layers.filter(l => l.id !== id);
+            this.data.layers = this.data.layers.filter(l => l.toJSON().id !== id);
         } else {
             this.data.layers.splice(id, 1);
         }
         return this;
     }
 
-    moveLayer(id: number | string, to: number) {
+    public moveLayer(id: number | string, to: number) {
         if (!id) throw new LazyError("No id provided");
         if (!to) throw new LazyError("No position provided");
         if (typeof id === "string") {
-            let layer = this.data.layers.find(l => l.id === id);
+            let layer = this.data.layers.find(l => l.toJSON().id === id);
             if (!layer) throw new LazyError("Layer not found");
-            this.data.layers = this.data.layers.filter(l => l.id !== id);
+            this.data.layers = this.data.layers.filter(l => l.toJSON().id !== id);
             this.data.layers.splice(to, 0, layer);
         }
     }
 
-    getLayer(id: number | string): LazyCanvasLayer {
+    public getLayer(id: number | string): LazyCanvasLayer | undefined {
         if (!id) throw new LazyError("No id provided");
         let layer;
         if (typeof id === "string") {
-            layer = this.data.layers.find(l => l.id === id);
-            if (!layer) throw new LazyError("Layer not found");
+            layer = this.data.layers.find(l => l.toJSON().id === id);
+            if (!layer) return undefined;
         } else {
             layer = this.data.layers[id];
         }
         return layer;
     }
 
-    getIndexOfLayer(id: string): number {
+    public getIndexOfLayer(id: string): number {
         if (!id) throw new LazyError("No id provided");
-        let layer = this.data.layers.find(l => l.id === id);
+        let layer = this.data.layers.find(l => l.toJSON().id === id);
         if (!layer) return -1;
         return this.data.layers.indexOf(layer);
     }
 
-    clearCanvas() {
+    public clearCanvas() {
         this.data.layers = [];
         return this;
     }
 
-    setName(name: string) {
+    public setName(name: string) {
         if (!name) throw new LazyError("No name provided");
         this.data.name = name;
         return this;
     }
 
-    setDescription(description: string) {
+    public setDescription(description: string) {
         if (!description) throw new LazyError("No description provided");
         this.data.description = description;
         return this;
     }
 
-    setEmoji(emoji: string) {
+    public setEmoji(emoji: string) {
         if  (!emoji) throw new LazyError("No emoji provided");
         this.data.emoji = emoji;
         return this;
     }
 
-    getData() {
+    public getData() {
         return { ...this.data };
     }
 
-    loadFonts(...fonts: Array<Font>) {
+    public loadFonts(...fonts: Array<Font>) {
         if (!fonts) throw new LazyError("No fonts provided");
         for (const font of fonts) {
             let load = font.toJSON()
@@ -281,13 +281,13 @@ export class LazyCanvas {
         return this;
     }
 
-    set404Image(image: string) {
+    public set404Image(image: string) {
         if (!image) throw new LazyError("No image provided");
         this.data.errorImage = image;
         return this;
     }
 
-    loadMethods(...methods: BaseMethod[]) {
+    public loadMethods(...methods: BaseMethod[]) {
         if (!methods) throw new LazyError("No methods provided");
         for (const method of methods) {
             let load = method.toJSON();
@@ -298,11 +298,11 @@ export class LazyCanvas {
         return this;
     }
 
-    toJSON() {
+    public toJSON() {
         return { ...this.data };
     }
 
-    clipper(ctx: SKRSContext2D, img: any, x: number, y: number, w: number, h: number, r: number){
+    private clipper(ctx: SKRSContext2D, img: any, x: number, y: number, w: number, h: number, r: number){
         if (r > w / 2 || r > h / 2) r = Math.min(w / 2, h / 2);
         ctx.beginPath();
         ctx.moveTo(x + (w /2), y);
@@ -318,7 +318,7 @@ export class LazyCanvas {
         ctx.restore();
     }
 
-    fillRoundedRect(ctx: SKRSContext2D, x: number, y: number, w: number, h: number, r: number){
+    private fillRoundedRect(ctx: SKRSContext2D, x: number, y: number, w: number, h: number, r: number){
         if (r > w / 2 || r > h / 2) r = Math.min(w / 2, h / 2);
         ctx.beginPath();
         ctx.moveTo(x + (w /2), y);
@@ -330,7 +330,7 @@ export class LazyCanvas {
         ctx.fill();
     }
 
-    outerlineRounded(ctx: SKRSContext2D, x: number, y: number, w: number, h: number, r: number, s = 1){
+    private outerlineRounded(ctx: SKRSContext2D, x: number, y: number, w: number, h: number, r: number, s = 1){
         if (r > w / 2 || r > h / 2) r = Math.min(w / 2, h / 2);
         ctx.beginPath();
         ctx.lineWidth = s;
@@ -343,7 +343,7 @@ export class LazyCanvas {
         ctx.stroke();
     }
 
-    circle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private circle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
         if (filled === true) {
@@ -355,7 +355,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    ellipse(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private ellipse(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
         ctx.save();
@@ -370,7 +370,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    square(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private square(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
         ctx.save();
@@ -386,7 +386,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    rectangle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private rectangle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
         ctx.save();
@@ -402,7 +402,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    ngon(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private ngon(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         ctx.save();
         this.rotate(ctx, data)
@@ -423,7 +423,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    line(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private line(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
         ctx.translate((data.points[0].x + data.points[1].x) / 2, (data.points[0].y + data.points[1].y) / 2);
@@ -438,7 +438,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    textRender(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private textRender(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
         if (data.multiline) {
@@ -490,7 +490,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    async filterApply(image: any, filter: LazyCanvasFilter) {
+    private async filterApply(image: any, filter: LazyCanvasFilter) {
         if (filter) {
             switch (filter.type) {
                 case "grayscale":
@@ -540,7 +540,7 @@ export class LazyCanvas {
         }
     }
 
-    arc(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private arc(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         ctx.save();
         ctx.translate(data.x, data.y);
@@ -557,7 +557,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    arcTo(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private arcTo(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
         ctx.translate((data.points[0].x + data.points[2].x), (data.points[0].y + data.points[2].y));
@@ -571,7 +571,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    bezierCurve(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private bezierCurve(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
         ctx.translate(data.points[0].x, data.points[0].y);
@@ -585,7 +585,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    quadraticCurve(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private quadraticCurve(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
         ctx.translate(data.points[0].x, data.points[0].y);
@@ -599,7 +599,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    async image(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private async image(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
         let image;
@@ -627,7 +627,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    async ellipseImage(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private async ellipseImage(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
         let image;
@@ -660,7 +660,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
-    async patternRender(ctx: SKRSContext2D, data: LazyCanvasPattern) {
+    private async patternRender(ctx: SKRSContext2D, data: LazyCanvasPattern) {
         return new Promise(async function(resolve: (arg0: CanvasPattern | null) => any, reject: any) {
             try {
                 if (data.pattern.type === "image") {
@@ -686,7 +686,7 @@ export class LazyCanvas {
         }.bind(this));
     }
 
-    async colorRender(ctx: SKRSContext2D, data: any): Promise<string | CanvasPattern | CanvasGradient | any> {
+    private async colorRender(ctx: SKRSContext2D, data: any): Promise<string | CanvasPattern | CanvasGradient | any> {
         let col;
         if (typeof data === 'object' && data.toJSON().type === 'pattern') {
             // @ts-ignore
@@ -697,7 +697,7 @@ export class LazyCanvas {
         return col;
     }
 
-    outlineCenter(dataCopy: LazyCanvasLayer) {
+    private outlineCenter(dataCopy: LazyCanvasLayer) {
         if (dataCopy.centering === 'legacy') {
             switch (dataCopy.type) {
                 case "circle":
@@ -808,7 +808,7 @@ export class LazyCanvas {
         return dataCopy;
     }
 
-    async outLineRender(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private async outLineRender(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         let dataCopy = { ...data };
         dataCopy.stroke = dataCopy.outline.stroke;
         dataCopy.color = dataCopy.outline.color;
@@ -845,7 +845,7 @@ export class LazyCanvas {
         }
     }
 
-    centring(data: LazyCanvasLayer) {
+    private centring(data: LazyCanvasLayer) {
         let dataCopy = { ...data };
         if (dataCopy.centering === 'new') {
             switch (dataCopy.type) {
@@ -871,7 +871,7 @@ export class LazyCanvas {
         return dataCopy;
     }
 
-    rotate(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private rotate(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         if (data.angle) {
             switch (data.type) {
                 case "ngon":
@@ -908,13 +908,150 @@ export class LazyCanvas {
         }
     }
 
-    async renderImage(WhatINeed: StringRenderOutput | RenderOutput = "buffer"): Promise<NodeJS.ArrayBufferView | SKRSContext2D | undefined> {
-            try {
+    public async renderImage(WhatINeed: StringRenderOutput | RenderOutput = "buffer"): Promise<NodeJS.ArrayBufferView | SKRSContext2D | undefined> {
+        try {
                 let canvas = createCanvas(this.data.width, this.data.height);
                 let ctx = canvas.getContext("2d");
 
                 for (let data of this.data.layers) {
                     data = data.toJSON();
+
+                    if (data.link) {
+                        if (data.link.id) {
+                            let layer = this.getLayer(data.link.id);
+
+                            if (!layer) {
+                                LazyLog.log(`Layer with id ${data.link.id} not found`, "warn");
+                                continue;
+                            }
+
+                            layer = layer.toJSON();
+
+                            if (data.link.size) {
+                                if (["circle", "ngon"].includes(layer.type)) {
+                                    Object.assign(data, {
+                                        radius: layer.radius
+                                    });
+                                    if (layer.type === "ngon") {
+                                        Object.assign(data, {
+                                            sides: layer.sides
+                                        });
+                                    }
+                                } else if (["square"].includes(layer.type)) {
+                                    Object.assign(data, {
+                                        width: layer.width
+                                    });
+                                } else if (["quadratic", "bezier", "arcto", "arc"].includes(layer.type)) {
+                                    if (layer.type === "quadratic") {
+                                        Object.assign(data, {
+                                            controlPoint: layer.controlPoint
+                                        });
+                                    }
+                                    if (layer.type === "bezier") {
+                                        Object.assign(data, {
+                                            controlPoints: layer.controlPoints
+                                        });
+                                    }
+                                    if (layer.type === "arcto") {
+                                        Object.assign(data, {
+                                            radius: layer.radius
+                                        });
+                                    }
+                                    if (layer.type === "arc") {
+                                        Object.assign(data, {
+                                            radius: layer.radius,
+                                            angles: layer.angles,
+                                            clockwise: layer.clockwise
+                                        });
+                                    }
+                                } else {
+                                    Object.assign(data, {
+                                        width: layer.width,
+                                        height: layer.height,
+                                    });
+                                }
+                            }
+
+                            if (data.link.style) {
+                                if (layer.type === "line") {
+                                    Object.assign(data, {
+                                        lineDash: layer.lineDash
+                                    });
+                                } else if (layer.type === "text") {
+                                    Object.assign(data, {
+                                        baseline: layer.baseline,
+                                        direction: layer.direction
+                                    });
+                                } else if (!["image", "ellipseimage"].includes(layer.type)) {
+                                    Object.assign(data, {
+                                        stroke: layer.stroke,
+                                        fill: layer.fill,
+                                        color: layer.color,
+                                        alpha: layer.alpha,
+                                    });
+                                } else if (["image", "ellipseimage"].includes(layer.type)) {
+                                    Object.assign(data, {
+                                        image: layer.image
+                                    });
+                                }
+                            }
+
+                            if (data.link.position && ["line", "quadratic", "bezier", "arcto"].includes(layer.type)) {
+                                Object.assign(data, {
+                                    points: layer.points
+                                });
+                            } else if (data.link.position) {
+                                Object.assign(data, {
+                                    x: layer.x,
+                                    y: layer.y
+                                });
+                            }
+
+                            if (data.link.angle) {
+                                Object.assign(data, {
+                                    angle: layer.angle
+                                });
+                            }
+
+                            if (data.link.shadow) {
+                                Object.assign(data, {
+                                    shadow: layer.shadow
+                                });
+                            }
+
+                            if (data.link.outline) {
+                                Object.assign(data, {
+                                    outline: layer.outline
+                                });
+                            }
+
+                            if (data.link.filter) {
+                                Object.assign(data, {
+                                    filter: layer.filter
+                                });
+                            }
+
+                            if (data.link.globalComposite) {
+                                Object.assign(data, {
+                                    globalComposite: layer.globalComposite
+                                });
+                            }
+
+                            if (data.link.text) {
+                                Object.assign(data, {
+                                    text: layer.text
+                                });
+                            }
+
+                            if (data.link.font) {
+                                Object.assign(data, {
+                                    font: layer.font
+                                });
+                            }
+                        }
+                    }
+
+                    console.log(data)
 
                     if (data.globalComposite) ctx.globalCompositeOperation = data.globalComposite;
                     else ctx.globalCompositeOperation = "source-over";

@@ -1,6 +1,6 @@
 {
   "name": "@hitomihiumi/lazy-canvas",
-  "version": "1.2.1",
+  "version": "1.3.0-dev.kjlic0y2m15gvn50k796r",
   "description": "Simple module for using canvas in lazy method",
   "main": "./dist/index.js",
   "scripts": {
@@ -29,8 +29,7 @@
   "dependencies": {
     "@napi-rs/canvas": "^0.1.53",
     "jimp": "^0.22.12",
-    "path": "^0.12.7",
-    "tslib": "^2.6.3"
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@types/jimp": "^0.2.28",
@@ -38,7 +37,8 @@
     "typedoc-material-theme": "^1.1.0",
     "typedoc-plugin-extras": "^3.1.0",
     "typedoc-plugin-markdown": "^4.2.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "tslib": "^2.6.3"
   },
   "types": "./dist/index.d.ts",
   "bugs": {

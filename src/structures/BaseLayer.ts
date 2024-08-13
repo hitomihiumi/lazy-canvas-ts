@@ -3,6 +3,7 @@ import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
+import { Link } from "../utils/Link";
 
 /**
  * @example
@@ -198,7 +199,13 @@ export class BaseLayer {
     setID(id: string) {
         if (!id) throw new LazyError('ID must be provided');
         this.data.id = id;
-        return
+        return this;
+    }
+
+    setLink(link: Link) {
+        if (!link) throw new LazyError('Link must be provided');
+        this.data.link = link.toJSON();
+        return this;
     }
 
     toJSON() {
