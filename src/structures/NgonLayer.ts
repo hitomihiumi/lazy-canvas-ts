@@ -67,9 +67,8 @@ export class NgonLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} color - The color of the figure
+     * @param {string | Gradient | Pattern} color - The color of the figure
      */
-
     setColor(color: string | Gradient | Pattern) {
         if (!color) throw new LazyError('Color must be provided');
         if (!isValidColor(color)) throw new LazyError('Color must be a valid color');

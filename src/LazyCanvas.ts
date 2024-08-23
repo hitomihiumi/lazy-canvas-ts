@@ -5,18 +5,12 @@ import { color, lazyLoadImage, drawMultilineText } from './utils/utils';
 import { LazyCanvasPlugin } from './types/LazyCanvasPlugin';
 import { LazyCanvasData } from './types/LazyCanvasData';
 import { LazyCanvasLayer } from "./types/LazyCanvasLayer";
-import { LazyCanvasFont } from "./types/LazyCanvasFont";
 import { LazyError, LazyLog } from "./types/LazyUtils";
 import { LazyCanvasPattern } from "./types/LazyCanvasPattern";
 import { LazyCanvasFilter } from "./types/LazyCanvasFilter";
 import { Font } from "./utils/Font";``
 import { BaseMethod } from "./api/BaseMethod";
-
-export enum RenderOutput {
-    Buffer,
-    Context
-};
-export type StringRenderOutput = "buffer" | "ctx";
+import { RenderOutput, StringRenderOutput } from "./types/enums";
 
 /**
  * @example
@@ -302,6 +296,7 @@ export class LazyCanvas {
         return { ...this.data };
     }
 
+    /** @private */
     private clipper(ctx: SKRSContext2D, img: any, x: number, y: number, w: number, h: number, r: number){
         if (r > w / 2 || r > h / 2) r = Math.min(w / 2, h / 2);
         ctx.beginPath();
@@ -318,6 +313,7 @@ export class LazyCanvas {
         ctx.restore();
     }
 
+    /** @private */
     private fillRoundedRect(ctx: SKRSContext2D, x: number, y: number, w: number, h: number, r: number){
         if (r > w / 2 || r > h / 2) r = Math.min(w / 2, h / 2);
         ctx.beginPath();
@@ -330,6 +326,7 @@ export class LazyCanvas {
         ctx.fill();
     }
 
+    /** @private */
     private outerlineRounded(ctx: SKRSContext2D, x: number, y: number, w: number, h: number, r: number, s = 1){
         if (r > w / 2 || r > h / 2) r = Math.min(w / 2, h / 2);
         ctx.beginPath();
@@ -343,6 +340,7 @@ export class LazyCanvas {
         ctx.stroke();
     }
 
+    /** @private */
     private circle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
@@ -355,6 +353,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private ellipse(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
@@ -370,6 +369,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private square(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
@@ -386,6 +386,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private rectangle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
@@ -402,6 +403,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private ngon(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         ctx.save();
@@ -423,6 +425,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private line(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
@@ -438,6 +441,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private textRender(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
@@ -490,6 +494,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private async filterApply(image: any, filter: LazyCanvasFilter) {
         if (filter) {
             switch (filter.type) {
@@ -540,6 +545,7 @@ export class LazyCanvas {
         }
     }
 
+    /** @private */
     private arc(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
         ctx.beginPath();
         ctx.save();
@@ -557,6 +563,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private arcTo(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
@@ -571,6 +578,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private bezierCurve(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
@@ -585,6 +593,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private quadraticCurve(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         ctx.save();
@@ -599,6 +608,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private async image(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
@@ -627,6 +637,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private async ellipseImage(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         ctx.beginPath();
         let dataCopy = this.centring(data);
@@ -660,6 +671,7 @@ export class LazyCanvas {
         ctx.closePath();
     }
 
+    /** @private */
     private async patternRender(ctx: SKRSContext2D, data: LazyCanvasPattern) {
         return new Promise(async function(resolve: (arg0: CanvasPattern | null) => any, reject: any) {
             try {
@@ -686,6 +698,7 @@ export class LazyCanvas {
         }.bind(this));
     }
 
+    /** @private */
     private async colorRender(ctx: SKRSContext2D, data: any): Promise<string | CanvasPattern | CanvasGradient | any> {
         let col;
         if (typeof data === 'object' && data.toJSON().type === 'pattern') {
@@ -697,6 +710,7 @@ export class LazyCanvas {
         return col;
     }
 
+    /** @private */
     private outlineCenter(dataCopy: LazyCanvasLayer) {
         if (dataCopy.centering === 'legacy') {
             switch (dataCopy.type) {
@@ -808,6 +822,7 @@ export class LazyCanvas {
         return dataCopy;
     }
 
+    /** @private */
     private async outLineRender(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         let dataCopy = { ...data };
         dataCopy.stroke = dataCopy.outline.stroke;
@@ -845,6 +860,7 @@ export class LazyCanvas {
         }
     }
 
+    /** @private */
     private centring(data: LazyCanvasLayer) {
         let dataCopy = { ...data };
         if (dataCopy.centering === 'new') {
@@ -871,6 +887,7 @@ export class LazyCanvas {
         return dataCopy;
     }
 
+    /** @private */
     private rotate(ctx: SKRSContext2D, data: LazyCanvasLayer) {
         if (data.angle) {
             switch (data.type) {

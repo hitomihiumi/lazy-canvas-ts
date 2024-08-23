@@ -1,5 +1,6 @@
 import { isValidColor } from './utils';
 import { LazyCanvasGradient } from '../types/LazyCanvasGradient';
+import { GradientType, StringGradientType } from "../types/enums";
 
 /**
  * @example
@@ -14,7 +15,6 @@ import { LazyCanvasGradient } from '../types/LazyCanvasGradient';
  *   { color: '#0000FF', position: 1 }
  * )
  * .setType('linear')
- * .setRadius(30, 100)
  *
  * let circle = new CircleLayer()
  * .setX(50)
@@ -79,7 +79,7 @@ export class Gradient {
     }
 
     /**
-     * @param {Array} colorPoints - The color points of the gradient
+     * @param {Array<{ position: number, color: string }>} colorPoints - The color points of the gradient
      */
     addColorPoints(...colorPoints: Array<{ position: number, color: string }>) {
         if (!colorPoints) throw new Error('Color points must be provided');
@@ -97,7 +97,7 @@ export class Gradient {
     }
 
     /**
-     * @param {Array} points - The points of the gradient
+     * @param {Array<{ x: number, y: number }>} points - The points of the gradient
      */
     setPoints(...points: Array<{ x: number, y: number }>) {
         if (!points) throw new Error('Points must be provided');
@@ -113,6 +113,9 @@ export class Gradient {
         return this;
     }
 
+    /**
+     * @param {number} radius - The radius of the gradient (only for radial gradients)
+     */
     setRadius(radius: number) {
         if (!radius) throw new Error('Radius must be provided');
         if (isNaN(radius)) throw new Error('Radius must be a number');
@@ -120,12 +123,18 @@ export class Gradient {
         return this;
     }
 
-    setType(type: 'linear' | 'radial' | 'conic') {
+    /**
+     * @param {GradientType | StringGradientType} type - The type of the gradient
+     */
+    setType(type: GradientType | StringGradientType) {
         if (!type) throw new Error('Type must be provided');
         this.data.gradientType = type;
         return this;
     }
 
+    /**
+     * @param {number} startAngle - The start angle of the gradient (only for conic gradients, and it must be between 0 and 360)
+     */
     setStartAngle(startAngle: number) {
         if (!startAngle && startAngle !== 0) throw new Error('Start angle must be provided');
         if (isNaN(startAngle)) throw new Error('Start angle must be a number');

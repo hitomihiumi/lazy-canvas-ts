@@ -1,9 +1,8 @@
 import { isValidColor } from  '../utils/utils';
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
-import { Gradient } from "../utils/Gradient";
-import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 import { Link } from "../utils/Link";
+import { GlobalComposite, StringGlobalComposite } from "../types/enums";
 
 /**
  * @example
@@ -188,20 +187,26 @@ export class BaseLayer {
     }
 
     /**
-     * @param {string} operation - The global composite operation of the layer
+     * @param {GlobalComposite | StringGlobalComposite} operation - The global composite operation of the layer
      */
-    setGlobalCompositeOperation(operation: "source-over" | "source-in" | "source-out" | "source-atop" | "destination-over" | "destination-in" | "destination-out" | "destination-atop" | "lighter" | "copy" | "xor" | "multiply" | "screen" | "overlay" | "darken" | "lighten" | "color-dodge" | "color-burn" | "hard-light" | "soft-light" | "difference" | "exclusion" | "hue" | "saturation" | "color" | "luminosity") {
+    setGlobalCompositeOperation(operation: GlobalComposite | StringGlobalComposite) {
         if (!operation) throw new LazyError('Operation must be provided');
         this.data.globalComposite = operation;
         return this;
     }
 
+    /**
+     * @param {string} id - The id of the layer
+     */
     setID(id: string) {
         if (!id) throw new LazyError('ID must be provided');
         this.data.id = id;
         return this;
     }
 
+    /**
+     * @param {Link} link - The link of the layer
+     */
     setLink(link: Link) {
         if (!link) throw new LazyError('Link must be provided');
         this.data.link = link.toJSON();

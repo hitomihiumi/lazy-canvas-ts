@@ -5,6 +5,7 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 import { Outline } from '../utils/Outline';
+import { TextAlign, StringTextAlign, TextBaseline, StringTextBaseline, FontWeight, StringFontWeight, TextDirection, StringTextDirection } from '../types/enums';
 
 /**
  * @example
@@ -80,17 +81,16 @@ export class TextLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} weight - The weight of the text
-     * Weight types: normal, bold, italic, bold italic, regular
+     * @param {FontWeight | StringFontWeight} weight - The weight of the text
      */
-    setWeight(weight: 'normal' | 'bold' | 'italic' | 'bold italic' | 'regular' | 'semi-bold' | 'extra-bold' | 'light' | 'extra-light') {
+    setWeight(weight: FontWeight | StringFontWeight) {
         if (!weight) throw new LazyError('Weight must be provided');
         this.data.weight = weight;
         return this;
     }
 
     /**
-     * @param {string} color - The color of the text
+     * @param {string | Gradient | Pattern} color - The color of the text
      */
     setColor(color: string | Gradient | Pattern) {
         if (!color) throw new LazyError('Color must be provided');
@@ -100,10 +100,9 @@ export class TextLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} align - The alignment of the text
-     * Align types: left, center, right, start, end
+     * @param {TextAlign | StringTextAlign} align - The alignment of the text
      */
-    setAlign(align: 'left' | 'center' | 'right' | 'start' | 'end') {
+    setAlign(align: TextAlign | StringTextAlign) {
         if (!align) throw new LazyError('Alignment must be provided');
         this.data.align = align;
         return this;
@@ -118,7 +117,7 @@ export class TextLayer extends BaseLayer {
     }
 
     /**
-     * @param {number} width - Max width zone of the text
+     * @param {number} width - Max width zone of the text in pixels
      */
     setWidth(width: number) {
         if (!width) throw new LazyError('Width must be provided');
@@ -128,7 +127,7 @@ export class TextLayer extends BaseLayer {
     }
 
     /**
-     * @param {number} height - Max height zone of the text
+     * @param {number} height - Max height zone of the text in pixels
      */
     setHeight(height: number) {
         if (!height) throw new LazyError('Height must be provided');
@@ -146,18 +145,18 @@ export class TextLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} direction - The direction of the text
+     * @param {TextDirection | StringTextDirection} direction - The direction of the text
      */
-    setDirection(direction: 'ltr' | 'rtl' | 'inherit') {
+    setDirection(direction: TextDirection | StringTextDirection) {
         if (!direction) throw new LazyError('Direction must be provided');
         this.data.direction = direction;
         return this;
     }
 
     /**
-     * @param {string} baseline - The baseline of the text
+     * @param {TextBaseline | StringTextBaseline} baseline - The baseline of the text
      */
-    setBaseline(baseline: 'alphabetic' | 'top' | 'hanging' | 'middle' | 'ideographic' | 'bottom') {
+    setBaseline(baseline: TextBaseline | StringTextBaseline) {
         if (!baseline) throw new LazyError('Baseline must be provided');
         this.data.baseline = baseline;
         return this;

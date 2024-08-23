@@ -30,7 +30,7 @@ export class QuadraticLayer extends BaseLayer {
     }
 
     /**
-     * @param {Array} points - The points of the quadratic curve
+     * @param {Array<{x: number, y: number}>} points - The points of the quadratic curve
      */
     setPoints(...points: Array<{x: number, y: number}>) {
         if (!points) throw new LazyError('Points must be provided');
@@ -47,7 +47,7 @@ export class QuadraticLayer extends BaseLayer {
     }
 
     /**
-     * @param {Array} controlPoint - The control point of the quadratic curve
+     * @param {{x: number, y: number}} controlPoint - The control point of the quadratic curve
      */
     setControlPoint(controlPoint: {x: number, y: number}) {
         if (!controlPoint) throw new LazyError('Control point must be provided');
@@ -70,7 +70,7 @@ export class QuadraticLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} color - The color of the figure
+     * @param {string | Gradient | Pattern} color - The color of the figure
      */
     setColor(color: string | Gradient | Pattern) {
         if (!color) throw new LazyError('Color must be provided');

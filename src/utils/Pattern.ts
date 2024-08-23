@@ -1,6 +1,7 @@
 import { isImageUrlValid } from './utils';
 import { LazyCanvasPattern } from '../types/LazyCanvasPattern';
 import { LazyCanvas } from "../LazyCanvas";
+import { PatternType, StringPatternType } from "../types/enums";
 
 /**
  * @example
@@ -40,7 +41,7 @@ export class Pattern {
         return this;
     }
 
-    setType(patternType: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat') {
+    setType(patternType: PatternType | StringPatternType) {
         if (!patternType) throw new Error('Pattern type must be provided');
         this.data.patternType = patternType;
         return this;

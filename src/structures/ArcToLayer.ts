@@ -29,7 +29,7 @@ export class ArcToLayer extends BaseLayer {
     }
 
     /**
-     * @param {Array} points - The points of the arc
+     * @param {Array<{x: number, y: number}>} points - The points of the arc
      */
     setPoints(...points: Array<{x: number, y: number}>) {
         if (!points) throw new LazyError('Points must be provided');
@@ -56,7 +56,7 @@ export class ArcToLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} color - The color of the figure
+     * @param {string | Gradient | Pattern} color - The color of the figure
      */
     setColor(color: string | Gradient | Pattern) {
         if (!color) throw new LazyError('Color must be provided');

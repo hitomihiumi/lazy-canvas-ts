@@ -52,7 +52,7 @@ export class ArcLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} color - The color of the figure
+     * @param {string | Gradient | Pattern} color - The color of the figure
      */
     setColor(color: string | Gradient | Pattern) {
         if (!color) throw new LazyError('Color must be provided');
@@ -72,7 +72,7 @@ export class ArcLayer extends BaseLayer {
     }
 
     /**
-     * @param {number} angles - The angles of the arc
+     * @param {number[]} angles - The angles of the arc
      */
     setAngles(angles: number[]) {
         if (!angles) throw new Error('Angles must be provided');

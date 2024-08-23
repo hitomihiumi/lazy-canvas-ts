@@ -5,6 +5,7 @@ import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 import { Outline } from '../utils/Outline';
+import { Centering, StringCentering } from "../types/enums";
 
 /**
  * @example
@@ -70,7 +71,7 @@ export class EllipseLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} color - The color of the figure
+     * @param {string | Gradient | Pattern} color - The color of the figure
      */
     setColor(color: string | Gradient | Pattern) {
         if (!color) throw new LazyError('Color must be provided');
@@ -98,11 +99,10 @@ export class EllipseLayer extends BaseLayer {
     }
 
     /**
-     * @param {'legacy' | 'new'} centering - The centering of the layer
+     * @param {Centering | StringCentering} centering - The centering of the layer
      */
-    setCentering(centering: 'legacy' | 'new') {
+    setCentering(centering: Centering | StringCentering) {
         if (!centering) throw new LazyError('Centering must be provided');
-        if (centering !== 'legacy' && centering !== 'new') throw new LazyError('Centering must be legacy or new');
         this.data.centering = centering;
         return this;
     }

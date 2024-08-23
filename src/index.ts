@@ -1,4 +1,4 @@
-import { LazyCanvas, RenderOutput, StringRenderOutput } from "./LazyCanvas";
+import { LazyCanvas } from "./LazyCanvas";
 
 import { ArcLayer } from "./structures/ArcLayer";
 import { ArcToLayer } from "./structures/ArcToLayer";
@@ -37,6 +37,31 @@ import { LazyCanvasMethod } from "./types/LazyCanvasMethod";
 import { LazyCanvasOutline } from "./types/LazyCanvasOutline";
 import { LazyCanvasLink } from "./types/LazyCanvasLink";
 
+import {
+    RenderOutput,
+    StringRenderOutput,
+    GradientType,
+    StringGradientType,
+    FilterType,
+    StringFilterType,
+    FontWeight,
+    StringFontWeight,
+    TextDirection,
+    StringTextDirection,
+    TextBaseline,
+    StringTextBaseline,
+    GlobalComposite,
+    StringGlobalComposite,
+    TextAlign,
+    StringTextAlign,
+    Centering,
+    StringCentering,
+    OutlineType,
+    StringOutlineType,
+    PatternType,
+    StringPatternType,
+} from "./types/enums";
+
 export {
     LazyCanvas,
     ArcLayer,
@@ -74,9 +99,29 @@ export {
     LazyCanvasFont,
     LazyCanvasMethod,
     LazyCanvasPlugin,
-    RenderOutput,
-    StringRenderOutput,
     BaseMethod,
     LazyCanvasOutline,
-    LazyCanvasLink
+    LazyCanvasLink,
+    RenderOutput,
+    StringRenderOutput,
+    GradientType,
+    StringGradientType,
+    FilterType,
+    StringFilterType,
+    FontWeight,
+    StringFontWeight,
+    TextDirection,
+    StringTextDirection,
+    TextBaseline,
+    StringTextBaseline,
+    GlobalComposite,
+    StringGlobalComposite,
+    TextAlign,
+    StringTextAlign,
+    Centering,
+    StringCentering,
+    OutlineType,
+    StringOutlineType,
+    PatternType,
+    StringPatternType,
 };

@@ -1,4 +1,5 @@
 import { LazyCanvasFilter } from "../types/LazyCanvasFilter";
+import { FilterType, StringFilterType } from "../types/enums";
 
 /**
  * @example
@@ -28,12 +29,18 @@ export class Filter {
         this.data.structureType = 'filter';
     }
 
-    setType(type: "daither565" | "normalize" | "contrast" | "brightness" | "sepia" | "invert" | "gaussian" | "blur" | "grayscale") {
+    /**
+     * @param {FilterType | StringFilterType} type - The type of the filter
+     */
+    setType(type: FilterType | StringFilterType) {
         if (!type) throw new Error('Type must be provided');
         this.data.type = type;
         return this;
     }
 
+    /**
+     * @param {number} option - The option of the filter
+     */
     setOption(option: number) {
         if (!option) throw new Error('Option must be provided');
         if (isNaN(option)) throw new Error('Option must be a number');

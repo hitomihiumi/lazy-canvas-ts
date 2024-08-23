@@ -1,4 +1,5 @@
 import { LazyCanvas } from "../LazyCanvas";
+import { PatternType, StringPatternType } from "./enums";
 
 export interface LazyCanvasPattern {
     pattern: {
@@ -6,7 +7,7 @@ export interface LazyCanvasPattern {
         data: LazyCanvas | string;
     };
     type: string;
-    patternType: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat';
+    patternType: PatternType | StringPatternType;
 
     toJSON(): LazyCanvasPattern;
 }

@@ -30,7 +30,7 @@ export class LineLayer extends BaseLayer {
     }
 
     /**
-     * @param {Array} points - The points of the line
+     * @param {Array<{x: number, y: number}>} points - The points of the line
      */
     setPoints(...points: Array<{x: number, y: number}>) {
         if (!points) throw new LazyError('Points must be provided');
@@ -57,7 +57,7 @@ export class LineLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} color - The color of the figure
+     * @param {string | Gradient | Pattern} color - The color of the figure
      */
     setColor(color: string | Gradient | Pattern) {
         if (!color) throw new LazyError('Color must be provided');
@@ -67,7 +67,7 @@ export class LineLayer extends BaseLayer {
     }
 
     /**
-     * @param {number} lineDash - The lineDash of the figure
+     * @param {Array<number>} lineDash - The lineDash of the figure
      */
     setLineDash(lineDash: Array<number>) {
         if (!lineDash) throw new LazyError('LineDash must be provided');

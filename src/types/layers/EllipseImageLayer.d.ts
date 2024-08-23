@@ -1,6 +1,7 @@
 import { Base } from "./BaseLayer";
 import { Filter } from "../../utils/Filter";
 import { LazyCanvasOutline } from "../LazyCanvasOutline";
+import { Centering, StringCentering } from "../enums";
 
 export interface EllipseImage extends Base {
     image: string | Uint8Array;
@@ -9,5 +10,5 @@ export interface EllipseImage extends Base {
     radius: number;
     filter: Filter;
     outline: LazyCanvasOutline;
-    centering: 'legacy' | 'new';
+    centering: Centering | StringCentering;
 }

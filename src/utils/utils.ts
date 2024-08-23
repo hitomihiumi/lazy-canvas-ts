@@ -6,7 +6,7 @@ import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { LazyCanvasData } from "../types/LazyCanvasData";
 
 /**
- * Checks the string or gradient object provided to it for validity.
+ * @description Checks the string or gradient object provided to it for validity.
  * @example
  * const { isValidColor } = require('@hitomihiumi/lazy-canvas')
  * //...
@@ -31,7 +31,7 @@ export function isValidColor(color: any) {
 }
 
 /**
- * Checks the validity of the image link.
+ * @description Checks the validity of the image link.
  * @example
  * const { isImageUrlValid } = require('@hitomihiumi/lazy-canvas')
  * //...
@@ -65,7 +65,7 @@ export async function color(ctx: SKRSContext2D, colorParam: string | LazyCanvasG
 }
 
 /**
- * Does a preload of the image.
+ * @description Does a preload of the image.
  * @example
  * const { lazyLoadImage } = require('@hitomihiumi/lazy-canvas')
  * //...
@@ -91,7 +91,7 @@ export async function lazyLoadImage(url: any): Promise<Image> {
 }
 
 /**
- * Returns a object that contains information about the measured text (such as its width, for example)
+ * @description Returns a object that contains information about the measured text (such as its width, for example)
  * @example
  * const { textMetrics, TextLayer } = require('@hitomihiumi/lazy-canvas')
  * //...
@@ -147,7 +147,7 @@ export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, wi
 }
 
 /**
- * Saves LazyCanvas as a file.
+ * @description Saves LazyCanvas as a file.
  * @example
  * const { saveFile, LazyCanvas } = require('@hitomihiumi/lazy-canvas')
  * //...
@@ -164,7 +164,7 @@ export async function saveFile(buffer: any, extension: 'png' | 'jpeg' | 'webp' |
 }
 
 /**
- * Generates a random string.
+ * @description Generates a random string.
  * @example
  * const { generateRandomName } = require('@hitomihiumi/lazy-canvas')
  * console.log(generateRandomName())

@@ -2,6 +2,7 @@ import { Base } from "./BaseLayer";
 import { Gradient } from "../../utils/Gradient";
 import { Pattern } from "../../utils/Pattern";
 import { LazyCanvasOutline } from "../LazyCanvasOutline";
+import { Centering, StringCentering } from "../enums";
 
 export interface Rectangle extends Base {
     width: number;
@@ -10,5 +11,5 @@ export interface Rectangle extends Base {
     stroke: number;
     color: string | Gradient | Pattern;
     outline: LazyCanvasOutline;
-    centering: 'legacy' | 'new';
+    centering: Centering | StringCentering;
 }

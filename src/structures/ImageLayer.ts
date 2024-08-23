@@ -4,6 +4,7 @@ import { isImageUrlValid } from "../utils/utils";
 import { Filter } from "../utils/Filter";
 import { LazyError } from "../types/LazyUtils";
 import { Outline } from '../utils/Outline';
+import { Centering, StringCentering } from "../types/enums";
 
 /**
  * @example
@@ -29,7 +30,7 @@ export class ImageLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} image - The image url or path
+     * @param {string | Uint8Array} image - The image url or path
      */
     setImage(image: string | Uint8Array) {
         if (!image) throw new LazyError('Image must be provided');
@@ -58,6 +59,9 @@ export class ImageLayer extends BaseLayer {
         return this;
     }
 
+    /**
+     * @param {Filter} filter - The filter of the image
+     */
     setFilter(filter: Filter) {
         if (!filter) throw new LazyError('Filter must be provided');
         this.data.filter = filter;
@@ -73,11 +77,10 @@ export class ImageLayer extends BaseLayer {
     }
 
     /**
-     * @param {'legacy' | 'new'} centering - The centering of the layer
+     * @param {Centering | StringCentering} centering - The centering of the layer
      */
-    setCentering(centering: 'legacy' | 'new') {
+    setCentering(centering: Centering | StringCentering) {
         if (!centering) throw new LazyError('Centering must be provided');
-        if (centering !== 'legacy' && centering !== 'new') throw new LazyError('Centering must be legacy or new');
         this.data.centering = centering;
         return this;
     }

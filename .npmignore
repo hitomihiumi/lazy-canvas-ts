@@ -5,6 +5,7 @@ docs/
 docs-old/
 docs-out/
 src/
+public/
 
 *.ts
 !*.d.ts
@@ -17,3 +18,5 @@ gitignore
 pattern.png
 test.txt
 output.png
+docsgen.ts
+docsgen.js

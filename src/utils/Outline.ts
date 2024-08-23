@@ -2,7 +2,7 @@ import { LazyCanvasOutline } from "../types/LazyCanvasOutline";
 import { Gradient } from "./Gradient";
 import { Pattern } from "./Pattern";
 import { isValidColor } from "./utils";
-
+import { OutlineType, StringOutlineType } from "../types/enums";
 
 /**
  * @example
@@ -54,11 +54,10 @@ export class Outline {
     }
 
     /**
-     * @param {'inner' | 'outer' | 'center'} type - The type of the outline
+     * @param {OutlineType | StringOutlineType} type - The type of the outline
      */
-    setType(type: 'inner' | 'outer' | 'center') {
+    setType(type: OutlineType | StringOutlineType) {
         if (!type) throw new Error('Type must be provided');
-        if (type !== 'inner' && type !== 'outer' && type !== 'center') throw new Error('Type must be inner, outer or center');
         this.data.type = type;
         return this;
     }

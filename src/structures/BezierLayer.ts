@@ -31,7 +31,7 @@ export class BezierLayer extends BaseLayer {
     }
 
     /**
-     * @param {Array} points - The points of the Bézier curve
+     * @param {Array<{x: number, y: number}>} points - The points of the Bézier curve
      */
     setPoints(...points: Array<{x: number, y: number}>) {
         if (!points) throw new LazyError('Points must be provided');
@@ -48,7 +48,7 @@ export class BezierLayer extends BaseLayer {
     }
 
     /**
-     * @param {Array} controlPoints - The control points of the Bézier curve
+     * @param {Array<{x: number, y: number}>} controlPoints - The control points of the Bézier curve
      */
     setControlPoints(...controlPoints: Array<{x: number, y: number}>) {
         if (!controlPoints) throw new LazyError('Control points must be provided');
@@ -75,7 +75,7 @@ export class BezierLayer extends BaseLayer {
     }
 
     /**
-     * @param {string} color - The color of the figure
+     * @param {string | Gradient | Pattern} color - The color of the figure
      */
     setColor(color: string | Gradient | Pattern) {
         if (!color) throw new LazyError('Color must be provided');
