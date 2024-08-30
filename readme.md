@@ -16,7 +16,7 @@ You can find the documentation [here](https://docs.hitomihiumi.xyz/)
 ## Example
 
 ```ts
-import { LazyCanvas, EllipseImageLayer, EllipseLayer, TextLayer, Font, CircleLayer, Outline, saveFile } from '@hitomihiumi/lazy-canvas'
+import { LazyCanvas, EllipseImageLayer, EllipseLayer, TextLayer, Font, CircleLayer, Outline, Centering, OutlineType, TextAlign, saveFile } from '@hitomihiumi/lazy-canvas'
 
 let font = new Font()
     .setFamily("JoeKubert")
@@ -43,7 +43,7 @@ let blackout = new EllipseLayer()
         new Outline()
             .setColor('#fff')
             .setStroke(2)
-            .setType('inner')
+            .setType(OutlineType.inner)
     )
 
 let avatar = new EllipseImageLayer()
@@ -57,7 +57,7 @@ let avatar = new EllipseImageLayer()
         new Outline()
             .setColor('#fff')
             .setStroke(2)
-            .setType('center')
+            .setType(OutlineType.center)
     )
 
 let bgprogress = new EllipseLayer()
@@ -75,7 +75,7 @@ let progress = new EllipseLayer()
     .setHeight(30)
     .setRadius(15)
     .setColor('#ff8a8a')
-    .setCentering('legacy')
+    .setCentering(Centering.legacy)
 
 let lvlbg = new CircleLayer()
     .setX(160)
@@ -86,7 +86,7 @@ let lvlbg = new CircleLayer()
         new Outline()
             .setColor('#fff')
             .setStroke(1.5)
-            .setType('center')
+            .setType(OutlineType.center)
     )
 
 let name = new TextLayer()
@@ -96,7 +96,7 @@ let name = new TextLayer()
     .setFont("JoeKubert")
     .setFontSize(25)
     .setColor('#fff')
-    .setAlign('left')
+    .setAlign(TextAlign.left)
 
 let xp = new TextLayer()
     .setX(550)
@@ -105,7 +105,7 @@ let xp = new TextLayer()
     .setFont("JoeKubert")
     .setFontSize(20)
     .setColor('#fff')
-    .setAlign('right')
+    .setAlign(TextAlign.right)
 
 let lvl = new TextLayer()
     .setX(159)
@@ -114,7 +114,7 @@ let lvl = new TextLayer()
     .setFont("JoeKubert")
     .setFontSize(33)
     .setColor('#fff')
-    .setAlign('center')
+    .setAlign(TextAlign.center)
 
 const lazy = new LazyCanvas()
     .createNewCanvas(600, 200)
@@ -135,8 +135,8 @@ main()
 
 - [x] Migration to TypeScript
 - [x] Migration from `node-canvas` to `@napi-rs/canvas`
-- [ ] Add more tests
+- [x] Add more tests
 - [ ] Add more examples
-- [ ] Add more documentation
+- [x] Add more documentation
 - [ ] Add more shapes
 - [ ] Add more features

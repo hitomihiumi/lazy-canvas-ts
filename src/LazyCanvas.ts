@@ -1068,7 +1068,7 @@ export class LazyCanvas {
                         }
                     }
 
-                    console.log(data)
+                    //console.log(data)
 
                     if (data.globalComposite) ctx.globalCompositeOperation = data.globalComposite;
                     else ctx.globalCompositeOperation = "source-over";

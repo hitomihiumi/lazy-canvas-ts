@@ -12,7 +12,7 @@ import {
     RectangleLayer,
     BaseMethod,
     BaseLayer,
-    isImageUrlValid
+    isImageUrlValid, Centering
 } from '../src'
 
 let font = new Font()
