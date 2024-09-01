@@ -212,7 +212,7 @@ export function drawMultilineText(ctx: SKRSContext2D, text: string, opts: any) {
         ctx.font = ' ' + fontSize + 'px ' + opts.font
 
         let x = opts.rect.x
-        let y = opts.rect.y + fontSize
+        let y = opts.rect.y
         lines = []
         let line = ''
 
