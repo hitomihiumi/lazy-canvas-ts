@@ -900,26 +900,14 @@ export class LazyCanvas {
                 case "rectangle":
                 case "image":
                 case "ellipseimage":
-                    if (data.centering === 'new') {
-                        ctx.translate(data.x, data.y);
-                        ctx.rotate((Math.PI/180) * data.angle);
-                        ctx.translate(-data.x, -data.y);
-                    } else {
-                        ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
-                        ctx.rotate((Math.PI/180) * data.angle);
-                        ctx.translate(-(data.x + data.width / 2), -(data.y + data.height / 2));
-                    }
+                    ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
+                    ctx.rotate((Math.PI/180) * data.angle);
+                    ctx.translate(-(data.x + data.width / 2), -(data.y + data.height / 2));
                     break;
                 case "square":
-                    if (data.centering === 'new') {
-                        ctx.translate(data.x, data.y);
-                        ctx.rotate((Math.PI/180) * data.angle);
-                        ctx.translate(-data.x, -data.y);
-                    } else {
-                        ctx.translate(data.x + data.width / 2, data.y + data.width / 2);
-                        ctx.rotate((Math.PI/180) * data.angle);
-                        ctx.translate(-(data.x + data.width / 2), -(data.y + data.width / 2));
-                    }
+                    ctx.translate(data.x + data.width / 2, data.y + data.width / 2);
+                    ctx.rotate((Math.PI/180) * data.angle);
+                    ctx.translate(-(data.x + data.width / 2), -(data.y + data.width / 2));
                     break;
             }
         }
