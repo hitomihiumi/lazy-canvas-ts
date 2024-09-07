@@ -1,14 +1,16 @@
 {
   "name": "@hitomihiumi/lazy-canvas",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Simple module for using canvas in lazy method",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "node --trace-warnings ./test/test.js",
-    "test:rank": "node --trace-warnings ./test/test-rank.js",
-    "test:error": "node --trace-warnings ./test/test-error.js",
-    "test:text": "node --trace-warnings ./test/test-text.js",
+    "test": "tsc ./test/test.ts && node --trace-warnings ./test/test.js",
+    "test:rank": "tsc ./test/test-rank.ts && node --trace-warnings ./test/test-rank.js",
+    "test:error": "tsc ./test/test-error.ts && node --trace-warnings ./test/test-error.js",
+    "test:text": "tsc ./test/test-text.ts && node --trace-warnings ./test/test-text.js",
+    "test:link": "tsc ./test/test-link.ts && node --trace-warnings ./test/test-link.js",
+    "test:pattern": "tsc ./test/test-pattern.ts && node --trace-warnings ./test/test-pattern.js",
     "docs": "node docgen.js",
     "docs:example": "tsc ./test/docs.ts && node ./test/docs.js"
   },

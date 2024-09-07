@@ -140,6 +140,7 @@ export class LazyCanvas {
 
     public data: LazyCanvasData;
     public plugins: LazyCanvasPlugin[] | undefined;
+    private loadedData: boolean;
 
     constructor(options?: { plugins?: LazyCanvasPlugin[], data?: LazyCanvasData }) {
         // @ts-ignore
@@ -153,6 +154,8 @@ export class LazyCanvas {
         };
         // @ts-ignore
         this.plugins ??= options?.plugins ? options.plugins : undefined;
+
+        this.loadedData = false;
 
         if (this.plugins) {
             for (const plugin of Object.values(this.plugins)) {
@@ -171,6 +174,7 @@ export class LazyCanvas {
     public setData(data: LazyCanvasData) {
         if (!data) throw new LazyError("No data provided");
         this.data = data;
+        this.loadedData = true;
         return this;
     }
 
@@ -183,6 +187,7 @@ export class LazyCanvas {
         if (!width || !height) throw new LazyError("No width or height provided");
         this.data.width = width;
         this.data.height = height;
+        this.loadedData = false;
         return this;
     }
 
@@ -919,7 +924,7 @@ export class LazyCanvas {
                 let ctx = canvas.getContext("2d");
 
                 for (let data of this.data.layers) {
-                    data = data.toJSON();
+                    if (!this.loadedData) data = data.toJSON();
 
                     if (data.link) {
                         if (data.link.id) {
@@ -930,7 +935,7 @@ export class LazyCanvas {
                                 continue;
                             }
 
-                            layer = layer.toJSON();
+                            if (!this.loadedData) layer = layer.toJSON();
 
                             if (data.link.size) {
                                 if (["circle", "ngon"].includes(layer.type)) {

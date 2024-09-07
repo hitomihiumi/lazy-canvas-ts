@@ -7,7 +7,7 @@ let font = new Font()
 
 
 const lazy = new LazyCanvas()
-    .createNewCanvas(1000, 1000)
+    .createNewCanvas(600, 200)
     .loadFonts(
         font
     )
@@ -25,8 +25,8 @@ const lazy = new LazyCanvas()
                     .setStroke(2)
             ),
         new CircleLayer()
-            .setX(100)
-            .setY(200)
+            .setX(400)
+            .setY(100)
             .setLink(
                 new Link()
                     .setID('circle')
