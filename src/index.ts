@@ -14,6 +14,7 @@ import { QuadraticLayer } from "./structures/QuadraticLayer";
 import { RectangleLayer } from "./structures/RectangleLayer";
 import { SquareLayer } from "./structures/SquareLayer";
 import { TextLayer } from "./structures/TextLayer";
+import { Path2DLayer } from "./structures/Path2DLayer";
 
 import { Filter } from "./utils/Filter";
 import { Gradient } from "./utils/Gradient";
@@ -59,7 +60,7 @@ import {
     OutlineType,
     StringOutlineType,
     PatternType,
-    StringPatternType,
+    StringPatternType
 } from "./types/enums";
 
 export {
@@ -78,6 +79,7 @@ export {
     RectangleLayer,
     SquareLayer,
     TextLayer,
+    Path2DLayer,
     Filter,
     Gradient,
     Pattern,
@@ -123,5 +125,8 @@ export {
     OutlineType,
     StringOutlineType,
     PatternType,
-    StringPatternType,
+    StringPatternType
 };
+
+//ImageTransform,
+//StringImageTransform

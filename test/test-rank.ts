@@ -1,4 +1,18 @@
-import { LazyCanvas, EllipseImageLayer, EllipseLayer, TextLayer, Font, CircleLayer, Outline, Centering, OutlineType, TextAlign, saveFile } from '../dist'
+import {
+    Centering,
+    CircleLayer,
+    EllipseImageLayer,
+    EllipseLayer,
+    Font,
+    ImageTransform,
+    LazyCanvas,
+    Outline,
+    OutlineType,
+    RenderOutput,
+    saveFile,
+    TextAlign,
+    TextLayer
+} from '../src'
 
 let font = new Font()
     .setFamily("JoeKubert")
@@ -102,10 +116,14 @@ const lazy = new LazyCanvas()
     .createNewCanvas(600, 200)
     .loadFonts(font)
     .addLayers(background, blackout, avatar, bgprogress, progress, lvlbg, name, xp, lvl)
+    .setImageTransform(ImageTransform.vector)
+
+console.log(lazy.getData())
+console.log(lazy.getData().layers)
 
 async function main() {
-    let data = await lazy.renderImage()
-    await saveFile(data, 'png', 'output')
+    let data = await lazy.renderImage(RenderOutput.SVG)
+    await saveFile(data, 'svg', 'output')
 }
 
 main()

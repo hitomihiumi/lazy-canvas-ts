@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import { LazyCanvasGradient } from "../types/LazyCanvasGradient";
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { LazyCanvasData } from "../types/LazyCanvasData";
+import { Path2DLayer } from "../structures/Path2DLayer";
 
 /**
  * @description Checks the string or gradient object provided to it for validity.
@@ -113,6 +114,7 @@ export async function lazyLoadImage(url: any): Promise<Image> {
 export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, width= 500, height= 500) {
     if (!value) throw new Error('Value must be provided');
     if (typeof value !== 'object') throw new Error('Value must be a object');
+    if (value instanceof Path2DLayer) throw new Error('Value must be a object');
 
     if ("type" in value && (value.toJSON().structureType === 'layer' && value.toJSON().type === 'text')) {
 
@@ -133,13 +135,16 @@ export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, wi
 
         if (!value.toJSON().layers) throw new Error('Layers must be provided');
 
+        // @ts-ignore
         let layers = value.toJSON().layers.filter(layer => layer.type === 'text');
 
         let metrics = [];
 
         for (const layer of layers) {
-            ctx.font = `${layer.weight} ${layer.size}px ${layer.font}`;
-            metrics.push(ctx.measureText(layer.text));
+            if (!(layer instanceof Path2DLayer)) {
+                ctx.font = `${layer.weight} ${layer.size}px ${layer.font}`;
+                metrics.push(ctx.measureText(layer.text));
+            }
         }
 
         return metrics;
@@ -156,7 +161,7 @@ export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, wi
  * let data = lazy.renderImage()
  * await saveFile(data, `png`)
  */
-export async function saveFile(buffer: any, extension: 'png' | 'jpeg' | 'webp' | 'jpg', name: string) {
+export async function saveFile(buffer: any, extension: 'png' | 'jpeg' | 'webp' | 'jpg' | 'txt' | 'svg', name: string) {
     if (!buffer) throw new Error('Buffer must be provided');
     if (!extension) throw new Error('Extension must be provided');
 

@@ -10,4 +10,6 @@ export interface Image extends Base {
     filter: Filter;
     outline: LazyCanvasOutline;
     centering: Centering | StringCentering;
+    fromSVG: boolean;
+    path: string;
 }

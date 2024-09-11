@@ -31,10 +31,11 @@ export type StringGlobalComposite = 'source-over' | 'source-in' | 'source-out' |
 
 export enum RenderOutput {
     Buffer,
-    Context
+    Context,
+    SVG
 }
 
-export type StringRenderOutput = "buffer" | "ctx";
+export type StringRenderOutput = "buffer" | "ctx" | "svg";
 
 export enum FontWeight {
     normal = 'normal',
@@ -124,3 +125,10 @@ export enum PatternType {
 }
 
 export type StringPatternType = 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat';
+
+//export enum ImageTransform {
+//    raster = 'raster',
+//    vector = 'vector'
+//}
+//
+//export type StringImageTransform = 'raster' | 'vector'

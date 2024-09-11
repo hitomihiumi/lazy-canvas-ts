@@ -1,4 +1,12 @@
-import { createCanvas, loadImage, GlobalFonts, SKRSContext2D } from '@napi-rs/canvas';
+import {
+    createCanvas,
+    loadImage,
+    GlobalFonts,
+    SKRSContext2D,
+    SvgExportFlag,
+    Canvas,
+    Path2D
+} from '@napi-rs/canvas';
 import * as jimp from 'jimp';
 import { resolve } from 'path';
 import { color, lazyLoadImage, drawMultilineText } from './utils/utils';
@@ -10,7 +18,14 @@ import { LazyCanvasPattern } from "./types/LazyCanvasPattern";
 import { LazyCanvasFilter } from "./types/LazyCanvasFilter";
 import { Font } from "./utils/Font";``
 import { BaseMethod } from "./api/BaseMethod";
-import { RenderOutput, StringRenderOutput } from "./types/enums";
+import { RenderOutput, StringRenderOutput } from "./types/enums"; //ImageTransform, StringImageTransform
+import { Path2DLayer } from "./structures/Path2DLayer";
+//import {
+//    vectorize,
+//    ColorMode,
+//    Hierarchical,
+//    PathSimplifyMode,
+//} from '@neplex/vectorizer';
 
 /**
  * @example
@@ -141,6 +156,7 @@ export class LazyCanvas {
     public data: LazyCanvasData;
     public plugins: LazyCanvasPlugin[] | undefined;
     private loadedData: boolean;
+    //private imageTransform: ImageTransform | StringImageTransform;
 
     constructor(options?: { plugins?: LazyCanvasPlugin[], data?: LazyCanvasData }) {
         // @ts-ignore
@@ -156,6 +172,7 @@ export class LazyCanvas {
         this.plugins ??= options?.plugins ? options.plugins : undefined;
 
         this.loadedData = false;
+        //this.imageTransform = 'raster';
 
         if (this.plugins) {
             for (const plugin of Object.values(this.plugins)) {
@@ -191,7 +208,7 @@ export class LazyCanvas {
         return this;
     }
 
-    public addLayers(...layers: Partial<LazyCanvasLayer>[]) {
+    public addLayers(...layers: Partial<LazyCanvasLayer | Path2DLayer>[]) {
         if (!layers) throw new LazyError("No layers data provided");
         for (const l of layers) {
             // @ts-ignore
@@ -222,7 +239,7 @@ export class LazyCanvas {
         }
     }
 
-    public getLayer(id: number | string): LazyCanvasLayer | undefined {
+    public getLayer(id: number | string): LazyCanvasLayer | Path2DLayer | undefined {
         if (!id) throw new LazyError("No id provided");
         let layer;
         if (typeof id === "string") {
@@ -300,6 +317,12 @@ export class LazyCanvas {
     public toJSON() {
         return { ...this.data };
     }
+
+//    public setImageTransform(transform: ImageTransform | StringImageTransform) {
+//        if (!transform) throw new LazyError("No transform method provided");
+//        this.imageTransform = transform;
+//        return this;
+//    }
 
     /** @private */
     private clipper(ctx: SKRSContext2D, img: any, x: number, y: number, w: number, h: number, r: number){
@@ -636,6 +659,10 @@ export class LazyCanvas {
         // @ts-ignore
         image = await image.getBufferAsync('image/png');
 
+        if (data.path) {
+            let path = new Path2D(data.path);
+            ctx.clip(path);
+        }
         image = await loadImage(image);
         ctx.drawImage(image, dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.height);
         ctx.restore();
@@ -675,6 +702,32 @@ export class LazyCanvas {
         ctx.restore();
         ctx.closePath();
     }
+
+//    /** @private */
+//    private async imageTranslate(image: Buffer, dataCopy: LazyCanvasLayer) {
+//        if (this.imageTransform === 'vector') {
+//            let svg = await vectorize(image, {
+//                colorMode: ColorMode.Color,
+//                colorPrecision: 6,
+//                filterSpeckle: 4,
+//                spliceThreshold: 45,
+//                cornerThreshold: 60,
+//                hierarchical: Hierarchical.Stacked,
+//                mode: PathSimplifyMode.Spline,
+//                layerDifference: 5,
+//                lengthThreshold: 5,
+//                maxIterations: 2,
+//                pathPrecision: 5,
+//            });
+//
+//            let newImage = new Image()
+//            newImage.src = Buffer.from(svg)
+//
+//            newImage.width = dataCopy.width
+//            newImage.height = dataCopy.height
+//        }
+//        return image
+//    }
 
     /** @private */
     private async patternRender(ctx: SKRSContext2D, data: LazyCanvasPattern) {
@@ -920,266 +973,301 @@ export class LazyCanvas {
 
     public async renderImage(WhatINeed: StringRenderOutput | RenderOutput = "buffer"): Promise<NodeJS.ArrayBufferView | SKRSContext2D | undefined> {
         try {
-                let canvas = createCanvas(this.data.width, this.data.height);
-                let ctx = canvas.getContext("2d");
+                let canvas;
+                let ctx;
+                    if (RenderOutput.SVG === WhatINeed || 'svg' === WhatINeed) {
+                        canvas = createCanvas(this.data.width, this.data.height, SvgExportFlag.ConvertTextToPaths);
+                        ctx = canvas.getContext("2d");
+                    } else {
+                        canvas = createCanvas(this.data.width, this.data.height);
+                        ctx = canvas.getContext("2d");
+                    }
+
 
                 for (let data of this.data.layers) {
-                    if (!this.loadedData) data = data.toJSON();
+                    //console.log(data)
+                    if (data instanceof Path2DLayer) {
+                        //console.log(data.toSVGString())
+                        ctx.globalAlpha = data.data.alpha;
+                        if (data.data.clipPath) {
+                            ctx.save();
+                            ctx.clip();
+                            ctx.restore();
+                        } else if (data.data.filled) {
+                            ctx.fillStyle = data.data.fillStyle;
+                            ctx.fill(data.path2D)
+                        } else {
+                            if (data.data.lineWidth) ctx.lineWidth = data.data.lineWidth;
+                            ctx.strokeStyle = data.data.fillStyle;
+                            ctx.stroke(data.path2D)
+                        }
+                        ctx.globalAlpha = 1;
+                    } else {
+                        if (!this.loadedData) data = data.toJSON();
 
-                    if (data.link) {
-                        if (data.link.id) {
-                            let layer = this.getLayer(data.link.id);
+                        if (data.link) {
+                            if (data.link.id) {
+                                let layer = this.getLayer(data.link.id);
 
-                            if (!layer) {
-                                LazyLog.log(`Layer with id ${data.link.id} not found`, "warn");
-                                continue;
-                            }
+                                if (!layer) {
+                                    LazyLog.log(`Layer with id ${data.link.id} not found`, "warn");
+                                    continue;
+                                }
 
-                            if (!this.loadedData) layer = layer.toJSON();
+                                if (layer instanceof Path2DLayer) throw new LazyError("Path2D is not supported in this method");
 
-                            if (data.link.size) {
-                                if (["circle", "ngon"].includes(layer.type)) {
-                                    Object.assign(data, {
-                                        radius: layer.radius
-                                    });
-                                    if (layer.type === "ngon") {
-                                        Object.assign(data, {
-                                            sides: layer.sides
-                                        });
-                                    }
-                                } else if (["square"].includes(layer.type)) {
-                                    Object.assign(data, {
-                                        width: layer.width
-                                    });
-                                } else if (["quadratic", "bezier", "arcto", "arc"].includes(layer.type)) {
-                                    if (layer.type === "quadratic") {
-                                        Object.assign(data, {
-                                            controlPoint: layer.controlPoint
-                                        });
-                                    }
-                                    if (layer.type === "bezier") {
-                                        Object.assign(data, {
-                                            controlPoints: layer.controlPoints
-                                        });
-                                    }
-                                    if (layer.type === "arcto") {
+                                if (!this.loadedData) layer = layer.toJSON();
+
+                                if (data.link.size) {
+                                    if (["circle", "ngon"].includes(layer.type)) {
                                         Object.assign(data, {
                                             radius: layer.radius
                                         });
-                                    }
-                                    if (layer.type === "arc") {
+                                        if (layer.type === "ngon") {
+                                            Object.assign(data, {
+                                                sides: layer.sides
+                                            });
+                                        }
+                                    } else if (["square"].includes(layer.type)) {
                                         Object.assign(data, {
-                                            radius: layer.radius,
-                                            angles: layer.angles,
-                                            clockwise: layer.clockwise
+                                            width: layer.width
+                                        });
+                                    } else if (["quadratic", "bezier", "arcto", "arc"].includes(layer.type)) {
+                                        if (layer.type === "quadratic") {
+                                            Object.assign(data, {
+                                                controlPoint: layer.controlPoint
+                                            });
+                                        }
+                                        if (layer.type === "bezier") {
+                                            Object.assign(data, {
+                                                controlPoints: layer.controlPoints
+                                            });
+                                        }
+                                        if (layer.type === "arcto") {
+                                            Object.assign(data, {
+                                                radius: layer.radius
+                                            });
+                                        }
+                                        if (layer.type === "arc") {
+                                            Object.assign(data, {
+                                                radius: layer.radius,
+                                                angles: layer.angles,
+                                                clockwise: layer.clockwise
+                                            });
+                                        }
+                                    } else {
+                                        Object.assign(data, {
+                                            width: layer.width,
+                                            height: layer.height,
                                         });
                                     }
-                                } else {
+                                }
+
+                                if (data.link.style) {
+                                    if (layer.type === "line") {
+                                        Object.assign(data, {
+                                            lineDash: layer.lineDash
+                                        });
+                                    } else if (layer.type === "text") {
+                                        Object.assign(data, {
+                                            baseline: layer.baseline,
+                                            direction: layer.direction
+                                        });
+                                    } else if (!["image", "ellipseimage"].includes(layer.type)) {
+                                        Object.assign(data, {
+                                            stroke: layer.stroke,
+                                            fill: layer.fill,
+                                            color: layer.color,
+                                            alpha: layer.alpha,
+                                        });
+                                    } else if (["image", "ellipseimage"].includes(layer.type)) {
+                                        Object.assign(data, {
+                                            image: layer.image
+                                        });
+                                    }
+                                }
+
+                                if (data.link.position && ["line", "quadratic", "bezier", "arcto"].includes(layer.type)) {
                                     Object.assign(data, {
-                                        width: layer.width,
-                                        height: layer.height,
+                                        points: layer.points
+                                    });
+                                } else if (data.link.position) {
+                                    Object.assign(data, {
+                                        x: layer.x,
+                                        y: layer.y
                                     });
                                 }
-                            }
 
-                            if (data.link.style) {
-                                if (layer.type === "line") {
+                                if (data.link.angle) {
                                     Object.assign(data, {
-                                        lineDash: layer.lineDash
-                                    });
-                                } else if (layer.type === "text") {
-                                    Object.assign(data, {
-                                        baseline: layer.baseline,
-                                        direction: layer.direction
-                                    });
-                                } else if (!["image", "ellipseimage"].includes(layer.type)) {
-                                    Object.assign(data, {
-                                        stroke: layer.stroke,
-                                        fill: layer.fill,
-                                        color: layer.color,
-                                        alpha: layer.alpha,
-                                    });
-                                } else if (["image", "ellipseimage"].includes(layer.type)) {
-                                    Object.assign(data, {
-                                        image: layer.image
+                                        angle: layer.angle
                                     });
                                 }
-                            }
 
-                            if (data.link.position && ["line", "quadratic", "bezier", "arcto"].includes(layer.type)) {
-                                Object.assign(data, {
-                                    points: layer.points
-                                });
-                            } else if (data.link.position) {
-                                Object.assign(data, {
-                                    x: layer.x,
-                                    y: layer.y
-                                });
-                            }
+                                if (data.link.shadow) {
+                                    Object.assign(data, {
+                                        shadow: layer.shadow
+                                    });
+                                }
 
-                            if (data.link.angle) {
-                                Object.assign(data, {
-                                    angle: layer.angle
-                                });
-                            }
+                                if (data.link.outline) {
+                                    Object.assign(data, {
+                                        outline: layer.outline
+                                    });
+                                }
 
-                            if (data.link.shadow) {
-                                Object.assign(data, {
-                                    shadow: layer.shadow
-                                });
-                            }
+                                if (data.link.filter) {
+                                    Object.assign(data, {
+                                        filter: layer.filter
+                                    });
+                                }
 
-                            if (data.link.outline) {
-                                Object.assign(data, {
-                                    outline: layer.outline
-                                });
-                            }
+                                if (data.link.globalComposite) {
+                                    Object.assign(data, {
+                                        globalComposite: layer.globalComposite
+                                    });
+                                }
 
-                            if (data.link.filter) {
-                                Object.assign(data, {
-                                    filter: layer.filter
-                                });
-                            }
+                                if (data.link.text) {
+                                    Object.assign(data, {
+                                        text: layer.text
+                                    });
+                                }
 
-                            if (data.link.globalComposite) {
-                                Object.assign(data, {
-                                    globalComposite: layer.globalComposite
-                                });
-                            }
-
-                            if (data.link.text) {
-                                Object.assign(data, {
-                                    text: layer.text
-                                });
-                            }
-
-                            if (data.link.font) {
-                                Object.assign(data, {
-                                    font: layer.font
-                                });
+                                if (data.link.font) {
+                                    Object.assign(data, {
+                                        font: layer.font
+                                    });
+                                }
                             }
                         }
-                    }
 
-                    //console.log(data)
+                        if (data.globalComposite) ctx.globalCompositeOperation = data.globalComposite;
+                        else ctx.globalCompositeOperation = "source-over";
 
-                    if (data.globalComposite) ctx.globalCompositeOperation = data.globalComposite;
-                    else ctx.globalCompositeOperation = "source-over";
+                        ctx.beginPath();
 
-                    ctx.beginPath();
-
-                    if (data.alpha) {
-                        ctx.globalAlpha = data.alpha;
-                    } else {
-                        ctx.globalAlpha = 1;
-                    }
-
-                    if (data.shadow && data.shadow.shadowColor) {
-                        ctx.shadowColor = await this.colorRender(ctx, data.shadow.shadowColor);
-                        if (data.shadow.shadowBlur) ctx.shadowBlur = data.shadow.shadowBlur;
-                        if (data.shadow.shadowOffsetX) ctx.shadowOffsetX = data.shadow.shadowOffsetX;
-                        if (data.shadow.shadowOffsetY) ctx.shadowOffsetY = data.shadow.shadowOffsetY;
-                    }
-
-                    if (data.fill !== undefined) {
-                        let fill;
-
-                        fill = await this.colorRender(ctx, data.color);
-
-                        //LazyLog.log(fill)
-
-                        if (data.fill) ctx.fillStyle = fill;
-                        else ctx.strokeStyle = fill;
-                    }
-
-                    if (!data.angle) data.angle = 0;
-
-                    if (!data.centering) data.centering = 'legacy';
-
-                    switch (data.type) {
-                        case "circle":
-                            this.circle(ctx, data, data.fill);
-                            // data = { x: 10, y: 10, width: 100, stroke: null, color: "red", filled: true }
-                            break;
-                        case "ellipse":
-                            this.ellipse(ctx, data, data.fill);
-                            // data = { x: 10, y: 10, width: 100, height: 50, radius: 30, stroke: null, color: "red", filled: true }
-                            break;
-                        case "square":
-                            this.square(ctx, data, data.fill);
-                            // data = { x: 10, y: 10, width: 100, stroke: null, color: "red", filled: true }
-                            break;
-                        case "rectangle":
-                            this.rectangle(ctx, data, data.fill);
-                            // data = { x: 10, y: 10, width: 100, height: 50, stroke: null, color: "red", filled: true }
-                            break;
-                        case "line":
-                            this.line(ctx, data);
-                            // data = { points: [{ x: 10, y: 10 }, { x: 100, y: 100 }], stroke: 1, color: "red" }
-                            break;
-                        case "ellipseimage":
-                            await this.ellipseImage(ctx, data);
-                            // data = { x: 10, y: 10, width: 100, height: 50, radius: 30, image: "url" }
-                            break;
-                        case "image":
-                            await this.image(ctx, data);
-                            // data = { x: 10, y: 10, w: 100, h: 50, image: "url" }
-                            break;
-                        case "text":
-                            this.textRender(ctx, data);
-                            // data = { x: 10, y: 10, text: "Hello World", size: 20, color: "red", font: "Arial", align: "center", style: "bold", multiline: false, width: 100, height: 50 }
-                            break;
-                        case "ngon":
-                            this.ngon(ctx, data, data.fill);
-                            // data = { points: [{ x: 10, y: 10 }, { x: 100, y: 100 }, { x: 50, y: 50 }], color: "red", filled: true }
-                            break;
-                        case "arc":
-                            this.arc(ctx, data, data.fill);
-                            // data = { x: 10, y: 10, radius: 100, angles: [ 0 , 180 ], color: "red" }
-                            break;
-                        case "arcto":
-                            this.arcTo(ctx, data);
-                            break;
-                        case "bezier":
-                            this.bezierCurve(ctx, data);
-                            break;
-                        case "quadratic":
-                            this.quadraticCurve(ctx, data);
-                            break;
-                        default:
-                            if (this.data.methods.find(m => m.name === data.type)) {
-                                let method = this.data.methods.find(m => m.name === data.type);
-                                // @ts-ignore
-                                if (method.method[Symbol.toStringTag] === 'AsyncFunction') {
-                                    // @ts-ignore
-                                    await method.method(ctx, data);
-                                } else {
-                                    // @ts-ignore
-                                    method.method(ctx, data);
-                                }
-                            } else {
-                                LazyLog.log(`Method for ${data.type} not found`, "warn");
-                            }
-                            break;
-                    }
-                    if (data.shadow && data.shadow.shadowColor) {
-                        ctx.shadowColor = "transparent";
-                        ctx.shadowOffsetX = 0;
-                        ctx.shadowOffsetY = 0;
-                    }
-                    if (data.outline) {
-                        if (data.outline.alpha) {
-                            ctx.globalAlpha = data.outline.alpha;
+                        if (data.alpha) {
+                            ctx.globalAlpha = data.alpha;
                         } else {
                             ctx.globalAlpha = 1;
                         }
-                        await this.outLineRender(ctx, data);
-                    }
-                    ctx.closePath();
-                }
 
-                if (WhatINeed === 'buffer' || WhatINeed === RenderOutput.Buffer) return canvas.toBuffer('image/png');
+                        if (data.shadow && data.shadow.shadowColor) {
+                            ctx.shadowColor = await this.colorRender(ctx, data.shadow.shadowColor);
+                            if (data.shadow.shadowBlur) ctx.shadowBlur = data.shadow.shadowBlur;
+                            if (data.shadow.shadowOffsetX) ctx.shadowOffsetX = data.shadow.shadowOffsetX;
+                            if (data.shadow.shadowOffsetY) ctx.shadowOffsetY = data.shadow.shadowOffsetY;
+                        }
+
+                        if (data.fill !== undefined) {
+                            let fill;
+
+                            fill = await this.colorRender(ctx, data.color);
+
+                            //LazyLog.log(fill)
+
+                            if (data.fill) ctx.fillStyle = fill;
+                            else ctx.strokeStyle = fill;
+                        }
+
+                        //console.log(data)
+
+                        if (!data.angle) data.angle = 0;
+
+                        if (!data.centering) data.centering = 'legacy';
+
+                        //console.log(data)
+
+                        switch (data.type) {
+                            case "circle":
+                                this.circle(ctx, data, data.fill);
+                                // data = { x: 10, y: 10, width: 100, stroke: null, color: "red", filled: true }
+                                break;
+                            case "ellipse":
+                                this.ellipse(ctx, data, data.fill);
+                                // data = { x: 10, y: 10, width: 100, height: 50, radius: 30, stroke: null, color: "red", filled: true }
+                                break;
+                            case "square":
+                                this.square(ctx, data, data.fill);
+                                // data = { x: 10, y: 10, width: 100, stroke: null, color: "red", filled: true }
+                                break;
+                            case "rectangle":
+                                this.rectangle(ctx, data, data.fill);
+                                // data = { x: 10, y: 10, width: 100, height: 50, stroke: null, color: "red", filled: true }
+                                break;
+                            case "line":
+                                this.line(ctx, data);
+                                // data = { points: [{ x: 10, y: 10 }, { x: 100, y: 100 }], stroke: 1, color: "red" }
+                                break;
+                            case "ellipseimage":
+                                await this.ellipseImage(ctx, data);
+                                // data = { x: 10, y: 10, width: 100, height: 50, radius: 30, image: "url" }
+                                break;
+                            case "image":
+                                //console.log(data)
+                                await this.image(ctx, data);
+                                // data = { x: 10, y: 10, w: 100, h: 50, image: "url" }
+                                break;
+                            case "text":
+                                this.textRender(ctx, data);
+                                // data = { x: 10, y: 10, text: "Hello World", size: 20, color: "red", font: "Arial", align: "center", style: "bold", multiline: false, width: 100, height: 50 }
+                                break;
+                            case "ngon":
+                                this.ngon(ctx, data, data.fill);
+                                // data = { points: [{ x: 10, y: 10 }, { x: 100, y: 100 }, { x: 50, y: 50 }], color: "red", filled: true }
+                                break;
+                            case "arc":
+                                this.arc(ctx, data, data.fill);
+                                // data = { x: 10, y: 10, radius: 100, angles: [ 0 , 180 ], color: "red" }
+                                break;
+                            case "arcto":
+                                this.arcTo(ctx, data);
+                                break;
+                            case "bezier":
+                                this.bezierCurve(ctx, data);
+                                break;
+                            case "quadratic":
+                                this.quadraticCurve(ctx, data);
+                                break;
+                            default:
+                                // @ts-ignore
+                                if (this.data.methods.find(m => m.name === data.type)) {
+                                    // @ts-ignore
+                                    let method = this.data.methods.find(m => m.name === data.type);
+                                    // @ts-ignore
+                                    if (method.method[Symbol.toStringTag] === 'AsyncFunction') {
+                                        // @ts-ignore
+                                        await method.method(ctx, data);
+                                    } else {
+                                        // @ts-ignore
+                                        method.method(ctx, data);
+                                    }
+                                } else {
+                                    LazyLog.log(`Method for ${data.type} not found`, "warn");
+                                }
+                                break;
+                        }
+                        if (data.shadow && data.shadow.shadowColor) {
+                            ctx.shadowColor = "transparent";
+                            ctx.shadowOffsetX = 0;
+                            ctx.shadowOffsetY = 0;
+                        }
+                        if (data.outline) {
+                            if (data.outline.alpha) {
+                                ctx.globalAlpha = data.outline.alpha;
+                            } else {
+                                ctx.globalAlpha = 1;
+                            }
+                            await this.outLineRender(ctx, data);
+                        }
+                        ctx.closePath();
+                    }
+                }
+                if ((WhatINeed === 'buffer' || WhatINeed === RenderOutput.Buffer) && canvas instanceof Canvas) return canvas.toBuffer('image/png');
                 else if (WhatINeed === 'ctx' || WhatINeed === RenderOutput.Context) return ctx;
+                // @ts-ignore
+                else if (WhatINeed === 'svg' || WhatINeed === RenderOutput.SVG) return canvas.getContent().toString('utf8');
             } catch (e: any) {
                 LazyLog.log(e, "error");
                 return;
