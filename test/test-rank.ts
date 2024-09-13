@@ -4,7 +4,6 @@ import {
     EllipseImageLayer,
     EllipseLayer,
     Font,
-    ImageTransform,
     LazyCanvas,
     Outline,
     OutlineType,
@@ -26,6 +25,7 @@ let background = new EllipseImageLayer()
     .setHeight(200)
     .setRadius(50)
     .setImage('https://images.wallpapersden.com/image/download/amazing-desert-hd-cool-aesthetic_bWpoammUmZqaraWkpJRmZ2VlrWllZQ.jpg')
+    .setResize(true)
 
 let blackout = new EllipseLayer()
     .setX(300)
@@ -55,6 +55,7 @@ let avatar = new EllipseImageLayer()
             .setStroke(2)
             .setType(OutlineType.center)
     )
+    .setResize(true)
 
 let bgprogress = new EllipseLayer()
     .setX(372.5)
@@ -116,7 +117,6 @@ const lazy = new LazyCanvas()
     .createNewCanvas(600, 200)
     .loadFonts(font)
     .addLayers(background, blackout, avatar, bgprogress, progress, lvlbg, name, xp, lvl)
-    .setImageTransform(ImageTransform.vector)
 
 console.log(lazy.getData())
 console.log(lazy.getData().layers)

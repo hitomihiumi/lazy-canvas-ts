@@ -1,6 +1,6 @@
 import { parse } from 'svgson';
 import { promises as fs } from 'fs';
-import { ImageLayer, Path2DLayer } from "../index";
+import { ImageLayer, Path2DLayer, RectangleLayer, EllipseLayer, CircleLayer, LineLayer, Gradient } from "../index";
 
 export class SVGReader {
     private static async parseSVG(svg: string): Promise<any> {
@@ -22,13 +22,16 @@ export class SVGReader {
             imageLayer.data.image = src;
         }
 
+        imageLayer.data.x = Number(svg.attributes.x) || 0;
+        imageLayer.data.y = Number(svg.attributes.y) || 0;
+        imageLayer.data.centering = 'legacy';
         imageLayer.data.width = Number(svg.attributes.width);
         imageLayer.data.height = Number(svg.attributes.height);
         imageLayer.data.fromSVG = true;
         return imageLayer;
     }
 
-    private static async EllipseImageLayer(svg: any, path: string): Promise<ImageLayer> {
+    private static async createEllipseImageLayer(svg: any, path: string): Promise<ImageLayer> {
         const ellipseImageLayer = new ImageLayer();
         const src = svg.attributes['xlink:href'] || svg.attributes.href;
         ellipseImageLayer.data.id = svg.attributes.id;
@@ -42,11 +45,78 @@ export class SVGReader {
             ellipseImageLayer.data.image = src;
         }
 
+        ellipseImageLayer.data.x = Number(svg.attributes.x) || 0;
+        ellipseImageLayer.data.y = Number(svg.attributes.y) || 0;
+        ellipseImageLayer.data.centering = 'legacy';
         ellipseImageLayer.data.width = Number(svg.attributes.width);
         ellipseImageLayer.data.height = Number(svg.attributes.height);
         ellipseImageLayer.data.path = path;
         ellipseImageLayer.data.fromSVG = true;
         return ellipseImageLayer;
+    }
+
+    private static async createRectLayer(svg: any): Promise<RectangleLayer> {
+        const rectLayer = new RectangleLayer();
+        rectLayer.data.id = svg.attributes.id || `RectangleLayer-${Math.random().toString(36).substring(2, 15)}`;
+        rectLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
+        rectLayer.data.fill = svg.attributes.fill !== 'none';
+        if (svg.attributes['fill-opacity']) rectLayer.data.alpha = Number(svg.attributes['fill-opacity']);
+        rectLayer.data.x = Number(svg.attributes.x) || 0;
+        rectLayer.data.y = Number(svg.attributes.y) || 0;
+        rectLayer.data.width = Number(svg.attributes.width);
+        rectLayer.data.height = Number(svg.attributes.height);
+
+        return rectLayer;
+    }
+
+    private static async createEllipseLayer(svg: any): Promise<EllipseLayer> {
+        const ellipseLayer = new EllipseLayer();
+        ellipseLayer.data.id = svg.attributes.id || `EllipseLayer-${Math.random().toString(36).substring(2, 15)}`;
+        ellipseLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
+        ellipseLayer.data.fill = svg.attributes.fill !== 'none';
+        if (svg.attributes['fill-opacity']) ellipseLayer.data.alpha = Number(svg.attributes['fill-opacity']);
+        ellipseLayer.data.x = Number(svg.attributes.x) || 0;
+        ellipseLayer.data.y = Number(svg.attributes.y) || 0;
+        ellipseLayer.data.width = Number(svg.attributes.width);
+        ellipseLayer.data.height = Number(svg.attributes.height);
+
+        return ellipseLayer
+    }
+
+    private static async createCircleLayer(svg: any): Promise<CircleLayer> {
+        const circleLayer = new CircleLayer();
+        circleLayer.data.id = svg.attributes.id || `CircleLayer-${Math.random().toString(36).substring(2, 15)}`;
+        circleLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
+        circleLayer.data.fill = svg.attributes.fill !== 'none';
+        if (svg.attributes['fill-opacity']) circleLayer.data.alpha = Number(svg.attributes['fill-opacity']);
+        circleLayer.data.x = Number(svg.attributes.cx) || 0;
+        circleLayer.data.y = Number(svg.attributes.cy) || 0;
+        circleLayer.data.radius = Number(svg.attributes.r);
+
+        return circleLayer;
+    }
+
+    private static async createLineLayer(svg: any): Promise<LineLayer> {
+        const lineLayer = new LineLayer();
+        lineLayer.data.id = svg.attributes.id || `LineLayer-${Math.random().toString(36).substring(2, 15)}`;
+        lineLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
+        lineLayer.data.fill = svg.attributes.fill !== 'none';
+        if (svg.attributes['fill-opacity']) lineLayer.data.alpha = Number(svg.attributes['fill-opacity']);
+        for (let i = 0; i < 2; i++) {
+            lineLayer.data.points.push({
+                x: Number(svg.attributes[`x${i + 1}`]),
+                y: Number(svg.attributes[`y${i + 1}`])
+            });
+        }
+
+        return lineLayer;
+    }
+
+    private static async createrGradeint(svg: any): Promise<Gradient> {
+        const gradient = new Gradient();
+        gradient.data.id = svg.attributes.id || `Gradient-${Math.random().toString(36).substring(2, 15)}`;
+        
+        return gradient;
     }
 
     private static async createPath2DLayer(svg: any): Promise<Path2DLayer> {
@@ -62,6 +132,7 @@ export class SVGReader {
     private static async createClipPathLayer(svg: any): Promise<Path2DLayer> {
         const clipPathLayer = new Path2DLayer(svg.children.map((child: any) => child.attributes.d).join(' '));
         clipPathLayer.data.clipPath = true;
+        clipPathLayer.data.id = svg.attributes.id || `Path2DLayer-${Math.random().toString(36).substring(2, 15)}`;
         return clipPathLayer;
     }
 
@@ -86,6 +157,18 @@ export class SVGReader {
                 case 'use':
                     layer = await SVGReader.handleUseElement(child, svgObject, svg);
                     break;
+                case 'rect':
+                    layer = await SVGReader.createRectLayer(child);
+                    break;
+                case 'ellipse':
+                    layer = await SVGReader.createEllipseLayer(child);
+                    break;
+                case 'circle':
+                    layer = await SVGReader.createCircleLayer(child);
+                    break;
+                case 'line':
+                    layer = await SVGReader.createLineLayer(child);
+                    break;
                 default:
                     console.warn(`Unsupported SVG element: ${child.name}`);
             }
@@ -99,6 +182,7 @@ export class SVGReader {
     private static applyTransform(transform: string, layer: any): void {
         const matrixMatch = transform.match(/matrix\(([^)]+)\)/);
         const scaleMatch = transform.match(/scale\(([^)]+)\)/);
+        const translateMatch = transform.match(/translate\(([^)]+)\)/);
 
         if (matrixMatch) {
             const [a, b, c, d, e, f] = matrixMatch[1].split(' ').map(Number);
@@ -113,6 +197,10 @@ export class SVGReader {
             layer.data.height *= sy;
             layer.data.x = (layer.data.x || 0) + (layer.data.width / 2);
             layer.data.y = (layer.data.y || 0) + (layer.data.height / 2);
+        } else if (translateMatch) {
+            const [tx, ty] = translateMatch[1].split(' ').map(Number);
+            layer.data.x = (layer.data.x || 0) + tx;
+            layer.data.y = (layer.data.y || 0) + ty;
         }
     }
 
@@ -149,7 +237,7 @@ export class SVGReader {
                     let id = SVGReader.extractIdFromUrl(from.attributes['clip-path']);
                     if (!id) return console.warn(`Could not extract id from clipPath: ${from.attributes['clip-path']}`);
                     let element = SVGReader.findElementById(svgObject, id);
-                    layer = await SVGReader.EllipseImageLayer(referencedElement, element.children[0].attributes.d);
+                    layer = await SVGReader.createEllipseImageLayer(referencedElement, element.children[0].attributes.d);
                 } else {
                     layer = await SVGReader.createImageLayer(referencedElement);
                 }
@@ -171,6 +259,7 @@ export class SVGReader {
     public static async readSVG(svg: string): Promise<any> {
         const svgObject = await SVGReader.parseSVG(svg);
         const layers = [];
+        const gradients = [];
         for (const svgElement of svgObject.children) {
             let layer;
             switch (svgElement.name) {
@@ -188,13 +277,31 @@ export class SVGReader {
                     break;
                 case 'g':
                     const group = await SVGReader.createGroupLayer(svgElement, svgObject);
-                    layers.push(...group);
+                    for (const element of group) {
+                        let search = layers.find((l) => l.data.id === element.data.id);
+                        if (!search) layers.push(element);
+                        else {
+                            layers.splice(layers.indexOf(search), 1, element);
+                        }
+                    }
                     break;
                 case 'clipPath':
                     layer = await SVGReader.createClipPathLayer(svgElement);
                     break;
                 case 'use':
                     layer = await SVGReader.handleUseElement(svgElement, svgObject, svgObject);
+                    break;
+                case 'rect':
+                    layer = await SVGReader.createRectLayer(svgElement);
+                    break;
+                case 'ellipse':
+                    layer = await SVGReader.createEllipseLayer(svgElement);
+                    break;
+                case 'circle':
+                    layer = await SVGReader.createCircleLayer(svgElement);
+                    break;
+                case 'line':
+                    layer = await SVGReader.createLineLayer(svgElement);
                     break;
                 default:
                     console.warn(`Unsupported SVG element: ${svgElement.name}`);

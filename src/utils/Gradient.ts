@@ -1,6 +1,7 @@
 import { isValidColor } from './utils';
 import { LazyCanvasGradient } from '../types/LazyCanvasGradient';
 import { GradientType, StringGradientType } from "../types/enums";
+import { LazyError } from "../types/LazyUtils";
 
 /**
  * @example
@@ -82,14 +83,14 @@ export class Gradient {
      * @param {Array<{ position: number, color: string }>} colorPoints - The color points of the gradient
      */
     addColorPoints(...colorPoints: Array<{ position: number, color: string }>) {
-        if (!colorPoints) throw new Error('Color points must be provided');
-        if (colorPoints.length < 2) throw new Error('At least two color points must be provided');
+        if (!colorPoints) throw new LazyError('Color points must be provided');
+        if (colorPoints.length < 2) throw new LazyError('At least two color points must be provided');
         for (const colorPoint of colorPoints) {
-            if (!colorPoint.color) throw new Error('Color must be provided');
-            if (!colorPoint.position && colorPoint.position !== 0) throw new Error('Position must be provided');
-            if (isNaN(colorPoint.position)) throw new Error('Position must be a number');
-            if (colorPoint.position < 0 || colorPoint.position > 1) throw new Error('Position must be between 0 and 1');
-            if (!isValidColor(colorPoint.color)) throw new Error('Color must be a valid color');
+            if (!colorPoint.color) throw new LazyError('Color must be provided');
+            if (!colorPoint.position && colorPoint.position !== 0) throw new LazyError('Position must be provided');
+            if (isNaN(colorPoint.position)) throw new LazyError('Position must be a number');
+            if (colorPoint.position < 0 || colorPoint.position > 1) throw new LazyError('Position must be between 0 and 1');
+            if (!isValidColor(colorPoint.color)) throw new LazyError('Color must be a valid color');
 
             this.data.colorPoints.push(colorPoint);
         }
@@ -100,13 +101,13 @@ export class Gradient {
      * @param {Array<{ x: number, y: number }>} points - The points of the gradient
      */
     setPoints(...points: Array<{ x: number, y: number }>) {
-        if (!points) throw new Error('Points must be provided');
-        if (points.length < 1) throw new Error('At least one points must be provided');
+        if (!points) throw new LazyError('Points must be provided');
+        if (points.length < 1) throw new LazyError('At least one points must be provided');
         for (const point of points) {
-            if (!point.x && point.x !== 0) throw new Error('X must be provided');
-            if (!point.y && point.y !== 0) throw new Error('Y must be provided');
-            if (isNaN(point.x)) throw new Error('X must be a number');
-            if (isNaN(point.y)) throw new Error('Y must be a number');
+            if (!point.x && point.x !== 0) throw new LazyError('X must be provided');
+            if (!point.y && point.y !== 0) throw new LazyError('Y must be provided');
+            if (isNaN(point.x)) throw new LazyError('X must be a number');
+            if (isNaN(point.y)) throw new LazyError('Y must be a number');
 
             this.data.points.push(point);
         }
@@ -117,8 +118,8 @@ export class Gradient {
      * @param {number} radius - The radius of the gradient (only for radial gradients)
      */
     setRadius(radius: number) {
-        if (!radius) throw new Error('Radius must be provided');
-        if (isNaN(radius)) throw new Error('Radius must be a number');
+        if (!radius) throw new LazyError('Radius must be provided');
+        if (isNaN(radius)) throw new LazyError('Radius must be a number');
         this.data.radius = radius;
         return this;
     }
@@ -127,7 +128,7 @@ export class Gradient {
      * @param {GradientType | StringGradientType} type - The type of the gradient
      */
     setType(type: GradientType | StringGradientType) {
-        if (!type) throw new Error('Type must be provided');
+        if (!type) throw new LazyError('Type must be provided');
         this.data.gradientType = type;
         return this;
     }
@@ -136,9 +137,18 @@ export class Gradient {
      * @param {number} startAngle - The start angle of the gradient (only for conic gradients, and it must be between 0 and 360)
      */
     setStartAngle(startAngle: number) {
-        if (!startAngle && startAngle !== 0) throw new Error('Start angle must be provided');
-        if (isNaN(startAngle)) throw new Error('Start angle must be a number');
+        if (!startAngle && startAngle !== 0) throw new LazyError('Start angle must be provided');
+        if (isNaN(startAngle)) throw new LazyError('Start angle must be a number');
         this.data.startAngle = startAngle;
+        return this;
+    }
+
+    /**
+     * @param {string} id - The id of the gradient
+     */
+    setID(id: string) {
+        if (!id) throw new LazyError('ID must be provided');
+        this.data.id = id;
         return this;
     }
 

@@ -647,9 +647,12 @@ export class LazyCanvas {
             else image = await jimp.read(String(dataCopy.image));
         } catch (e) {
             LazyLog.log(e + `\nTry to load the error image`, "warn")
-            if (!this.data.errorImage) {
+            if (this.data.errorImage) {
                 image = await jimp.read(String(this.data.errorImage));
             }
+        }
+        if (dataCopy.resize && image) {
+            image = image.resize(dataCopy.width, dataCopy.height);
         }
         if (dataCopy.filter) await this.filterApply(image, dataCopy.filter.toJSON());
 
@@ -683,12 +686,14 @@ export class LazyCanvas {
         } catch (e) {
             LazyLog.log(e + `\nTry to load the error image`, "warn")
             // @ts-ignore
-            if (!this.data.errorImage) {
+            if (this.data.errorImage) {
                 // @ts-ignore
                 image = await jimp.read(String(this.data.errorImage));
             }
         }
-
+        if (dataCopy.resize && image) {
+            image = image.resize(dataCopy.width, dataCopy.height);
+        }
         if (dataCopy.filter) await this.filterApply(image, dataCopy.filter.toJSON());
 
         ctx.save();

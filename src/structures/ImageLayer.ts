@@ -85,4 +85,20 @@ export class ImageLayer extends BaseLayer {
         return this;
     }
 
+    /**
+     * @param {string} path - The path of the clip
+     */
+    setClipPath(path: string) {
+        if (!path) throw new LazyError('Path must be provided');
+        this.data.path = path;
+        return this;
+    }
+
+    /**
+     * @param {boolean} resize - The resize of the image
+     */
+    setResize(resize: boolean) {
+        this.data.resize = resize;
+        return this
+    }
 }

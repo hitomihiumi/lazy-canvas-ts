@@ -12,4 +12,5 @@ export interface Image extends Base {
     centering: Centering | StringCentering;
     fromSVG: boolean;
     path: string;
+    resize: boolean;
 }

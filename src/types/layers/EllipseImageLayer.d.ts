@@ -12,4 +12,5 @@ export interface EllipseImage extends Base {
     outline: LazyCanvasOutline;
     centering: Centering | StringCentering;
     fromSVG: boolean;
+    resize: boolean;
 }

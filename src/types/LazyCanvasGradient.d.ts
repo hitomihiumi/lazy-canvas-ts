@@ -8,6 +8,7 @@ export interface LazyCanvasGradient {
     startAngle: number;
     radius: number;
     type: string;
+    id: string;
 
     toJSON(): LazyCanvasGradient;
 }

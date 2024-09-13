@@ -96,4 +96,12 @@ export class EllipseImageLayer extends BaseLayer {
         return this;
     }
 
+    /**
+     * @param {boolean} resize - The resize of the image
+     */
+    setResize(resize: boolean) {
+        this.data.resize = resize;
+        return this
+    }
+
 }

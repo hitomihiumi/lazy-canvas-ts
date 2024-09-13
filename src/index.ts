@@ -22,6 +22,7 @@ import { Pattern } from "./utils/Pattern";
 import { Font } from "./utils/Font";
 import { Outline } from "./utils/Outline";
 import { Link } from "./utils/Link";
+import { SVGReader } from "./utils/SVGReader";
 
 import { isValidColor, color, isImageUrlValid, lazyLoadImage, saveFile, textMetrics, generateRandomName } from "./utils/utils";
 
@@ -86,6 +87,7 @@ export {
     Font,
     Link,
     Outline,
+    SVGReader,
     color,
     isValidColor,
     isImageUrlValid,
