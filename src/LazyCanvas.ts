@@ -9,7 +9,7 @@ import {
 } from '@napi-rs/canvas';
 import * as jimp from 'jimp';
 import { resolve } from 'path';
-import { color, lazyLoadImage, drawMultilineText } from './utils/utils';
+import { color, lazyLoadImage, drawMultilineText, saveFile } from './utils/utils';
 import { LazyCanvasPlugin } from './types/LazyCanvasPlugin';
 import { LazyCanvasData } from './types/LazyCanvasData';
 import { LazyCanvasLayer } from "./types/LazyCanvasLayer";
@@ -994,16 +994,18 @@ export class LazyCanvas {
                     if (data instanceof Path2DLayer) {
                         //console.log(data.toSVGString())
                         ctx.globalAlpha = data.data.alpha;
+                        let fill;
+                        fill = await this.colorRender(ctx, data.data.fillStyle);
                         if (data.data.clipPath) {
                             ctx.save();
                             ctx.clip();
                             ctx.restore();
                         } else if (data.data.filled) {
-                            ctx.fillStyle = data.data.fillStyle;
+                            ctx.fillStyle = fill;
                             ctx.fill(data.path2D)
                         } else {
                             if (data.data.lineWidth) ctx.lineWidth = data.data.lineWidth;
-                            ctx.strokeStyle = data.data.fillStyle;
+                            ctx.strokeStyle = fill;
                             ctx.stroke(data.path2D)
                         }
                         ctx.globalAlpha = 1;

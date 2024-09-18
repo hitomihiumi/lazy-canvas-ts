@@ -6,19 +6,21 @@ docs-old/
 docs-out/
 src/
 public/
+fonts
+gitignore
 
 *.ts
 !*.d.ts
+docgen.ts
+docgen.js
 tsconfig.json
 package-lock.json
 typedoc.json
 
-fonts
-gitignore
-pattern.png
-test.txt
 output.png
-docgen.ts
-docgen.js
 test.png
+pattern.png
 output.svg
+test.svg
+
+test.txt

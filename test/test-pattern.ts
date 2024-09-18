@@ -1,4 +1,4 @@
-import { LazyCanvas, Font, TextLayer, EllipseLayer, Pattern, saveFile } from '../src';
+import {LazyCanvas, Font, TextLayer, EllipseLayer, Pattern, saveFile, RenderOutput} from '../src';
 
 
 async function main() {
@@ -39,9 +39,9 @@ async function main() {
                 )
         )
 
-    let buffer = await canvas.renderImage()
+    let buffer = await canvas.renderImage(RenderOutput.SVG)
     console.log(buffer)
-    await saveFile(buffer, 'png', 'test')
+    await saveFile(buffer, 'svg', 'test')
 }
 
 main()

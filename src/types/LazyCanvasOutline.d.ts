@@ -7,4 +7,5 @@ export interface LazyCanvasOutline {
     color: string | Gradient | Pattern;
     type: OutlineType | StringOutlineType;
     alpha: number;
+    id: string;
 }

@@ -11,10 +11,11 @@ import {
 import { LazyCanvas, saveFile, SVGReader } from "../src";
 
 (async () => {
-    const layers = await SVGReader.readSVG('./output.svg');
-    console.log(layers);
+    const layers = await SVGReader.readSVG('./test.svg');
+    //console.log(layers[0].data);
+    //console.log(layers[0].data.color.data);
     let lazy = new LazyCanvas()
-        .createNewCanvas(600, 200)
+        .createNewCanvas(600, 400)
         .addLayers(...layers);
     let data = await lazy.renderImage();
     await saveFile(data, 'png', 'output');

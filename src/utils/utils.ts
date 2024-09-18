@@ -11,7 +11,7 @@ import { Path2DLayer } from "../structures/Path2DLayer";
  * @example
  * const { isValidColor } = require('@hitomihiumi/lazy-canvas')
  * //...
- * console.log(isValidColor(`#ff8a8a`)) 
+ * console.log(isValidColor(`#ff8a8a`))
  * // returns true
  */
 export function isValidColor(color: any) {
@@ -36,7 +36,7 @@ export function isValidColor(color: any) {
  * @example
  * const { isImageUrlValid } = require('@hitomihiumi/lazy-canvas')
  * //...
- * console.log(isImageUrlValid(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`)) 
+ * console.log(isImageUrlValid(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`))
  * // returns true
  */
 export function isImageUrlValid(url: any) {
@@ -53,7 +53,7 @@ export async function color(ctx: SKRSContext2D, colorParam: string | LazyCanvasG
         colorParam = colorParam.toJSON();
         let gradient;
         if (colorParam.gradientType === 'linear') gradient = ctx.createLinearGradient(colorParam.points[0].x, colorParam.points[0].y, colorParam.points[1].x, colorParam.points[1].y);
-        else if (colorParam.gradientType === 'radial') gradient = ctx.createRadialGradient(colorParam.points[0].x, colorParam.points[0].y, 0, colorParam.points[0].x, colorParam.points[0].y, colorParam.radius);
+        else if (colorParam.gradientType === 'radial') gradient = ctx.createRadialGradient(colorParam.points[0].x, colorParam.points[0].y, 0, colorParam.points[1].x || colorParam.points[0].x, colorParam.points[1].y || colorParam.points[0].y, colorParam.radius);
         else if (colorParam.gradientType === 'conic') gradient = ctx.createConicGradient(colorParam.startAngle, colorParam.points[0].x, colorParam.points[0].y);
         for (const colors of colorParam.colorPoints) {
             // @ts-ignore
@@ -70,9 +70,9 @@ export async function color(ctx: SKRSContext2D, colorParam: string | LazyCanvasG
  * @example
  * const { lazyLoadImage } = require('@hitomihiumi/lazy-canvas')
  * //...
- * console.log(lazyLoadImage(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`)) 
+ * console.log(lazyLoadImage(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`))
  * // returns Promise<Image>
- * console.log(await lazyLoadImage(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`)) 
+ * console.log(await lazyLoadImage(`https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg`))
  * // returns image
  */
 export async function lazyLoadImage(url: any): Promise<Image> {
@@ -173,7 +173,7 @@ export async function saveFile(buffer: any, extension: 'png' | 'jpeg' | 'webp' |
  * @example
  * const { generateRandomName } = require('@hitomihiumi/lazy-canvas')
  * console.log(generateRandomName())
- * // returns random string, example: 'w68i9u4xbo8sp3fwdqxsz' 
+ * // returns random string, example: 'w68i9u4xbo8sp3fwdqxsz'
  */
 export function generateRandomName() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);

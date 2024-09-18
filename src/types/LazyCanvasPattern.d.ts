@@ -8,6 +8,7 @@ export interface LazyCanvasPattern {
     };
     type: string;
     patternType: PatternType | StringPatternType;
+    id: string;
 
     toJSON(): LazyCanvasPattern;
 }

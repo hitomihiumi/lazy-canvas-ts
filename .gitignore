@@ -3,11 +3,14 @@ dist
 node_modules
 package-lock.json
 
-pattern.png
-test.txt
-output.png
 fonts
 gitignore
 docs-out
 public
+
 output.svg
+test.svg
+output.png
+pattern.png
+
+test.txt

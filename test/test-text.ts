@@ -1,4 +1,4 @@
-import { LazyCanvas, saveFile, TextLayer, Gradient } from "../src";
+import {Gradient, LazyCanvas, RenderOutput, saveFile, TextLayer} from "../src";
 
 let text = new TextLayer()
     .setX(510)
@@ -17,8 +17,8 @@ let text2 = new TextLayer()
     .setY(40)
     .setColor(
         new Gradient()
-            .setPoints({ x: 200, y: 100 })
-            .setType('conic')
+            .setPoints({ x: 0, y: 0 }, { x: 520, y: 600 })
+            .setType('linear')
             .setStartAngle(0)
             .addColorPoints({ position: 0, color: '#ff0000' }, { position: 0.5, color: '#00ff00' }, { position: 1, color: '#0000ff' })
     )
