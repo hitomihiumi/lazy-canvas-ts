@@ -11,7 +11,7 @@ import {
     saveFile,
     TextAlign,
     TextLayer
-} from '../src'
+} from '../dist'
 
 let font = new Font()
     .setFamily("JoeKubert")
@@ -122,8 +122,8 @@ console.log(lazy.getData())
 console.log(lazy.getData().layers)
 
 async function main() {
-    let data = await lazy.renderImage()
-    await saveFile(data, 'png', 'output')
+    let data = await lazy.renderImage(RenderOutput.SVG)
+    await saveFile(data, 'svg', 'output')
 }
 
 main()

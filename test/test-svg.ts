@@ -8,10 +8,10 @@ import {
     Hierarchical,
     PathSimplifyMode,
 } from '@neplex/vectorizer';
-import { LazyCanvas, saveFile, SVGReader } from "../src";
+import { LazyCanvas, saveFile, SVGReader } from "../dist";
 
 (async () => {
-    const layers = await SVGReader.readSVG('./test.svg');
+    const layers = await SVGReader.readSVG('./test-materials/output.svg');
     //console.log(layers[0].data);
     //console.log(layers[0].data.color.data);
     let lazy = new LazyCanvas()

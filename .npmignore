@@ -8,6 +8,7 @@ src/
 public/
 fonts
 gitignore
+test-materials
 
 *.ts
 !*.d.ts

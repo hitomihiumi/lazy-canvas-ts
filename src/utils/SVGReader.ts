@@ -1,6 +1,6 @@
 import { parse } from 'svgson';
 import { promises as fs } from 'fs';
-import { ImageLayer, Path2DLayer, RectangleLayer, EllipseLayer, CircleLayer, LineLayer, Gradient, Pattern, PatternType, LazyCanvas } from "../index";
+import { ImageLayer, Path2DLayer, RectangleLayer, EllipseLayer, CircleLayer, LineLayer, Gradient, Pattern, PatternType, LazyCanvas, TextLayer, TextAlign, TextBaseline, TextDirection } from "../index";
 
 export class SVGReader {
     private static async parseSVG(svg: string): Promise<any> {
@@ -64,7 +64,7 @@ export class SVGReader {
             rectLayer = new RectangleLayer();
         }
         rectLayer.data.id = svg.attributes.id || `RectangleLayer-${Math.random().toString(36).substring(2, 15)}`;
-        if (svg.attributes.fill !== 'none') {
+        if (svg.attributes.fill && svg.attributes.fill !== 'none') {
             let id = SVGReader.extractIdFromUrl(svg.attributes.fill)
             if (id) {
                 let element = SVGReader.findElementById(svgObject, id)
@@ -76,6 +76,8 @@ export class SVGReader {
             } else {
                 rectLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
             }
+        } else {
+            rectLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
         }
         rectLayer.data.fill = svg.attributes.fill !== 'none'
         if (svg.attributes['fill-opacity']) rectLayer.data.alpha = Number(svg.attributes['fill-opacity']);
@@ -91,7 +93,7 @@ export class SVGReader {
     private static async createEllipseLayer(svg: any, svgObject: any): Promise<EllipseLayer> {
         const ellipseLayer = new EllipseLayer();
         ellipseLayer.data.id = svg.attributes.id || `EllipseLayer-${Math.random().toString(36).substring(2, 15)}`;
-        if (svg.attributes.fill !== 'none') {
+        if (svg.attributes.fill && svg.attributes.fill !== 'none') {
             let id = SVGReader.extractIdFromUrl(svg.attributes.fill)
             if (id) {
                 let element = SVGReader.findElementById(svgObject, id)
@@ -103,6 +105,8 @@ export class SVGReader {
             } else {
                 ellipseLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
             }
+        } else {
+            ellipseLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
         }
         ellipseLayer.data.fill = svg.attributes.fill !== 'none';
         if (svg.attributes['fill-opacity']) ellipseLayer.data.alpha = Number(svg.attributes['fill-opacity']);
@@ -118,7 +122,7 @@ export class SVGReader {
     private static async createCircleLayer(svg: any, svgObject: any): Promise<CircleLayer> {
         const circleLayer = new CircleLayer();
         circleLayer.data.id = svg.attributes.id || `CircleLayer-${Math.random().toString(36).substring(2, 15)}`;
-        if (svg.attributes.fill !== 'none') {
+        if (svg.attributes.fill && svg.attributes.fill !== 'none') {
             let id = SVGReader.extractIdFromUrl(svg.attributes.fill)
             if (id) {
                 let element = SVGReader.findElementById(svgObject, id)
@@ -130,6 +134,8 @@ export class SVGReader {
             } else {
                 circleLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
             }
+        } else {
+            circleLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
         }
         circleLayer.data.fill = svg.attributes.fill !== 'none';
         if (svg.attributes['fill-opacity']) circleLayer.data.alpha = Number(svg.attributes['fill-opacity']);
@@ -143,7 +149,7 @@ export class SVGReader {
     private static async createLineLayer(svg: any, svgObject: any): Promise<LineLayer> {
         const lineLayer = new LineLayer();
         lineLayer.data.id = svg.attributes.id || `LineLayer-${Math.random().toString(36).substring(2, 15)}`;
-        if (svg.attributes.fill !== 'none') {
+        if (svg.attributes.fill && svg.attributes.fill !== 'none') {
             let id = SVGReader.extractIdFromUrl(svg.attributes.fill)
             if (id) {
                 let element = SVGReader.findElementById(svgObject, id)
@@ -155,6 +161,8 @@ export class SVGReader {
             } else {
                 lineLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
             }
+        } else {
+            lineLayer.data.color = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
         }
         lineLayer.data.fill = svg.attributes.fill !== 'none';
         if (svg.attributes['fill-opacity']) lineLayer.data.alpha = Number(svg.attributes['fill-opacity']);
@@ -168,54 +176,54 @@ export class SVGReader {
         return lineLayer;
     }
 
-    private static async createGradient(svg: any, svgObject: any, parrent: any): Promise<Gradient> {
+    private static async createGradient(svg: any, svgObject: any, parent: any): Promise<Gradient> {
         const gradient = new Gradient();
         gradient.data.id = svg.attributes.id || `Gradient-${Math.random().toString(36).substring(2, 15)}`;
         gradient.data.gradientType = svg.name === 'linearGradient' ? 'linear' : 'radial';
-        let baseXOne = (parrent.attributes.x !== undefined
-            ? Number(parrent.attributes.x)
-            : (parrent.attributes.x1 !== undefined
-                ? Number(parrent.attributes.x1)
-                : Number(parrent.attributes.cx) - Number(parrent.attributes.r)));
-        let baseYOne = (parrent.attributes.y !== undefined
-            ? Number(parrent.attributes.y)
-            : (parrent.attributes.y1 !== undefined
-                ? Number(parrent.attributes.y1)
-                : Number(parrent.attributes.cy) - Number(parrent.attributes.r)));
-        let baseXTwo = (parrent.attributes.x !== undefined
-            ? Number(parrent.attributes.x)
-            : (parrent.attributes.x2 !== undefined
-                ? Number(parrent.attributes.x2)
-                : Number(parrent.attributes.cx) - Number(parrent.attributes.r)));
-        let baseYTwo = (parrent.attributes.y !== undefined
-            ? Number(parrent.attributes.y)
-            : (parrent.attributes.y2 !== undefined
-                ? Number(parrent.attributes.y2)
-                : Number(parrent.attributes.cy) - Number(parrent.attributes.r)));
+        let baseXOne = (parent.attributes.x !== undefined
+            ? Number(parent.attributes.x)
+            : (parent.attributes.x1 !== undefined
+                ? Number(parent.attributes.x1)
+                : Number(parent.attributes.cx) - Number(parent.attributes.r)));
+        let baseYOne = (parent.attributes.y !== undefined
+            ? Number(parent.attributes.y)
+            : (parent.attributes.y1 !== undefined
+                ? Number(parent.attributes.y1)
+                : Number(parent.attributes.cy) - Number(parent.attributes.r)));
+        let baseXTwo = (parent.attributes.x !== undefined
+            ? Number(parent.attributes.x)
+            : (parent.attributes.x2 !== undefined
+                ? Number(parent.attributes.x2)
+                : Number(parent.attributes.cx) - Number(parent.attributes.r)));
+        let baseYTwo = (parent.attributes.y !== undefined
+            ? Number(parent.attributes.y)
+            : (parent.attributes.y2 !== undefined
+                ? Number(parent.attributes.y2)
+                : Number(parent.attributes.cy) - Number(parent.attributes.r)));
         gradient.data.points = [
             {
                 x: baseXOne + (
                     svg.attributes.x1 !== undefined
-                        ? (parrent.attributes.width !== undefined ? parrent.attributes.width * Number(svg.attributes.x1) : baseXOne * Number(svg.attributes.x1))
-                        : Number(svg.attributes.fx) * (parrent.attributes.width !== undefined ? Number(parrent.attributes.width) : Number(parrent.attributes.r) * 2)),
+                        ? (parent.attributes.width !== undefined ? parent.attributes.width * Number(svg.attributes.x1) : baseXOne * Number(svg.attributes.x1))
+                        : Number(svg.attributes.fx) * (parent.attributes.width !== undefined ? Number(parent.attributes.width) : Number(parent.attributes.r) * 2)),
                 y: baseYOne + (
                     svg.attributes.y1 !== undefined
-                        ? (parrent.attributes.height !== undefined ? parrent.attributes.height * Number(svg.attributes.y1) : baseYOne * Number(svg.attributes.y1))
-                        : Number(svg.attributes.fy) * (parrent.attributes.height !== undefined ? Number(parrent.attributes.height) : Number(parrent.attributes.r) * 2))
+                        ? (parent.attributes.height !== undefined ? parent.attributes.height * Number(svg.attributes.y1) : baseYOne * Number(svg.attributes.y1))
+                        : Number(svg.attributes.fy) * (parent.attributes.height !== undefined ? Number(parent.attributes.height) : Number(parent.attributes.r) * 2))
             },
             {
                 x: baseXTwo + (
                     svg.attributes.x2 !== undefined
-                        ? (parrent.attributes.width !== undefined ? parrent.attributes.width * Number(svg.attributes.x2) : baseXTwo * Number(svg.attributes.x2))
-                        : Number(svg.attributes.cx) * (parrent.attributes.width !== undefined ? Number(parrent.attributes.width) : Number(parrent.attributes.r) * 2)),
+                        ? (parent.attributes.width !== undefined ? parent.attributes.width * Number(svg.attributes.x2) : baseXTwo * Number(svg.attributes.x2))
+                        : Number(svg.attributes.cx) * (parent.attributes.width !== undefined ? Number(parent.attributes.width) : Number(parent.attributes.r) * 2)),
                 y: baseYTwo + (
                     svg.attributes.y2 !== undefined
-                        ? (parrent.attributes.height !== undefined ? parrent.attributes.height * Number(svg.attributes.y2) : baseYTwo * Number(svg.attributes.y2))
-                        : Number(svg.attributes.cy) * (parrent.attributes.height !== undefined ? Number(parrent.attributes.height) : Number(parrent.attributes.r) * 2))
+                        ? (parent.attributes.height !== undefined ? parent.attributes.height * Number(svg.attributes.y2) : baseYTwo * Number(svg.attributes.y2))
+                        : Number(svg.attributes.cy) * (parent.attributes.height !== undefined ? Number(parent.attributes.height) : Number(parent.attributes.r) * 2))
             }
         ]
         if (svg.name === "radialGradient") {
-            gradient.data.radius = Number(parrent.attributes.r) ? (Number(parrent.attributes.r) * Number(svg.attributes.r)) * 2 : Math.min((Number(parrent.attributes.width) * Number(svg.attributes.r)), (Number(parrent.attributes.height) * Number(svg.attributes.r)));
+            gradient.data.radius = Number(parent.attributes.r) ? (Number(parent.attributes.r) * Number(svg.attributes.r)) * 2 : Math.min((Number(parent.attributes.width) * Number(svg.attributes.r)), (Number(parent.attributes.height) * Number(svg.attributes.r)));
         }
         for (const colorStop of svg.children) {
             let color = colorStop.attributes['stop-color']
@@ -226,7 +234,7 @@ export class SVGReader {
         return gradient;
     }
 
-    private static async createPattern(svg: any, svgObject: any, parrent: any): Promise<Pattern> {
+    private static async createPattern(svg: any, svgObject: any, parent: any): Promise<Pattern> {
         const pattern = new Pattern()
         pattern.data.id = svg.attributes.id || `Pattern-${Math.random().toString(36).substring(2, 15)}`;
         pattern.data.patternType = PatternType.repeat
@@ -274,8 +282,8 @@ export class SVGReader {
         let width = Number(svg.attributes['width'])
         let height = Number(svg.attributes['height'])
 
-        width = width < 1 ? width * (Number(parrent.attributes['width']) ? Number(parrent.attributes['width']) : (Number(parrent.attributes['r']) * 2)) : width
-        height = height < 1 ? height * (Number(parrent.attributes['height']) ? Number(parrent.attributes['height']) : (Number(parrent.attributes['r']) * 2)) : height
+        width = width < 1 ? width * (Number(parent.attributes['width']) ? Number(parent.attributes['width']) : (Number(parent.attributes['r']) * 2)) : width
+        height = height < 1 ? height * (Number(parent.attributes['height']) ? Number(parent.attributes['height']) : (Number(parent.attributes['r']) * 2)) : height
 
         pattern.data.pattern = {
             data: new LazyCanvas()
@@ -292,7 +300,7 @@ export class SVGReader {
     private static async createPath2DLayer(svg: any, svgObject: any): Promise<Path2DLayer> {
         const path2DLayer = new Path2DLayer(svg.attributes.d);
         path2DLayer.data.id = svg.attributes.id || `Path2DLayer-${Math.random().toString(36).substring(2, 15)}`;
-        if (svg.attributes.fill !== 'none') {
+        if (svg.attributes.fill && svg.attributes.fill !== 'none') {
             let id = SVGReader.extractIdFromUrl(svg.attributes.fill)
             if (id) {
                 let element = SVGReader.findElementById(svgObject, id)
@@ -304,6 +312,8 @@ export class SVGReader {
             } else {
                 path2DLayer.data.fillStyle = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
             }
+        } else {
+            path2DLayer.data.fillStyle = svg.attributes.fill === 'none' ? svg.attributes.stroke : svg.attributes.fill || 'black';
         }
         path2DLayer.data.filled = svg.attributes.fill !== 'none';
         if (svg.attributes['fill-opacity']) path2DLayer.data.alpha = Number(svg.attributes['fill-opacity']);
@@ -317,6 +327,40 @@ export class SVGReader {
         clipPathLayer.data.id = svg.attributes.id || `Path2DLayer-${Math.random().toString(36).substring(2, 15)}`;
         return clipPathLayer;
     }
+
+    //private static async createTextLayer(svg: any, parent: any): Promise<any[] | TextLayer> {
+    //    if (svg.children.length !== 0) {
+    //        const textGroup = []
+    //                    for (const child of svg.children) {
+    //            let layer;
+    //            switch (child.name) {
+    //                case 'text':
+    //                    layer = await SVGReader.createTextLayer(child, svg);
+    //                    break;
+    //                case 'tspan':
+    //                    console.log(child)
+    //                    layer = await SVGReader.createTextLayer(child, svg);
+    //                    break;
+    //                default:
+    //                    console.warn(`Unsupported SVG element: ${child.name}`);
+    //            }
+    //            if (layer) {
+    //                // @ts-ignore
+    //                textGroup.push(...layer);
+    //            }
+    //        }
+    //        return textGroup
+    //    } else {
+    //        const textLayer = new TextLayer()
+    //        textLayer.data.id = svg.attributes.id || `TextLayer-${Math.random().toString(36).substring(2, 15)}`;
+    //        textLayer.data.x = svg.attributes.x || parent.attributes.x || 0
+    //        textLayer.data.y = svg.attributes.y || parent.attributes.y || 0
+    //        textLayer.data.size = svg.attributes['font-size'] || parent.attributes['font-size'] || 20
+    //        textLayer.data.align = svg.attributes['anchor'] || parent.attributes['anchor'] || 'left'
+    //
+    //        return textLayer
+    //    }
+    //}
 
     private static async createGroupLayer(svg: any, svgObject: any): Promise<any[]> {
         const groupLayers = [];
@@ -490,6 +534,20 @@ export class SVGReader {
                 case 'line':
                     layer = await SVGReader.createLineLayer(svgElement, svgObject);
                     break;
+                //case 'text':
+                //    const textGroup = await SVGReader.createTextLayer(svgElement, svgObject);
+                //    if (Array.isArray(textGroup)) {
+                //        for (const element of textGroup) {
+                //            let search = layers.find((l) => l.data.id === element.data.id);
+                //            if (!search) layers.push(element);
+                //            else {
+                //                layers.splice(layers.indexOf(search), 1, element);
+                //            }
+                //        }
+                //    } else {
+                //        layer = textGroup;
+                //    }
+                //    break;
                 default:
                     console.warn(`Unsupported SVG element: ${svgElement.name}`);
             }

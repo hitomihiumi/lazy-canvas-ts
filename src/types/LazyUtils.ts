@@ -9,6 +9,19 @@ export class LazyError extends Error {
 
 export class LazyLog {
     public static log(message: string, type: string = "info"): void {
-        console.log(`[LazyCanvas] [${type.toUpperCase()}] ${message}`);
+        switch (type) {
+            case "info":
+                console.log("[LazyCanvas] [INFO] " + message);
+                break;
+            case "warn":
+                console.warn("[LazyCanvas] [WARN] " + message);
+                break;
+            case "error":
+                console.error("[LazyCanvas] [ERROR] " + message);
+                break;
+            default:
+                console.log("[LazyCanvas] [INFO] " + message);
+                break;
+        }
     }
 }
