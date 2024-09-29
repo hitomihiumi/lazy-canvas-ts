@@ -23,6 +23,7 @@ import { Font } from "./utils/Font";
 import { Outline } from "./utils/Outline";
 import { Link } from "./utils/Link";
 import { SVGReader } from "./utils/SVGReader";
+import { LazyError, LazyLog } from "./types/LazyUtils";
 
 import { isValidColor, color, isImageUrlValid, lazyLoadImage, saveFile, textMetrics, generateRandomName } from "./utils/utils";
 
@@ -127,7 +128,9 @@ export {
     OutlineType,
     StringOutlineType,
     PatternType,
-    StringPatternType
+    StringPatternType,
+    LazyError,
+    LazyLog
 };
 
 //ImageTransform,

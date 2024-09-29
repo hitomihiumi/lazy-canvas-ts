@@ -13,6 +13,4 @@ export interface LazyCanvasData {
     methods: Array<{ name: string, method: Function }>;
     errorImage: string | null;
     structureType: string;
-
-    toJSON(): LazyCanvasData;
 }

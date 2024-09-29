@@ -154,34 +154,27 @@ import { Path2DLayer } from "./structures/Path2DLayer";
 export class LazyCanvas {
 
     public data: LazyCanvasData;
-    public plugins: LazyCanvasPlugin[] | undefined;
+    public plugins?: LazyCanvasPlugin[];
     private loadedData: boolean;
-    //private imageTransform: ImageTransform | StringImageTransform;
 
     constructor(options?: { plugins?: LazyCanvasPlugin[], data?: LazyCanvasData }) {
-        // @ts-ignore
-        this.data = options?.data ? { ...options.data } : {
+        this.data = options?.data ? { ...options.data } as LazyCanvasData : {
             layers: [],
             methods: [],
             width: 0,
             height: 0,
             errorImage: null,
             structureType: "canvas"
-        };
-        // @ts-ignore
-        this.plugins ??= options?.plugins ? options.plugins : undefined;
-
+        } as LazyCanvasData;
+        this.plugins = options?.plugins;
         this.loadedData = false;
-        //this.imageTransform = 'raster';
 
-        if (this.plugins) {
-            for (const plugin of Object.values(this.plugins)) {
-                if (plugin.constructor.name !== "LazyCanvasPlugin") throw new LazyError("Invalid plugin provided");
-                if (plugin.onload) {
-                    plugin.onload(this);
-                }
+        this.plugins?.forEach(plugin => {
+            if (!(plugin instanceof LazyCanvasPlugin)) {
+                throw new LazyError("Invalid plugin provided");
             }
-        }
+            plugin.onload?.(this);
+        });
     }
 
     /**
@@ -209,12 +202,15 @@ export class LazyCanvas {
     }
 
     public addLayers(...layers: Partial<LazyCanvasLayer | Path2DLayer>[]) {
-        if (!layers) throw new LazyError("No layers data provided");
-        for (const l of layers) {
+        if (!layers.length) throw new LazyError("No layers data provided");
+        layers.forEach(layer => {
+            if (!layer) throw new LazyError("No layer provided");
             // @ts-ignore
-            if (l.id && this.data.layers.find(layer => layer.toJSON().id === l.toJSON().id)) throw new LazyError("Layer with this id already exists");
-            this.data.layers.push(l as LazyCanvasLayer);
-        }
+            if (layer.toJSON().id && this.data.layers.some(l => l.toJSON().id === layer.toJSON().id)) {
+                throw new LazyError("Layer with this id already exists");
+            }
+            this.data.layers.push(layer as LazyCanvasLayer);
+        });
         return this;
     }
 
@@ -229,33 +225,27 @@ export class LazyCanvas {
     }
 
     public moveLayer(id: number | string, to: number) {
-        if (!id) throw new LazyError("No id provided");
-        if (!to) throw new LazyError("No position provided");
-        if (typeof id === "string") {
-            let layer = this.data.layers.find(l => l.toJSON().id === id);
-            if (!layer) throw new LazyError("Layer not found");
-            this.data.layers = this.data.layers.filter(l => l.toJSON().id !== id);
-            this.data.layers.splice(to, 0, layer);
-        }
+        if (!id || to === undefined) throw new LazyError("Invalid id or position");
+        const layer = this.getLayer(id);
+        if (!layer) throw new LazyError("Layer not found");
+
+        this.data.layers = this.data.layers.filter(l => l.toJSON().id !== id);
+        this.data.layers.splice(to, 0, layer);
+        return this;
     }
 
     public getLayer(id: number | string): LazyCanvasLayer | Path2DLayer | undefined {
         if (!id) throw new LazyError("No id provided");
-        let layer;
-        if (typeof id === "string") {
-            layer = this.data.layers.find(l => l.toJSON().id === id);
-            if (!layer) return undefined;
-        } else {
-            layer = this.data.layers[id];
-        }
-        return layer;
+        return typeof id === "string"
+            ? this.data.layers.find(l => l.toJSON().id === id)
+            : this.data.layers[id];
     }
+
 
     public getIndexOfLayer(id: string): number {
         if (!id) throw new LazyError("No id provided");
-        let layer = this.data.layers.find(l => l.toJSON().id === id);
-        if (!layer) return -1;
-        return this.data.layers.indexOf(layer);
+        const layer = this.data.layers.find(l => l.toJSON().id === id);
+        return layer ? this.data.layers.indexOf(layer) : -1;
     }
 
     public clearCanvas() {
@@ -285,15 +275,13 @@ export class LazyCanvas {
         return { ...this.data };
     }
 
-    public loadFonts(...fonts: Array<Font>) {
-        if (!fonts) throw new LazyError("No fonts provided");
-        for (const font of fonts) {
-            let load = font.toJSON()
-            if (!load.path) throw new LazyError("No path provided");
-            if (!load.family) throw new LazyError("No family provided");
-            if (!load.weight) throw new LazyError("No weight provided");
-            GlobalFonts.registerFromPath(resolve(load.path), load.family);
-        }
+    public loadFonts(...fonts: Font[]) {
+        if (!fonts.length) throw new LazyError("No fonts provided");
+        fonts.forEach(font => {
+            const { path, family, weight } = font.toJSON();
+            if (!path || !family || !weight) throw new LazyError("Incomplete font data");
+            GlobalFonts.registerFromPath(resolve(path), family);
+        });
         return this;
     }
 
@@ -304,13 +292,12 @@ export class LazyCanvas {
     }
 
     public loadMethods(...methods: BaseMethod[]) {
-        if (!methods) throw new LazyError("No methods provided");
-        for (const method of methods) {
-            let load = method.toJSON();
-            if (!load.name) throw new LazyError("No name provided");
-            if (!load.method) throw new LazyError("No method provided");
-            this.data.methods.push({ name: load.name, method: load.method });
-        }
+        if (!methods.length) throw new LazyError("No methods provided");
+        methods.forEach(method => {
+            const { name, method: fn } = method.toJSON();
+            if (!name || !fn) throw new LazyError("Incomplete method data");
+            this.data.methods.push({ name, method: fn });
+        });
         return this;
     }
 
@@ -764,7 +751,7 @@ export class LazyCanvas {
     /** @private */
     private async colorRender(ctx: SKRSContext2D, data: any): Promise<string | CanvasPattern | CanvasGradient | any> {
         let col;
-        if (typeof data === 'object' && data.toJSON().type === 'pattern') {
+        if (typeof data === 'object' && data.data.type === 'pattern') {
             // @ts-ignore
             col = await this.patternRender(ctx, data.toJSON());
         }
