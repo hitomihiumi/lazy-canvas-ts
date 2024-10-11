@@ -1,17 +1,17 @@
 import { BaseLayer } from './BaseLayer';
 import { isValidColor } from '../utils/utils';
-import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 import { Outline } from '../utils/Outline';
 import { TextAlign, StringTextAlign, TextBaseline, StringTextBaseline, FontWeight, StringFontWeight, TextDirection, StringTextDirection } from '../types/enums';
+import { Text } from "../types/layers";
 
 /**
  * @example
  * const { LazyCanvas, TextLayer } = require('@hitomihiumi/lazy-canvas')
  * //...
- * 
+ *
  * // Multiline text
  * let textOne = new TextLayer()
  * .setText("This is a test of the LazyCanvas library.")
@@ -36,20 +36,41 @@ import { TextAlign, StringTextAlign, TextBaseline, StringTextBaseline, FontWeigh
  * .setAlign("start")
  * .setX(50)
  * .setY(130)
- * 
+ *
  * const lazy = new LazyCanvas()
  * .addLayers(textOne, textTwo)
  * //...
  */
-export class TextLayer extends BaseLayer {
+export class TextLayer extends BaseLayer<Text> {
 
-    constructor(data?: LazyCanvasLayer) {
+    constructor(data?: Text) {
         super(data);
         this.data.type = 'text';
         this.data.fill = true;
         this.data.font = 'Arial';
         this.data.size = 12;
         this.data.weight = 'normal';
+        this.data.multiline = false
+    }
+
+    /**
+     * @param {number} x - The x position of the layer
+     */
+    setX(x: number) {
+        if (!x && x !== 0) throw new LazyError('X must be provided');
+        if (isNaN(x)) throw new LazyError('X must be a number');
+        this.data.x = x;
+        return this;
+    }
+
+    /**
+     * @param {number} y - The y position of the layer
+     */
+    setY(y: number) {
+        if (!y && y !== 0) throw new LazyError('Y must be provided');
+        if (isNaN(y)) throw new LazyError('Y must be a number');
+        this.data.y = y;
+        return this;
     }
 
     /**
@@ -167,6 +188,25 @@ export class TextLayer extends BaseLayer {
      */
     setOutline(outline: Outline) {
         this.data.outline = outline.toJSON();
+        return this;
+    }
+
+    /**
+     * @param {{ x: number, y: number }} translate - The translate of the layer
+     */
+    setTranslate(translate: { x: number, y: number }) {
+        if (!translate) throw new LazyError('Translate must be provided');
+        if (isNaN(translate.x) || isNaN(translate.y)) throw new LazyError('Translate must be a number');
+        this.data.transform.translate = translate;
+        return this;
+    }
+
+    /**
+     * @param {DOMMatrix2DInit} matrix - The matrix of the layer
+     */
+    setMatrix(matrix: DOMMatrix2DInit) {
+        if (!matrix) throw new LazyError('Matrix must be provided');
+        this.data.transform.matrix = matrix;
         return this;
     }
 }

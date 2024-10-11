@@ -8,14 +8,14 @@ import {
     Hierarchical,
     PathSimplifyMode,
 } from '@neplex/vectorizer';
-import { LazyCanvas, saveFile, SVGReader } from "../dist";
+import { LazyCanvas, saveFile, SVGReader } from "../src";
 
 (async () => {
-    const layers = await SVGReader.readSVG('./test-materials/output.svg');
-    //console.log(layers[0].data);
+    const layers = await SVGReader.readSVG('./test-materials/logo.svg');
+    console.log(layers);
     //console.log(layers[0].data.color.data);
     let lazy = new LazyCanvas()
-        .createNewCanvas(600, 400)
+        .createNewCanvas(600, 600)
         .addLayers(...layers);
     let data = await lazy.renderImage();
     await saveFile(data, 'png', 'output');

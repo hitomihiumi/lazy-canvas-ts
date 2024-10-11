@@ -5,6 +5,8 @@ import { LazyCanvasOutline } from "../LazyCanvasOutline";
 import { Centering, StringCentering } from "../enums";
 
 export interface Circle extends Base {
+    x: number;
+    y: number;
     radius: number;
     fill: boolean;
     stroke: number;

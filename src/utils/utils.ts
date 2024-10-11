@@ -5,6 +5,7 @@ import { LazyCanvasGradient } from "../types/LazyCanvasGradient";
 import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { LazyCanvasData } from "../types/LazyCanvasData";
 import { Path2DLayer } from "../structures/Path2DLayer";
+import { LazyError } from "../types/LazyUtils";
 
 /**
  * @description Checks the string or gradient object provided to it for validity.
@@ -112,9 +113,9 @@ export async function lazyLoadImage(url: any): Promise<Image> {
  * //  }
  */
 export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, width= 500, height= 500) {
-    if (!value) throw new Error('Value must be provided');
-    if (typeof value !== 'object') throw new Error('Value must be a object');
-    if (value instanceof Path2DLayer) throw new Error('Value must be a object');
+    if (!value) throw new LazyError('Value must be provided');
+    if (typeof value !== 'object') throw new LazyError('Value must be a object');
+    if (value instanceof Path2DLayer) throw new LazyError('Value must be a object');
 
     if ("type" in value && (value.toJSON().structureType === 'layer' && value.toJSON().type === 'text')) {
 
@@ -126,14 +127,14 @@ export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, wi
         // @ts-ignore
         return ctx.measureText(value.toJSON().text);
 
-    } else if (value.toJSON().structureType === 'canvas') {
+    } else if (value.structureType === 'canvas') {
         // @ts-ignore
         const canvas = createCanvas(value.toJSON().width, value.toJSON().height);
         const ctx = canvas.getContext('2d');
 
         if (!("layers" in value)) throw new Error('Layers must be provided');
 
-        if (!value.toJSON().layers) throw new Error('Layers must be provided');
+        if (!value.layers) throw new Error('Layers must be provided');
 
         // @ts-ignore
         let layers = value.toJSON().layers.filter(layer => layer.type === 'text');
@@ -162,8 +163,8 @@ export function textMetrics(value: string | LazyCanvasLayer | LazyCanvasData, wi
  * await saveFile(data, `png`)
  */
 export async function saveFile(buffer: any, extension: 'png' | 'jpeg' | 'webp' | 'jpg' | 'txt' | 'svg', name: string) {
-    if (!buffer) throw new Error('Buffer must be provided');
-    if (!extension) throw new Error('Extension must be provided');
+    if (!buffer) throw new LazyError('Buffer must be provided');
+    if (!extension) throw new LazyError('Extension must be provided');
 
     fs.writeFileSync(`${name === undefined ? generateRandomName() : name }.${extension}`, buffer);
 }
@@ -249,4 +250,11 @@ export function drawMultilineText(ctx: SKRSContext2D, text: string, opts: any) {
     }
 
     return ctx
+}
+
+export function matrix(ctx: SKRSContext2D, transform: DOMMatrix2DInit) {
+    if (!transform) throw new LazyError('Transform must be provided');
+    if ((!transform.a && transform.a !== 0) || (!transform.b && transform.b !== 0) || (!transform.c && transform.c !== 0) || (!transform.d && transform.d !== 0) || (!transform.e && transform.e !== 0) || (!transform.f && transform.f !== 0)) throw new LazyError('Invalid transform provided');
+    ctx.transform(transform.a, transform.b, transform.c, transform.d, transform.e, transform.f);
+    return ctx;
 }

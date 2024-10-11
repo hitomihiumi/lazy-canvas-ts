@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+    <text x="10" y="20" font-size="30" fill="#ff8a8a" text-anchor="start">Hello World!</text>
+    <text x="10" y="40">
+        This is
+        <tspan font-weight="bold" fill="red">bold</tspan>
+        and red
+    </text>
+</svg>

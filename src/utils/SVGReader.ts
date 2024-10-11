@@ -27,6 +27,9 @@ export class SVGReader {
         imageLayer.data.centering = 'legacy';
         imageLayer.data.width = Number(svg.attributes.width);
         imageLayer.data.height = Number(svg.attributes.height);
+        if (svg.attributes.transform) {
+            SVGReader.applyTransform(svg.attributes.transform, imageLayer);
+        }
         imageLayer.data.fromSVG = true;
         return imageLayer;
     }
@@ -51,6 +54,9 @@ export class SVGReader {
         ellipseImageLayer.data.width = Number(svg.attributes.width);
         ellipseImageLayer.data.height = Number(svg.attributes.height);
         ellipseImageLayer.data.path = path;
+        if (svg.attributes.transform) {
+            SVGReader.applyTransform(svg.attributes.transform, ellipseImageLayer);
+        }
         ellipseImageLayer.data.fromSVG = true;
         return ellipseImageLayer;
     }
@@ -86,6 +92,9 @@ export class SVGReader {
         rectLayer.data.centering = 'legacy';
         rectLayer.data.width = Number(svg.attributes.width);
         rectLayer.data.height = Number(svg.attributes.height);
+        if (svg.attributes.transform) {
+            SVGReader.applyTransform(svg.attributes.transform, rectLayer);
+        }
 
         return rectLayer;
     }
@@ -115,6 +124,9 @@ export class SVGReader {
         ellipseLayer.data.centering = 'legacy';
         ellipseLayer.data.width = Number(svg.attributes.width);
         ellipseLayer.data.height = Number(svg.attributes.height);
+        if (svg.attributes.transform) {
+            SVGReader.applyTransform(svg.attributes.transform, ellipseLayer);
+        }
 
         return ellipseLayer
     }
@@ -142,6 +154,9 @@ export class SVGReader {
         circleLayer.data.x = Number(svg.attributes.cx) || 0;
         circleLayer.data.y = Number(svg.attributes.cy) || 0;
         circleLayer.data.radius = Number(svg.attributes.r);
+        if (svg.attributes.transform) {
+            SVGReader.applyTransform(svg.attributes.transform, circleLayer);
+        }
 
         return circleLayer;
     }
@@ -171,6 +186,9 @@ export class SVGReader {
                 x: Number(svg.attributes[`x${i + 1}`]),
                 y: Number(svg.attributes[`y${i + 1}`])
             });
+        }
+        if (svg.attributes.transform) {
+            SVGReader.applyTransform(svg.attributes.transform, lineLayer);
         }
 
         return lineLayer;
@@ -318,6 +336,9 @@ export class SVGReader {
         path2DLayer.data.filled = svg.attributes.fill !== 'none';
         if (svg.attributes['fill-opacity']) path2DLayer.data.alpha = Number(svg.attributes['fill-opacity']);
         path2DLayer.data.lineWidth = svg.attributes['stroke-width'] ? Number(svg.attributes['stroke-width']) : 1;
+        if (svg.attributes.transform) {
+            SVGReader.applyTransform(svg.attributes.transform, path2DLayer);
+        }
         return path2DLayer;
     }
 
@@ -325,6 +346,9 @@ export class SVGReader {
         const clipPathLayer = new Path2DLayer(svg.children.map((child: any) => child.attributes.d).join(' '));
         clipPathLayer.data.clipPath = true;
         clipPathLayer.data.id = svg.attributes.id || `Path2DLayer-${Math.random().toString(36).substring(2, 15)}`;
+        if (svg.attributes.transform) {
+            SVGReader.applyTransform(svg.attributes.transform, clipPathLayer);
+        }
         return clipPathLayer;
     }
 
@@ -413,26 +437,17 @@ export class SVGReader {
 
         if (matrixMatch) {
             const [a, b, c, d, e, f] = matrixMatch[1].split(' ').map(Number);
-            layer.data.x = (layer.data.x || 0) + e;
-            layer.data.y = (layer.data.y || 0) + f;
-            layer.data.width *= a;
-            layer.data.height *= d;
+            layer.data.transform.matrix = { a, b, c, d, e, f };
             layer.data.centering = 'legacy';
         } else if (scaleMatch) {
             const [sx, sy] = scaleMatch[1].split(' ').map(Number);
-            layer.data.width *= sx;
-            layer.data.height *= sy;
-            layer.data.x = (layer.data.x || 0) + (layer.data.width / 2);
-            layer.data.y = (layer.data.y || 0) + (layer.data.height / 2);
+            layer.data.transform.scale = { x: sx, y: sy };
         } else if (translateMatch) {
             const [tx, ty] = translateMatch[1].split(' ').map(Number);
-            layer.data.x = (layer.data.x || 0) + tx;
-            layer.data.y = (layer.data.y || 0) + ty;
+            layer.data.transform.translate = { x: tx, y: ty };
         } else if (rotateMatch) {
             const [angle, cx, cy] = rotateMatch[1].split(' ').map(Number);
-            layer.data.x = (layer.data.x || 0) + cx;
-            layer.data.y = (layer.data.y || 0) + cy;
-            layer.data.angle = angle
+            layer.data.transform.rotate = angle;
         }
     }
 

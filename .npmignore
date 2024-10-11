@@ -6,9 +6,10 @@ docs-old/
 docs-out/
 src/
 public/
-fonts
-gitignore
-test-materials
+fonts/
+gitignore/
+test-materials/
+scripts/
 
 *.ts
 !*.d.ts

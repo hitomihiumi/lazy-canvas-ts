@@ -1,178 +1,502 @@
+import test from 'ava';
 import {
     LazyCanvas,
-    EllipseImageLayer,
-    EllipseLayer,
+    CircleLayer,
+    LineLayer,
+    Gradient,
+    Pattern,
+    PatternType,
+    SVGReader,
     TextLayer,
     Font,
     NgonLayer,
-    LineLayer,
-    generateRandomName,
-    saveFile,
-    Gradient,
+    TextAlign,
+    TextBaseline,
+    TextDirection,
     RectangleLayer,
-    BaseMethod,
-    BaseLayer,
-    isImageUrlValid, Centering
-} from '../src'
+    EllipseLayer,
+    EllipseImageLayer,
+    ImageLayer,
+    Path2DLayer,
+    SquareLayer,
+    RenderOutput,
+    Centering,
+    Outline,
+    Filter,
+    QuadraticLayer,
+    BezierLayer,
+    ArcToLayer,
+    ArcLayer,
+    FilterType,
+    FontWeight,
+    GradientType,
+    GlobalComposite,
+    OutlineType
+} from "../src";
 
-let font = new Font()
-    .setFamily("JoeKubert")
-    .setWeight("regular")
-    .setPath("./fonts/v_CCJoeKubert-Doubled_v1.3.ttf")
 
-let background = new EllipseImageLayer()
-    .setX(0)
-    .setY(0)
-    .setWidth(600)
-    .setHeight(120)
-    .setRadius(28)
-    .setImage('https://cs12.pikabu.ru/post_img/big/2021/09/16/10/1631813426193895567.png')
+test('Outline', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new CircleLayer()
+                .setX(100)
+                .setY(100)
+                .setID('circle')
+                .setRadius(50)
+                .setColor('#fff')
+                .setOutline(
+                    new Outline()
+                        .setType(OutlineType.center)
+                        .setColor('#ff8a8a')
+                        .setStroke(2)
+                )
+        )
 
-let blackout = new EllipseLayer()
-    .setX(0)
-    .setY(0)
-    .setWidth(600)
-    .setHeight(120)
-    .setRadius(28)
-    .setColor('#000')
-    .setAlpha(0.4)
+    const data = await canvas.renderImage()
 
-let border = new EllipseLayer()
-    .setX(1)
-    .setY(1)
-    .setWidth(598)
-    .setHeight(118)
-    .setRadius(28)
-    .setColor(
-        new Gradient()
-            .setType('conic')
-            .addColorPoints({ color: '#fff', position: 0 }, { color: '#000', position: 1 })
-            .setPoints({ x: 0, y: 0}, { x: 600, y: 120})
-            .setRadius(100)
-            .setStartAngle(0)
+    t.true(data !== null && data !== undefined);
+});
+
+test('CircleLayer', async t => {
+  const canvas = new LazyCanvas()
+    .createNewCanvas(600, 200)
+    .addLayers(
+      new CircleLayer()
+        .setX(100)
+        .setY(100)
+        .setRadius(50)
+        .setColor('#fff')
     )
-    .setFilled(false)
-    .setStroke(1)
 
-let prewlevel = new NgonLayer()
-    .setX(60)
-    .setY(60)
-    .setRadius(50)
-    .setSides(6)
-    .setColor('#fff')
-    .setFilled(false)
-    .setStroke(2)
+    const data = await canvas.renderImage()
 
-let newlevel = new NgonLayer()
-    .setX(260)
-    .setY(60)
-    .setRadius(50)
-    .setSides(6)
-    .setColor('#fff')
-    .setFilled(false)
-    .setStroke(2)
+    t.true(data !== null && data !== undefined);
+})
 
-let avatar = new EllipseImageLayer()
-    .setX(490)
-    .setY(10)
-    .setWidth(100)
-    .setHeight(100)
-    .setRadius(25)
-    .setImage('https://i.pinimg.com/1200x/f3/32/19/f332192b2090f437ca9f49c1002287b6.jpg')
+test('LineLayer', async t => {
+  const canvas = new LazyCanvas()
+    .createNewCanvas(600, 200)
+    .addLayers(
+      new LineLayer()
+        .setPoints({ x: 100, y: 100 }, { x: 200, y: 200 })
+        .setStroke(2)
+        .setColor('#fff')
+    )
 
-let avatarBorder = new EllipseLayer()
-    .setX(490)
-    .setY(10)
-    .setWidth(100)
-    .setHeight(100)
-    .setRadius(25)
-    .setColor('#fff')
-    .setFilled(false)
-    .setStroke(1.5)
+    const data = await canvas.renderImage()
 
-let levelup = new TextLayer()
-    .setX(315)
-    .setY(100)
-    .setFont('JoeKubert')
-    .setFontSize(30)
-    .setText('LEVEL UP!')
-    .setColor('#fff')
-    .setBaseline('middle')
-    .setShadowColor('#000')
-    .setShadowBlur(5)
-    .setShadowOffsetX(0)
-    .setShadowOffsetY(0)
+    t.true(data !== null && data !== undefined);
+})
 
-let arrowbase = new LineLayer()
-    .setPoints({ x: 120, y: 60 }, { x: 200, y: 60 })
-    .setColor('#fff')
-    .setStroke(2)
+test('Gradient', async t => {
+  const canvas = new LazyCanvas()
+    .createNewCanvas(600, 200)
+    .addLayers(
+      new RectangleLayer()
+        .setX(100)
+        .setY(100)
+        .setWidth(200)
+        .setHeight(100)
+        .setColor(
+          new Gradient()
+              .setType(GradientType.linear)
+              .setPoints({ x: 100, y: 100 }, { x: 200, y: 200 })
+              .addColorPoints({ position: 0, color: '#ff8a8a' }, { position: 1, color: '#fff' })
+        )
+    )
 
-let arrowup = new LineLayer()
-    .setPoints({ x: 180, y: 40 }, { x: 200, y: 60 })
-    .setColor('#fff')
-    .setStroke(2)
+    const data = await canvas.renderImage()
 
-let arrowdown = new LineLayer()
-    .setPoints({ x: 180, y: 80 }, { x: 200, y: 60 })
-    .setColor('#fff')
-    .setStroke(2)
+    t.true(data !== null && data !== undefined);
+})
 
-let prewlevelText = new TextLayer()
-    .setX(60)
-    .setY(60)
-    .setFont('JoeKubert')
-    .setFontSize(55)
-    .setText('1')
-    .setColor('#fff')
-    .setBaseline('middle')
-    .setAlign('center')
-    .setShadowColor('#000')
-    .setShadowBlur(5)
-    .setShadowOffsetX(0)
-    .setShadowOffsetY(0)
+test('Pattern', async t => {
+  const canvas = new LazyCanvas()
+    .createNewCanvas(600, 200)
+    .addLayers(
+      new RectangleLayer()
+        .setX(100)
+        .setY(100)
+        .setWidth(200)
+        .setHeight(100)
+        .setColor(
+          new Pattern()
+              .setType(PatternType.repeat)
+              .setPattern('./test-materials/pattern.png')
+        )
+    )
 
-let newlevelText = new TextLayer()
-    .setX(260)
-    .setY(60)
-    .setFont('JoeKubert')
-    .setFontSize(55)
-    .setText('2')
-    .setColor('#fff')
-    .setBaseline('middle')
-    .setAlign('center')
-    .setShadowColor('#000')
-    .setShadowBlur(5)
-    .setShadowOffsetX(0)
-    .setShadowOffsetY(0)
+    const data = await canvas.renderImage()
 
-const lazy = new LazyCanvas()
-    .createNewCanvas(600, 120)
-    .loadFonts(font)
-    .addLayers(background,
-        blackout,
-        border,
-        avatar,
-        avatarBorder,
-        prewlevel,
-        newlevel,
-        levelup,
-        arrowbase,
-        arrowup,
-        arrowdown,
-        prewlevelText,
-        newlevelText)
+    t.true(data !== null && data !== undefined);
+})
 
-//console.log(lazy.getData())
+test('Path2DLayer', async t => {
+    let path2d = new Path2DLayer("M10 10 h 80 v 80 h -80 Z");
 
-//console.log(lazy.getData().layers)
+    let canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            path2d
+        );
 
-//.log(generateRandomName())
+    let data = await canvas.renderImage(RenderOutput.SVG);
 
-async function main() {
-    let data = await lazy.renderImage()
-    console.log(data)
-    await saveFile(data, 'png', 'output')
-}
+    t.true(data !== null && data !== undefined && typeof data === 'string');
+})
 
-main()
+test('TextLayer', async t => {
+  const canvas = new LazyCanvas()
+    .createNewCanvas(600, 200)
+    .addLayers(
+      new TextLayer()
+        .setX(100)
+        .setY(100)
+        .setText('Hello World')
+        .setFont('Arial')
+        .setFontSize(20)
+        .setColor('#fff')
+        .setAlign(TextAlign.center)
+        .setBaseline(TextBaseline.middle)
+        .setDirection(TextDirection.ltr)
+    )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('Font', async t => {
+  const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .loadFonts(
+            new Font()
+                .setPath('./fonts/JoeKubert-Regular.ttf')
+                .setFamily('JoeKubert')
+                .setWeight(FontWeight.regular)
+        )
+        .addLayers(
+          new TextLayer()
+            .setX(100)
+            .setY(100)
+            .setText('Hello World')
+            .setFont('JoeKubert')
+            .setFontSize(20)
+            .setColor('#fff')
+            .setAlign(TextAlign.center)
+            .setBaseline(TextBaseline.middle)
+            .setDirection(TextDirection.ltr)
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('NgonLayer', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new NgonLayer()
+                .setX(100)
+                .setY(100)
+                .setRadius(50)
+                .setSides(6)
+                .setColor('#fff')
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('RectangleLayer', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new RectangleLayer()
+                .setX(100)
+                .setY(100)
+                .setWidth(100)
+                .setHeight(50)
+                .setColor('#fff')
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('EllipseLayer', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new EllipseLayer()
+                .setX(100)
+                .setY(100)
+                .setWidth(100)
+                .setHeight(50)
+                .setRadius(25)
+                .setColor('#fff')
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('EllipseImageLayer', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new EllipseImageLayer()
+                .setX(100)
+                .setY(100)
+                .setWidth(100)
+                .setHeight(50)
+                .setRadius(25)
+                .setImage('./test-materials/pattern.png')
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('ImageLayer', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new ImageLayer()
+                .setX(100)
+                .setY(100)
+                .setWidth(100)
+                .setHeight(50)
+                .setImage('./test-materials/pattern.png')
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('SquareLayer', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new SquareLayer()
+                .setX(100)
+                .setY(100)
+                .setWidth(50)
+                .setColor('#fff')
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('QuadraticLayer', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new QuadraticLayer()
+                .setPoints({ x: 100, y: 100 }, { x: 200, y: 200 })
+                .setControlPoint({ x: 150, y: 150 })
+                .setStroke(2)
+                .setColor('#fff')
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('BezierLayer', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new BezierLayer()
+                .setPoints({ x: 100, y: 100 }, { x: 200, y: 200 })
+                .setControlPoints({ x: 150, y: 150 }, { x: 250, y: 150 })
+                .setStroke(2)
+                .setColor('#fff')
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('ArcToLayer', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new ArcToLayer()
+                .setPoints({ x: 100, y: 100 }, { x: 200, y: 200 }, { x: 300, y: 100 })
+                .setRadius(50)
+                .setStroke(2)
+                .setColor('#fff')
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('ArcLayer', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new ArcLayer()
+                .setX(100)
+                .setY(100)
+                .setRadius(50)
+                .setAngles(0, Math.PI / 2)
+                .setStroke(2)
+                .setColor('#fff')
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('Filter', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new ImageLayer()
+                .setX(100)
+                .setY(100)
+                .setWidth(100)
+                .setHeight(50)
+                .setImage('./test-materials/pattern.png')
+                .setFilter(
+                    new Filter()
+                        .setType(FilterType.blur)
+                        .setOption(5)
+                )
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('GlobalComposite', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new CircleLayer()
+                .setX(100)
+                .setY(100)
+                .setRadius(50)
+                .setColor('#fff')
+                .setGlobalCompositeOperation(GlobalComposite.destinationOver)
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('SVGReader', async t => {
+    const layers = await SVGReader.readSVG('./test-materials/logo.svg')
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            ...layers
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('Centering', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new CircleLayer()
+                .setX(100)
+                .setY(100)
+                .setRadius(50)
+                .setColor('#fff')
+                .setCentering(Centering.legacy)
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+});
+
+test('Rotation', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new CircleLayer()
+                .setX(100)
+                .setY(100)
+                .setRadius(50)
+                .setColor('#fff')
+                .setRotation(45)
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+});
+
+test('Translate', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new CircleLayer()
+                .setX(100)
+                .setY(100)
+                .setRadius(50)
+                .setColor('#fff')
+                .setTranslate({ x: 100, y: 100 })
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('Scale', async t => {
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new CircleLayer()
+                .setX(100)
+                .setY(100)
+                .setRadius(50)
+                .setColor('#fff')
+                .setScale({ x: 2, y: 2 })
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})
+
+test('Matrix', async t => {
+    let matrix = { a: 1, b: 0, c: 0, d: 1, f: 0, e: 0}
+    const canvas = new LazyCanvas()
+        .createNewCanvas(600, 200)
+        .addLayers(
+            new CircleLayer()
+                .setX(100)
+                .setY(100)
+                .setRadius(50)
+                .setColor('#fff')
+                .setMatrix(matrix)
+        )
+
+    const data = await canvas.renderImage()
+
+    t.true(data !== null && data !== undefined);
+})

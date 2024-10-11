@@ -6,8 +6,6 @@ import { GlobalComposite, StringGlobalComposite } from "../enums";
 export interface Base {
     type: string;
     id: string;
-    x: number;
-    y: number;
     shadow: {
         shadowColor: string | Gradient | Pattern;
         shadowBlur: number;
@@ -15,10 +13,22 @@ export interface Base {
         shadowOffsetY: number;
     };
     alpha: number;
-    angle: number;
     structureType: string;
     fill: boolean;
     globalComposite: GlobalComposite | StringGlobalComposite;
-    rotation: number;
     link?: LazyCanvasLink;
+    transform: Transform;
+}
+
+export interface Transform {
+    matrix?: DOMMatrix2DInit;
+    translate?: {
+        x: number;
+        y: number;
+    };
+    scale?: {
+        x: number;
+        y: number;
+    };
+    rotate?: number;
 }

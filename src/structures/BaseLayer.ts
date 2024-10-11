@@ -1,8 +1,8 @@
 import { isValidColor } from  '../utils/utils';
-import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { LazyError } from "../types/LazyUtils";
 import { Link } from "../utils/Link";
 import { GlobalComposite, StringGlobalComposite } from "../types/enums";
+import { Transform, Base } from "../types/layers";
 
 /**
  * @example
@@ -88,13 +88,13 @@ import { GlobalComposite, StringGlobalComposite } from "../types/enums";
  * )
  * //...
  */
-export class BaseLayer {
+export class BaseLayer<T extends Base> {
 
-    public data: LazyCanvasLayer;
+    public data: T;
 
-    constructor(data?: LazyCanvasLayer) {
-        this.data = data ? { ...data } : {} as LazyCanvasLayer;
-        this.data.angle = 0;
+    constructor(data?: T) {
+        this.data = data ? { ...data } : {} as T;
+        this.data.transform = {} as Transform;
         this.data.structureType = 'layer';
         this.data.fill = false;
         this.data.shadow = {
@@ -103,26 +103,6 @@ export class BaseLayer {
             shadowOffsetX: 0,
             shadowOffsetY: 0
         }
-    }
-
-    /**
-     * @param {number} x - The x position of the layer
-     */
-    setX(x: number) {
-        if (!x && x !== 0) throw new LazyError('X must be provided');
-        if (isNaN(x)) throw new LazyError('X must be a number');
-        this.data.x = x;
-        return this;
-    }
-
-    /**
-     * @param {number} y - The y position of the layer
-     */
-    setY(y: number) {
-        if (!y && y !== 0) throw new LazyError('Y must be provided');
-        if (isNaN(y)) throw new LazyError('Y must be a number');
-        this.data.y = y;
-        return this;
     }
 
     /**
@@ -182,9 +162,10 @@ export class BaseLayer {
     setRotation(angle: number) {
         if (!angle && angle !== 0) throw new LazyError('Rotation must be provided');
         if (isNaN(angle)) throw new LazyError('Rotation must be a number');
-        this.data.angle = angle;
+        this.data.transform.rotate = angle;
         return this;
     }
+
 
     /**
      * @param {GlobalComposite | StringGlobalComposite} operation - The global composite operation of the layer

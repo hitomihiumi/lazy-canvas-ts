@@ -9,7 +9,7 @@ import {
 } from '@napi-rs/canvas';
 import * as jimp from 'jimp';
 import { resolve } from 'path';
-import { color, lazyLoadImage, drawMultilineText, saveFile } from './utils/utils';
+import { color, lazyLoadImage, drawMultilineText, matrix } from './utils/utils';
 import { LazyCanvasPlugin } from './types/LazyCanvasPlugin';
 import { LazyCanvasData } from './types/LazyCanvasData';
 import { LazyCanvasLayer } from "./types/LazyCanvasLayer";
@@ -20,6 +20,8 @@ import { Font } from "./utils/Font";``
 import { BaseMethod } from "./api/BaseMethod";
 import { RenderOutput, StringRenderOutput } from "./types/enums"; //ImageTransform, StringImageTransform
 import { Path2DLayer } from "./structures/Path2DLayer";
+import { BaseLayer } from "./structures/BaseLayer";
+import * as ILayers from "./types/layers";
 //import {
 //    vectorize,
 //    ColorMode,
@@ -201,7 +203,7 @@ export class LazyCanvas {
         return this;
     }
 
-    public addLayers(...layers: Partial<LazyCanvasLayer | Path2DLayer>[]) {
+    public addLayers(...layers: Partial<BaseLayer<ILayers.Base> | Path2DLayer>[]) {
         if (!layers.length) throw new LazyError("No layers data provided");
         layers.forEach(layer => {
             if (!layer) throw new LazyError("No layer provided");
@@ -356,24 +358,33 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private circle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private circle(ctx: SKRSContext2D, data: ILayers.Circle, filled = true) {
         ctx.beginPath();
-        let dataCopy = this.centring(data);
+        let dataCopy = this.centring(data) as ILayers.Circle;
+        ctx.save()
+        this.rotate(ctx, dataCopy)
+        if (dataCopy.transform.matrix) matrix(ctx, dataCopy.transform.matrix);
+        if (dataCopy.transform.scale) ctx.scale(dataCopy.transform.scale.x, dataCopy.transform.scale.y);
+        if (dataCopy.transform.translate) ctx.translate(dataCopy.transform.translate.x, dataCopy.transform.translate.y);
         if (filled === true) {
             this.fillRoundedRect(ctx, dataCopy.x, dataCopy.y, dataCopy.radius * 2, dataCopy.radius * 2, dataCopy.radius);
         } else {
             this.outerlineRounded(ctx, dataCopy.x, dataCopy.y, dataCopy.radius * 2, dataCopy.radius * 2, dataCopy.radius, dataCopy.stroke);
             ctx.lineWidth = 1;
         }
+        ctx.restore()
         ctx.closePath();
     }
 
     /** @private */
-    private ellipse(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private ellipse(ctx: SKRSContext2D, data: ILayers.Ellipse, filled = true) {
         ctx.beginPath();
-        let dataCopy = this.centring(data);
+        let dataCopy = this.centring(data) as ILayers.Ellipse;
         ctx.save();
         this.rotate(ctx, dataCopy)
+        if (dataCopy.transform.matrix) matrix(ctx, dataCopy.transform.matrix);
+        if (dataCopy.transform.scale) ctx.scale(dataCopy.transform.scale.x, dataCopy.transform.scale.y);
+        if (dataCopy.transform.translate) ctx.translate(dataCopy.transform.translate.x, dataCopy.transform.translate.y);
         if (filled === true) {
             this.fillRoundedRect(ctx, dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.height, dataCopy.radius);
         } else {
@@ -385,11 +396,14 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private square(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private square(ctx: SKRSContext2D, data: ILayers.Square, filled = true) {
         ctx.beginPath();
-        let dataCopy = this.centring(data);
+        let dataCopy = this.centring(data) as ILayers.Square;
         ctx.save();
         this.rotate(ctx, dataCopy)
+        if (dataCopy.transform.matrix) matrix(ctx, dataCopy.transform.matrix);
+        if (dataCopy.transform.scale) ctx.scale(dataCopy.transform.scale.x, dataCopy.transform.scale.y);
+        if (dataCopy.transform.translate) ctx.translate(dataCopy.transform.translate.x, dataCopy.transform.translate.y);
         if (filled === true) {
             ctx.fillRect(dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.width);
         } else {
@@ -402,11 +416,14 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private rectangle(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private rectangle(ctx: SKRSContext2D, data: ILayers.Rectangle, filled = true) {
         ctx.beginPath();
-        let dataCopy = this.centring(data);
+        let dataCopy = this.centring(data) as ILayers.Rectangle;
         ctx.save();
         this.rotate(ctx, dataCopy)
+        if (dataCopy.transform.matrix) matrix(ctx, dataCopy.transform.matrix);
+        if (dataCopy.transform.scale) ctx.scale(dataCopy.transform.scale.x, dataCopy.transform.scale.y);
+        if (dataCopy.transform.translate) ctx.translate(dataCopy.transform.translate.x, dataCopy.transform.translate.y);
         if (filled) {
             ctx.fillRect(dataCopy.x, dataCopy.y, dataCopy.width, dataCopy.height);
         } else {
@@ -419,14 +436,16 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private ngon(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private ngon(ctx: SKRSContext2D, data: ILayers.Ngon, filled = true) {
         ctx.beginPath();
         ctx.save();
         this.rotate(ctx, data)
-        ctx.moveTo(data.x + data.radius * Math.cos(0 + data.angle), data.y + data.radius * Math.sin(0 + data.angle));
+        if (data.transform.rotate) ctx.moveTo(data.x + data.radius * Math.cos(0 + data.transform.rotate), data.y + data.radius * Math.sin(0 + data.transform.rotate));
+        else ctx.moveTo(data.x + data.radius * Math.cos(0), data.y + data.radius * Math.sin(0));
         ctx.lineJoin = "miter";
         for (let i = 1; i < data.sides + 2; i++) {
-            ctx.lineTo(data.x + data.radius * Math.cos(i * 2 * Math.PI / data.sides + data.angle), data.y + data.radius * Math.sin(i * 2 * Math.PI / data.sides + data.angle));
+            if (data.transform.rotate) ctx.lineTo(data.x + data.radius * Math.cos(i * 2 * Math.PI / data.sides + data.transform.rotate), data.y + data.radius * Math.sin(i * 2 * Math.PI / data.sides + data.transform.rotate));
+            else ctx.lineTo(data.x + data.radius * Math.cos(i * 2 * Math.PI / data.sides), data.y + data.radius * Math.sin(i * 2 * Math.PI / data.sides));
         }
         ctx.lineJoin = "round";
         if (filled === true) {
@@ -441,29 +460,29 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private line(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private line(ctx: SKRSContext2D, data: ILayers.Line) {
         ctx.beginPath();
         ctx.save();
-        ctx.translate((data.points[0].x + data.points[1].x) / 2, (data.points[0].y + data.points[1].y) / 2);
-        ctx.rotate((Math.PI/180) * data.angle);
-        ctx.translate(-((data.points[0].x + data.points[1].x) / 2), -((data.points[0].y + data.points[1].y) / 2));
+        this.rotate(ctx, data)
         ctx.lineWidth = data.stroke;
         if (data.lineDash) ctx.setLineDash(data.lineDash);
         ctx.moveTo(data.points[0].x, data.points[0].y);
         ctx.lineTo(data.points[1].x, data.points[1].y);
+        if (data.transform.matrix) matrix(ctx, data.transform.matrix);
+        if (data.transform.translate) ctx.translate(data.transform.translate.x, data.transform.translate.y);
         ctx.stroke();
         ctx.restore();
         ctx.closePath();
     }
 
     /** @private */
-    private textRender(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private textRender(ctx: SKRSContext2D, data: ILayers.Text) {
         ctx.beginPath();
         ctx.save();
+        this.rotate(ctx, data)
+        if (data.transform.matrix) matrix(ctx, data.transform.matrix);
+        if (data.transform.translate) ctx.translate(data.transform.translate.x, data.transform.translate.y);
         if (data.multiline) {
-            ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
-            ctx.rotate((Math.PI/180) * data.angle);
-            ctx.translate(-(data.x + data.width / 2), -(data.y + data.height / 2));
             ctx.textAlign = data.align;
             if (data.baseline) ctx.textBaseline = data.baseline;
             if (data.direction) ctx.direction = data.direction;
@@ -482,19 +501,6 @@ export class LazyCanvas {
                 stroke: !data.fill
             })
         } else {
-            if (data.align === "center") {
-                ctx.translate(data.x, data.y);
-                ctx.rotate((Math.PI/180) * data.angle);
-                ctx.translate(-data.x, -data.y);
-            } else if (data.align === "left" || data.align === "start") {
-                ctx.translate(data.x + (data.size * data.text.length) / 2, data.y);
-                ctx.rotate((Math.PI/180) * data.angle);
-                ctx.translate(-(data.x + (data.size * data.text.length) / 2), -data.y);
-            } else if (data.align === "right" || data.align === "end") {
-                ctx.translate(data.x - (data.size * data.text.length) / 2, data.y);
-                ctx.rotate((Math.PI/180) * data.angle);
-                ctx.translate(-(data.x - (data.size * data.text.length) / 2), -data.y);
-            }
             ctx.font = `${data.weight} ${Number(data.size)}px ${data.font}`;
             ctx.textAlign = data.align;
             if (data.baseline) ctx.textBaseline = data.baseline;
@@ -561,13 +567,13 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private arc(ctx: SKRSContext2D, data: LazyCanvasLayer, filled = true) {
+    private arc(ctx: SKRSContext2D, data: ILayers.Arc, filled = true) {
         ctx.beginPath();
         ctx.save();
-        ctx.translate(data.x, data.y);
-        ctx.rotate((Math.PI/180) * data.angle);
-        ctx.translate(-data.x, -data.y);
+        this.rotate(ctx, data)
         ctx.arc(data.x, data.y, data.radius, data.angles[0], data.angles[1], data.clockwise);
+        if (data.transform.matrix) matrix(ctx, data.transform.matrix);
+        if (data.transform.translate) ctx.translate(data.transform.translate.x, data.transform.translate.y);
         if (filled) {
             ctx.fill();
         } else {
@@ -579,29 +585,29 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private arcTo(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private arcTo(ctx: SKRSContext2D, data: ILayers.ArcTo) {
         ctx.beginPath();
         ctx.save();
-        ctx.translate((data.points[0].x + data.points[2].x), (data.points[0].y + data.points[2].y));
-        ctx.rotate((Math.PI/180) * data.angle);
-        ctx.translate(-(data.points[0].x + data.points[2].x), -(data.points[0].y + data.points[2].y));
+        this.rotate(ctx, data)
         ctx.moveTo(data.points[0].x, data.points[0].y);
         ctx.lineWidth = data.stroke;
         ctx.arcTo(data.points[1].x, data.points[1].y, data.points[2].x, data.points[2].y, data.radius);
+        if (data.transform.matrix) matrix(ctx, data.transform.matrix);
+        if (data.transform.translate) ctx.translate(data.transform.translate.x, data.transform.translate.y);
         ctx.stroke();
         ctx.restore();
         ctx.closePath();
     }
 
     /** @private */
-    private bezierCurve(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private bezierCurve(ctx: SKRSContext2D, data: ILayers.Bezier) {
         ctx.beginPath();
         ctx.save();
-        ctx.translate(data.points[0].x, data.points[0].y);
-        ctx.rotate((Math.PI/180) * data.angle);
-        ctx.translate(-data.points[0].x, -data.points[0].y);
+        this.rotate(ctx, data)
         ctx.moveTo(data.points[0].x, data.points[0].y);
         ctx.bezierCurveTo(data.controlPoints[0].x, data.controlPoints[0].y, data.controlPoints[1].x, data.controlPoints[1].y, data.points[1].x, data.points[1].y);
+        if (data.transform.matrix) matrix(ctx, data.transform.matrix);
+        if (data.transform.translate) ctx.translate(data.transform.translate.x, data.transform.translate.y);
         if (data.stroke) ctx.lineWidth = data.stroke;
         ctx.stroke();
         ctx.restore();
@@ -609,14 +615,14 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private quadraticCurve(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private quadraticCurve(ctx: SKRSContext2D, data: ILayers.Quadratic) {
         ctx.beginPath();
         ctx.save();
-        ctx.translate(data.points[0].x, data.points[0].y);
-        ctx.rotate((Math.PI/180) * data.angle);
-        ctx.translate(-data.points[0].x, -data.points[0].y);
+        this.rotate(ctx, data)
         ctx.moveTo(data.points[0].x, data.points[0].y);
         ctx.quadraticCurveTo(data.controlPoint.x, data.controlPoint.y, data.points[1].x, data.points[1].y);
+        if (data.transform.matrix) matrix(ctx, data.transform.matrix);
+        if (data.transform.translate) ctx.translate(data.transform.translate.x, data.transform.translate.y);
         if (data.stroke) ctx.lineWidth = data.stroke;
         ctx.stroke();
         ctx.restore();
@@ -624,9 +630,9 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private async image(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private async image(ctx: SKRSContext2D, data: ILayers.Image) {
         ctx.beginPath();
-        let dataCopy = this.centring(data);
+        let dataCopy = this.centring(data) as ILayers.Image;
         let image;
         try {
             // @ts-ignore
@@ -645,6 +651,9 @@ export class LazyCanvas {
 
         ctx.save();
         this.rotate(ctx, dataCopy)
+        if (dataCopy.transform.matrix) matrix(ctx, dataCopy.transform.matrix);
+        if (dataCopy.transform.scale) ctx.scale(dataCopy.transform.scale.x, dataCopy.transform.scale.y);
+        if (dataCopy.transform.translate) ctx.translate(dataCopy.transform.translate.x, dataCopy.transform.translate.y);
 
         // @ts-ignore
         image = await image.getBufferAsync('image/png');
@@ -660,9 +669,9 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private async ellipseImage(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private async ellipseImage(ctx: SKRSContext2D, data: ILayers.EllipseImage) {
         ctx.beginPath();
-        let dataCopy = this.centring(data);
+        let dataCopy = this.centring(data) as ILayers.EllipseImage;
         let image;
         try {
             if (typeof dataCopy.image === "object") {
@@ -685,6 +694,9 @@ export class LazyCanvas {
 
         ctx.save();
         this.rotate(ctx, dataCopy)
+        if (dataCopy.transform.matrix) matrix(ctx, dataCopy.transform.matrix);
+        if (dataCopy.transform.scale) ctx.scale(dataCopy.transform.scale.x, dataCopy.transform.scale.y);
+        if (dataCopy.transform.translate) ctx.translate(dataCopy.transform.translate.x, dataCopy.transform.translate.y);
 
         // @ts-ignore
         image = await image.getBufferAsync('image/png');
@@ -761,10 +773,11 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private outlineCenter(dataCopy: LazyCanvasLayer) {
+    private outlineCenter(dataCopy: ILayers.Circle | ILayers.Ngon | ILayers.Ellipse | ILayers.EllipseImage | ILayers.Rectangle | ILayers.Square | ILayers.Image): ILayers.Circle | ILayers.Ngon | ILayers.Ellipse | ILayers.EllipseImage | ILayers.Rectangle | ILayers.Square | ILayers.Image {
         if (dataCopy.centering === 'legacy') {
             switch (dataCopy.type) {
                 case "circle":
+                    if (!('radius' in dataCopy)) throw new LazyError("No radius provided");
                     switch (dataCopy.outline.type) {
                         case "outer":
                             dataCopy.radius += dataCopy.outline.stroke;
@@ -784,6 +797,7 @@ export class LazyCanvas {
                     }
                     break;
                 case "ngon":
+                    if (!('radius' in dataCopy)) throw new LazyError("No radius provided");
                     switch (dataCopy.outline.type) {
                         case "outer":
                             dataCopy.radius += dataCopy.outline.stroke;
@@ -804,6 +818,7 @@ export class LazyCanvas {
                     break;
                 case "ellipse":
                 case "ellipseimage":
+                    if (!('width' in dataCopy) || !('height' in dataCopy)) throw new LazyError("No width or height provided");
                     switch (dataCopy.outline.type) {
                         case "outer":
                             dataCopy.width += dataCopy.outline.stroke;
@@ -827,6 +842,7 @@ export class LazyCanvas {
                     break;
                 case "rectangle":
                 case "image":
+                    if (!('width' in dataCopy) || !('height' in dataCopy)) throw new LazyError("No width or height provided");
                     switch (dataCopy.outline.type) {
                         case "outer":
                             dataCopy.width += dataCopy.outline.stroke;
@@ -849,6 +865,7 @@ export class LazyCanvas {
                     }
                     break;
                 case "square":
+                    if (!('width' in dataCopy)) throw new LazyError("No width provided");
                     switch (dataCopy.outline.type) {
                         case "outer":
                             dataCopy.width += dataCopy.outline.stroke;
@@ -873,7 +890,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private async outLineRender(ctx: SKRSContext2D, data: LazyCanvasLayer) {
+    private async outLineRender(ctx: SKRSContext2D, data: ILayers.Circle | ILayers.Ngon | ILayers.Ellipse | ILayers.EllipseImage | ILayers.Rectangle | ILayers.Square | ILayers.Image) {
         let dataCopy = { ...data };
         dataCopy.stroke = dataCopy.outline.stroke;
         dataCopy.color = dataCopy.outline.color;
@@ -881,29 +898,29 @@ export class LazyCanvas {
         ctx.strokeStyle = await this.colorRender(ctx, dataCopy.color);
         switch (dataCopy.type) {
             case "circle":
-                this.circle(ctx, dataCopy, false);
+                this.circle(ctx, dataCopy as ILayers.Circle, false);
                 break;
             case "ellipse":
-                this.ellipse(ctx, dataCopy, false);
+                this.ellipse(ctx, dataCopy as ILayers.Ellipse, false);
                 break;
             case "square":
-                this.square(ctx, dataCopy, false);
+                this.square(ctx, dataCopy as ILayers.Square, false);
                 break;
             case "rectangle":
-                this.rectangle(ctx, dataCopy, false);
+                this.rectangle(ctx, dataCopy as ILayers.Rectangle, false);
                 break;
             case "ngon":
-                this.ngon(ctx, dataCopy, false);
+                this.ngon(ctx, dataCopy as ILayers.Ngon, false);
                 break;
             case "image":
-                this.rectangle(ctx, dataCopy, false);
+                this.rectangle(ctx, dataCopy as ILayers.Image, false);
                 break;
             case "ellipseimage":
-                this.ellipse(ctx, dataCopy, false);
+                this.ellipse(ctx, dataCopy as ILayers.EllipseImage, false);
                 break;
             case "text":
                 dataCopy.fill = false;
-                this.textRender(ctx, dataCopy);
+                this.textRender(ctx, dataCopy as unknown as ILayers.Text);
                 break;
             default:
                 return;
@@ -911,11 +928,12 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private centring(data: LazyCanvasLayer) {
+    private centring(data: ILayers.Circle | ILayers.Ellipse | ILayers.EllipseImage | ILayers.Rectangle | ILayers.Square | ILayers.Image): ILayers.Circle | ILayers.Ellipse | ILayers.EllipseImage | ILayers.Rectangle | ILayers.Square | ILayers.Image {
         let dataCopy = { ...data };
         if (dataCopy.centering === 'new') {
             switch (dataCopy.type) {
                 case "circle":
+                    if (!('radius' in dataCopy)) throw new LazyError("No radius provided");
                     dataCopy.x -= dataCopy.radius
                     dataCopy.y -= dataCopy.radius
                     break;
@@ -923,10 +941,12 @@ export class LazyCanvas {
                 case "rectangle":
                 case "image":
                 case "ellipseimage":
+                    if (!('width' in dataCopy) || !('height' in dataCopy)) throw new LazyError("No width or height provided");
                     dataCopy.x -= dataCopy.width / 2
                     dataCopy.y -= dataCopy.height / 2
                     break;
                 case "square":
+                    if (!('width' in dataCopy)) throw new LazyError("No width provided");
                     dataCopy.x -= dataCopy.width / 2
                     dataCopy.y -= dataCopy.width / 2
                     break;
@@ -938,27 +958,68 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private rotate(ctx: SKRSContext2D, data: LazyCanvasLayer) {
-        if (data.angle) {
+    private rotate(ctx: SKRSContext2D, data: ILayers.Ngon | ILayers.Circle | ILayers.Ellipse | ILayers.Rectangle | ILayers.Square | ILayers.Image | ILayers.EllipseImage | ILayers.Text | ILayers.Arc | ILayers.ArcTo | ILayers.Bezier | ILayers.Quadratic | ILayers.Line) {
+        if (data.transform.rotate) {
             switch (data.type) {
+                case "path2d":
+                case "arc":
                 case "ngon":
+                case "circle":
+                    if (!('x' in data) || !('y' in data)) throw new LazyError("No x or y provided");
                     ctx.translate(data.x, data.y);
-                    ctx.rotate((Math.PI/180) * data.angle);
+                    ctx.rotate((Math.PI/180) * data.transform.rotate);
                     ctx.translate(-data.x, -data.y);
                     break;
                 case "ellipse":
                 case "rectangle":
                 case "image":
                 case "ellipseimage":
+                    if (!('x' in data) || !('y' in data) || !('width' in data) || !('height' in data)) throw new LazyError("No x, y, width or height provided");
                     ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
-                    ctx.rotate((Math.PI/180) * data.angle);
+                    ctx.rotate((Math.PI/180) * data.transform.rotate);
                     ctx.translate(-(data.x + data.width / 2), -(data.y + data.height / 2));
                     break;
                 case "square":
+                    if (!('x' in data) || !('y' in data) || !('width' in data)) throw new LazyError("No x, y or width provided");
                     ctx.translate(data.x + data.width / 2, data.y + data.width / 2);
-                    ctx.rotate((Math.PI/180) * data.angle);
+                    ctx.rotate((Math.PI/180) * data.transform.rotate);
                     ctx.translate(-(data.x + data.width / 2), -(data.y + data.width / 2));
                     break;
+                case "line":
+                case "quadratic":
+                case "bezier":
+                    if (!('points' in data)) throw new LazyError("No points provided");
+                    ctx.translate((data.points[0].x + data.points[1].x) / 2, (data.points[0].y + data.points[1].y) / 2);
+                    ctx.rotate((Math.PI/180) * data.transform.rotate);
+                    ctx.translate(-((data.points[0].x + data.points[1].x) / 2), -((data.points[0].y + data.points[1].y) / 2));
+                    break;
+                case "arcto":
+                    if (!('points' in data)) throw new LazyError("No points provided");
+                    ctx.translate((data.points[0].x + data.points[2].x) / 2, (data.points[0].y + data.points[2].y) / 2);
+                    ctx.rotate((Math.PI/180) * data.transform.rotate);
+                    ctx.translate(-((data.points[0].x + data.points[2].x) / 2), -((data.points[0].y + data.points[2].y) / 2));
+                    break;
+                case "text":
+                    if (!('x' in data) || !('y' in data) || !('multiline' in data)) throw new LazyError("No x, y or multiline provided");
+                    if (data.multiline) {
+                        ctx.translate(data.x + data.width / 2, data.y + data.height / 2);
+                        ctx.rotate((Math.PI/180) * data.transform.rotate);
+                        ctx.translate(-(data.x + data.width / 2), -(data.y + data.height / 2));
+                    } else {
+                        if (data.align === "center") {
+                            ctx.translate(data.x, data.y);
+                            ctx.rotate((Math.PI/180) * data.transform.rotate);
+                            ctx.translate(-data.x, -data.y);
+                        } else if (data.align === "left" || data.align === "start") {
+                            ctx.translate(data.x + (data.size * data.text.length) / 2, data.y);
+                            ctx.rotate((Math.PI/180) * data.transform.rotate);
+                            ctx.translate(-(data.x + (data.size * data.text.length) / 2), -data.y);
+                        } else if (data.align === "right" || data.align === "end") {
+                            ctx.translate(data.x - (data.size * data.text.length) / 2, data.y);
+                            ctx.rotate((Math.PI/180) * data.transform.rotate);
+                            ctx.translate(-(data.x - (data.size * data.text.length) / 2), -data.y);
+                        }
+                    }
             }
         }
     }
@@ -977,9 +1038,12 @@ export class LazyCanvas {
 
 
                 for (let data of this.data.layers) {
-                    //console.log(data)
                     if (data instanceof Path2DLayer) {
-                        //console.log(data.toSVGString())
+                        ctx.beginPath();
+                        ctx.save();
+                        if (data.data.transform.matrix) matrix(ctx, data.data.transform.matrix);
+                        if (data.data.transform.scale) ctx.scale(data.data.transform.scale.x, data.data.transform.scale.y);
+                        if (data.data.transform.translate) ctx.translate(data.data.transform.translate.x, data.data.transform.translate.y);
                         ctx.globalAlpha = data.data.alpha;
                         let fill;
                         fill = await this.colorRender(ctx, data.data.fillStyle);
@@ -996,6 +1060,8 @@ export class LazyCanvas {
                             ctx.stroke(data.path2D)
                         }
                         ctx.globalAlpha = 1;
+                        ctx.restore();
+                        ctx.closePath();
                     } else {
                         if (!this.loadedData) data = data.toJSON();
 
@@ -1092,9 +1158,9 @@ export class LazyCanvas {
                                     });
                                 }
 
-                                if (data.link.angle) {
+                                if (data.link.transform) {
                                     Object.assign(data, {
-                                        angle: layer.angle
+                                        transform: layer.transform
                                     });
                                 }
 
@@ -1159,19 +1225,13 @@ export class LazyCanvas {
 
                             fill = await this.colorRender(ctx, data.color);
 
-                            //LazyLog.log(fill)
-
                             if (data.fill) ctx.fillStyle = fill;
                             else ctx.strokeStyle = fill;
                         }
 
-                        //console.log(data)
-
-                        if (!data.angle) data.angle = 0;
+                        if (!data.transform.rotate) data.transform.rotate = 0;
 
                         if (!data.centering) data.centering = 'legacy';
-
-                        //console.log(data)
 
                         switch (data.type) {
                             case "circle":

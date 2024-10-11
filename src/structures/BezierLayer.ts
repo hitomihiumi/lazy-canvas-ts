@@ -1,9 +1,9 @@
 import { BaseLayer } from './BaseLayer';
 import { isValidColor } from '../utils/utils';
-import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
+import { Bezier } from "../types/layers";
 
 /**
  * @example
@@ -19,9 +19,9 @@ import { LazyError } from "../types/LazyUtils";
  * .addLayers(bezier)
  * //...
  */
-export class BezierLayer extends BaseLayer {
+export class BezierLayer extends BaseLayer<Bezier> {
 
-    constructor(data?: LazyCanvasLayer) {
+    constructor(data?: Bezier) {
         super(data);
         this.data.type = 'bezier';
         this.data.points = [];

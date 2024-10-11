@@ -1,6 +1,10 @@
 <a href="https://www.npmjs.com/package/@hitomihiumi/lazy-canvas"><img src="https://img.shields.io/npm/v/@hitomihiumi/lazy-canvas.svg?maxAge=3600" alt="npm version" /></a>
 <a href="https://www.npmjs.com/package/@hitomihiumi/lazy-canvas"><img src="https://img.shields.io/npm/dt/@hitomihiumi/lazy-canvas.svg?maxAge=3600" alt="npm downloads" /></a>
 
+# IMPORTANT
+
+ALL CODE BELOW 1.5.0 IS DEPRECATED, PLEASE UPDATE YOUR CODE TO THE NEWEST VERSION
+
 # Introduction
 This is a simple module designed to simplify the interaction with canvas, for people who do not know how to work with it.
 

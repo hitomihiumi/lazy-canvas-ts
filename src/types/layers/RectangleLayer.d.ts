@@ -5,6 +5,8 @@ import { LazyCanvasOutline } from "../LazyCanvasOutline";
 import { Centering, StringCentering } from "../enums";
 
 export interface Rectangle extends Base {
+    x: number;
+    y: number;
     width: number;
     height: number;
     fill: boolean;

@@ -1,6 +1,6 @@
 import { BaseLayer } from './BaseLayer';
 import { isValidColor } from '../utils/utils';
-import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
+import { ArcTo } from "../types/layers";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
@@ -19,9 +19,9 @@ import { LazyError } from "../types/LazyUtils";
  * .addLayers(arcTo)
  * //...
  */
-export class ArcToLayer extends BaseLayer {
+export class ArcToLayer extends BaseLayer<ArcTo> {
 
-    constructor(data?: LazyCanvasLayer) {
+    constructor(data?: ArcTo) {
         super(data);
         this.data.type = 'arcto';
         this.data.points = [];

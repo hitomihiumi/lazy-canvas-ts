@@ -5,6 +5,8 @@ import { LazyCanvasOutline } from "../LazyCanvasOutline";
 import { Centering, StringCentering } from "../enums";
 
 export interface Square extends Base {
+    x: number;
+    y: number;
     width: number;
     fill: boolean;
     stroke: number;

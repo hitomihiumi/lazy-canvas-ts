@@ -1,9 +1,9 @@
 import { BaseLayer } from './BaseLayer';
 import { isValidColor } from '../utils/utils';
-import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
+import { Quadratic } from "../types/layers";
 
 /**
  * @example
@@ -19,9 +19,9 @@ import { LazyError } from "../types/LazyUtils";
  * .addLayers(quadratic)
  * //...
  */
-export class QuadraticLayer extends BaseLayer {
+export class QuadraticLayer extends BaseLayer<Quadratic> {
 
-    constructor(data?: LazyCanvasLayer) {
+    constructor(data?: Quadratic) {
         super(data);
         this.data.type = 'quadratic';
         this.data.points = [];

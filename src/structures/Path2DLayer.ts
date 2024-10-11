@@ -1,4 +1,5 @@
 import { Path2D, PathOp, FillType, StrokeOptions, DOMMatrix2DInit } from "@napi-rs/canvas";
+import { Transform } from "../types/layers/BaseLayer";
 
 export class Path2DLayer {
     public path2D: Path2D;
@@ -6,7 +7,7 @@ export class Path2DLayer {
 
     constructor(path: string) {
         this.path2D = new Path2D(path);
-        this.data = { type: 'path2d', structureType: 'layer', clipPath: false, fillStyle: 'black', lineWidth: 1, filled: true, alpha: 1 };
+        this.data = { type: 'path2d', structureType: 'layer', clipPath: false, fillStyle: 'black', lineWidth: 1, filled: true, alpha: 1, transform: {} as Transform };
     }
 
     setID(id: string) {

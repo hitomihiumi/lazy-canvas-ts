@@ -1,15 +1,15 @@
 import { BaseLayer } from './BaseLayer';
 import { isValidColor } from '../utils/utils';
-import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
 import { Outline } from '../utils/Outline';
+import { Ngon } from "../types/layers";
 
 /**
  * @example
  * const { LazyCanvas, NgonLayer } = require('@hitomihiumi/lazy-canvas')
- * 
+ *
  * let ngon = new NgonLayer()
  * .setRadius(50)
  * .setSides(6)
@@ -19,13 +19,33 @@ import { Outline } from '../utils/Outline';
  * .addLayers(ngon)
  * //...
  */
-export class NgonLayer extends BaseLayer {
+export class NgonLayer extends BaseLayer<Ngon> {
 
-    constructor(data?: LazyCanvasLayer) {
+    constructor(data?: Ngon) {
         super(data);
         this.data.type = 'ngon';
         this.data.fill = true;
         this.data.centering = 'new';
+    }
+
+    /**
+     * @param {number} x - The x position of the layer
+     */
+    setX(x: number) {
+        if (!x && x !== 0) throw new LazyError('X must be provided');
+        if (isNaN(x)) throw new LazyError('X must be a number');
+        this.data.x = x;
+        return this;
+    }
+
+    /**
+     * @param {number} y - The y position of the layer
+     */
+    setY(y: number) {
+        if (!y && y !== 0) throw new LazyError('Y must be provided');
+        if (isNaN(y)) throw new LazyError('Y must be a number');
+        this.data.y = y;
+        return this;
     }
 
     /**

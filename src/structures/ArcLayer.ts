@@ -1,6 +1,6 @@
 import { BaseLayer } from './BaseLayer';
 import { isValidColor } from '../utils/utils';
-import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
+import { Arc } from "../types/layers";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
@@ -8,7 +8,7 @@ import { LazyError } from "../types/LazyUtils";
 /**
  * @example
  * const { LazyCanvas, ArcLayer } = require('@hitomihiumi/lazy-canvas');
- * 
+ *
  * let arc = new ArcLayer()
  * .setX(400)
  * .setY(300)
@@ -22,15 +22,35 @@ import { LazyError } from "../types/LazyUtils";
  * .addLayers(arc)
  * //...
  */
-export class ArcLayer extends BaseLayer {
+export class ArcLayer extends BaseLayer<Arc> {
 
-    constructor(data?: LazyCanvasLayer) {
+    constructor(data?: Arc) {
         super(data);
         this.data.type = 'arc';
         this.data.angles = [];
         this.data.fill = true;
         this.data.clockwise = false;
         this.data.stroke = 1;
+    }
+
+    /**
+     * @param {number} x - The x position of the layer
+     */
+    setX(x: number) {
+        if (!x && x !== 0) throw new LazyError('X must be provided');
+        if (isNaN(x)) throw new LazyError('X must be a number');
+        this.data.x = x;
+        return this;
+    }
+
+    /**
+     * @param {number} y - The y position of the layer
+     */
+    setY(y: number) {
+        if (!y && y !== 0) throw new LazyError('Y must be provided');
+        if (isNaN(y)) throw new LazyError('Y must be a number');
+        this.data.y = y;
+        return this;
     }
 
     /**
@@ -74,7 +94,7 @@ export class ArcLayer extends BaseLayer {
     /**
      * @param {number[]} angles - The angles of the arc
      */
-    setAngles(angles: number[]) {
+    setAngles(...angles: number[]) {
         if (!angles) throw new Error('Angles must be provided');
         if (angles.length < 2) throw new Error('At least two angle must be provided');
         for (const angle of angles) {

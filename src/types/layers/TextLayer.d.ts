@@ -5,6 +5,8 @@ import { LazyCanvasOutline } from "../LazyCanvasOutline";
 import { TextAlign, StringTextAlign, TextBaseline, StringTextBaseline, FontWeight, StringFontWeight, TextDirection, StringTextDirection } from "../enums";
 
 export interface Text extends Base {
+    x: number;
+    y: number;
     text: string;
     font: string;
     size: number;

@@ -9,5 +9,5 @@ export interface LazyCanvasLink {
     text: boolean;
     size: boolean;
     globalComposite: boolean;
-    angle: boolean;
+    transform: boolean;
 }

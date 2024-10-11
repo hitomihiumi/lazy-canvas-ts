@@ -1,9 +1,9 @@
 import { BaseLayer } from './BaseLayer';
 import { isValidColor } from '../utils/utils';
-import { LazyCanvasLayer } from "../types/LazyCanvasLayer";
 import { Gradient } from "../utils/Gradient";
 import { Pattern } from "../utils/Pattern";
 import { LazyError } from "../types/LazyUtils";
+import { Line } from "../types/layers";
 
 /**
  * @example
@@ -19,9 +19,9 @@ import { LazyError } from "../types/LazyUtils";
  * .addLayers(line)
  * //...
  */
-export class LineLayer extends BaseLayer {
+export class LineLayer extends BaseLayer<Line> {
 
-    constructor(data?: LazyCanvasLayer) {
+    constructor(data?: Line) {
         super(data);
         this.data.type = 'line';
         this.data.points = [];

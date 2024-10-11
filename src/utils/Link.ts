@@ -100,7 +100,7 @@ export class Link {
         this.data.filter = filter;
         return this;
     }
-    
+
     /**
      * @param {boolean} text - Copy text of the layer
      */
@@ -129,11 +129,11 @@ export class Link {
     }
 
     /**
-     * @param {boolean} angle - Copy angle of the layer
+     * @param {boolean} transfrom - Copy angle of the layer
      */
-    copyAngle(angle: boolean) {
-        if (angle === undefined) throw new Error('Angle must be provided');
-        this.data.angle = angle;
+    copyTransfrom(transfrom: boolean) {
+        if (transfrom === undefined) throw new Error('Angle must be provided');
+        this.data.transform = transfrom;
         return this;
     }
 
