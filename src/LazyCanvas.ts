@@ -21,7 +21,22 @@ import { BaseMethod } from "./api/BaseMethod";
 import { RenderOutput, StringRenderOutput } from "./types/enums"; //ImageTransform, StringImageTransform
 import { Path2DLayer } from "./structures/Path2DLayer";
 import { BaseLayer } from "./structures/BaseLayer";
-import * as ILayers from "./types/layers";
+import {
+    Base,
+    Arc,
+    Circle,
+    Ellipse,
+    Square,
+    Rectangle,
+    Ngon,
+    Line,
+    Text,
+    ArcTo,
+    Bezier,
+    Quadratic,
+    EllipseImage,
+    Image
+} from "./index";
 //import {
 //    vectorize,
 //    ColorMode,
@@ -203,7 +218,7 @@ export class LazyCanvas {
         return this;
     }
 
-    public addLayers(...layers: Partial<BaseLayer<ILayers.Base> | Path2DLayer>[]) {
+    public addLayers(...layers: Partial<BaseLayer<Base> | Path2DLayer>[]) {
         if (!layers.length) throw new LazyError("No layers data provided");
         layers.forEach(layer => {
             if (!layer) throw new LazyError("No layer provided");
@@ -358,9 +373,9 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private circle(ctx: SKRSContext2D, data: ILayers.Circle, filled = true) {
+    private circle(ctx: SKRSContext2D, data: Circle, filled = true) {
         ctx.beginPath();
-        let dataCopy = this.centring(data) as ILayers.Circle;
+        let dataCopy = this.centring(data) as Circle;
         ctx.save()
         this.rotate(ctx, dataCopy)
         if (dataCopy.transform.matrix) matrix(ctx, dataCopy.transform.matrix);
@@ -377,9 +392,9 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private ellipse(ctx: SKRSContext2D, data: ILayers.Ellipse, filled = true) {
+    private ellipse(ctx: SKRSContext2D, data: Ellipse, filled = true) {
         ctx.beginPath();
-        let dataCopy = this.centring(data) as ILayers.Ellipse;
+        let dataCopy = this.centring(data) as Ellipse;
         ctx.save();
         this.rotate(ctx, dataCopy)
         if (dataCopy.transform.matrix) matrix(ctx, dataCopy.transform.matrix);
@@ -396,9 +411,9 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private square(ctx: SKRSContext2D, data: ILayers.Square, filled = true) {
+    private square(ctx: SKRSContext2D, data: Square, filled = true) {
         ctx.beginPath();
-        let dataCopy = this.centring(data) as ILayers.Square;
+        let dataCopy = this.centring(data) as Square;
         ctx.save();
         this.rotate(ctx, dataCopy)
         if (dataCopy.transform.matrix) matrix(ctx, dataCopy.transform.matrix);
@@ -416,9 +431,9 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private rectangle(ctx: SKRSContext2D, data: ILayers.Rectangle, filled = true) {
+    private rectangle(ctx: SKRSContext2D, data: Rectangle, filled = true) {
         ctx.beginPath();
-        let dataCopy = this.centring(data) as ILayers.Rectangle;
+        let dataCopy = this.centring(data) as Rectangle;
         ctx.save();
         this.rotate(ctx, dataCopy)
         if (dataCopy.transform.matrix) matrix(ctx, dataCopy.transform.matrix);
@@ -436,7 +451,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private ngon(ctx: SKRSContext2D, data: ILayers.Ngon, filled = true) {
+    private ngon(ctx: SKRSContext2D, data: Ngon, filled = true) {
         ctx.beginPath();
         ctx.save();
         this.rotate(ctx, data)
@@ -460,7 +475,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private line(ctx: SKRSContext2D, data: ILayers.Line) {
+    private line(ctx: SKRSContext2D, data: Line) {
         ctx.beginPath();
         ctx.save();
         this.rotate(ctx, data)
@@ -476,7 +491,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private textRender(ctx: SKRSContext2D, data: ILayers.Text) {
+    private textRender(ctx: SKRSContext2D, data: Text) {
         ctx.beginPath();
         ctx.save();
         this.rotate(ctx, data)
@@ -567,7 +582,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private arc(ctx: SKRSContext2D, data: ILayers.Arc, filled = true) {
+    private arc(ctx: SKRSContext2D, data: Arc, filled = true) {
         ctx.beginPath();
         ctx.save();
         this.rotate(ctx, data)
@@ -585,7 +600,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private arcTo(ctx: SKRSContext2D, data: ILayers.ArcTo) {
+    private arcTo(ctx: SKRSContext2D, data: ArcTo) {
         ctx.beginPath();
         ctx.save();
         this.rotate(ctx, data)
@@ -600,7 +615,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private bezierCurve(ctx: SKRSContext2D, data: ILayers.Bezier) {
+    private bezierCurve(ctx: SKRSContext2D, data: Bezier) {
         ctx.beginPath();
         ctx.save();
         this.rotate(ctx, data)
@@ -615,7 +630,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private quadraticCurve(ctx: SKRSContext2D, data: ILayers.Quadratic) {
+    private quadraticCurve(ctx: SKRSContext2D, data: Quadratic) {
         ctx.beginPath();
         ctx.save();
         this.rotate(ctx, data)
@@ -630,9 +645,9 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private async image(ctx: SKRSContext2D, data: ILayers.Image) {
+    private async image(ctx: SKRSContext2D, data: Image) {
         ctx.beginPath();
-        let dataCopy = this.centring(data) as ILayers.Image;
+        let dataCopy = this.centring(data) as Image;
         let image;
         try {
             // @ts-ignore
@@ -669,9 +684,9 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private async ellipseImage(ctx: SKRSContext2D, data: ILayers.EllipseImage) {
+    private async ellipseImage(ctx: SKRSContext2D, data: EllipseImage) {
         ctx.beginPath();
-        let dataCopy = this.centring(data) as ILayers.EllipseImage;
+        let dataCopy = this.centring(data) as EllipseImage;
         let image;
         try {
             if (typeof dataCopy.image === "object") {
@@ -773,7 +788,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private outlineCenter(dataCopy: ILayers.Circle | ILayers.Ngon | ILayers.Ellipse | ILayers.EllipseImage | ILayers.Rectangle | ILayers.Square | ILayers.Image): ILayers.Circle | ILayers.Ngon | ILayers.Ellipse | ILayers.EllipseImage | ILayers.Rectangle | ILayers.Square | ILayers.Image {
+    private outlineCenter(dataCopy: Circle | Ngon | Ellipse | EllipseImage | Rectangle | Square | Image): Circle | Ngon | Ellipse | EllipseImage | Rectangle | Square | Image {
         if (dataCopy.centering === 'legacy') {
             switch (dataCopy.type) {
                 case "circle":
@@ -890,7 +905,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private async outLineRender(ctx: SKRSContext2D, data: ILayers.Circle | ILayers.Ngon | ILayers.Ellipse | ILayers.EllipseImage | ILayers.Rectangle | ILayers.Square | ILayers.Image) {
+    private async outLineRender(ctx: SKRSContext2D, data: Circle | Ngon | Ellipse | EllipseImage | Rectangle | Square | Image) {
         let dataCopy = { ...data };
         dataCopy.stroke = dataCopy.outline.stroke;
         dataCopy.color = dataCopy.outline.color;
@@ -898,29 +913,29 @@ export class LazyCanvas {
         ctx.strokeStyle = await this.colorRender(ctx, dataCopy.color);
         switch (dataCopy.type) {
             case "circle":
-                this.circle(ctx, dataCopy as ILayers.Circle, false);
+                this.circle(ctx, dataCopy as Circle, false);
                 break;
             case "ellipse":
-                this.ellipse(ctx, dataCopy as ILayers.Ellipse, false);
+                this.ellipse(ctx, dataCopy as Ellipse, false);
                 break;
             case "square":
-                this.square(ctx, dataCopy as ILayers.Square, false);
+                this.square(ctx, dataCopy as Square, false);
                 break;
             case "rectangle":
-                this.rectangle(ctx, dataCopy as ILayers.Rectangle, false);
+                this.rectangle(ctx, dataCopy as Rectangle, false);
                 break;
             case "ngon":
-                this.ngon(ctx, dataCopy as ILayers.Ngon, false);
+                this.ngon(ctx, dataCopy as Ngon, false);
                 break;
             case "image":
-                this.rectangle(ctx, dataCopy as ILayers.Image, false);
+                this.rectangle(ctx, dataCopy as Image, false);
                 break;
             case "ellipseimage":
-                this.ellipse(ctx, dataCopy as ILayers.EllipseImage, false);
+                this.ellipse(ctx, dataCopy as EllipseImage, false);
                 break;
             case "text":
                 dataCopy.fill = false;
-                this.textRender(ctx, dataCopy as unknown as ILayers.Text);
+                this.textRender(ctx, dataCopy as unknown as Text);
                 break;
             default:
                 return;
@@ -928,7 +943,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private centring(data: ILayers.Circle | ILayers.Ellipse | ILayers.EllipseImage | ILayers.Rectangle | ILayers.Square | ILayers.Image): ILayers.Circle | ILayers.Ellipse | ILayers.EllipseImage | ILayers.Rectangle | ILayers.Square | ILayers.Image {
+    private centring(data: Circle | Ellipse | EllipseImage | Rectangle | Square | Image): Circle | Ellipse | EllipseImage | Rectangle | Square | Image {
         let dataCopy = { ...data };
         if (dataCopy.centering === 'new') {
             switch (dataCopy.type) {
@@ -958,7 +973,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private rotate(ctx: SKRSContext2D, data: ILayers.Ngon | ILayers.Circle | ILayers.Ellipse | ILayers.Rectangle | ILayers.Square | ILayers.Image | ILayers.EllipseImage | ILayers.Text | ILayers.Arc | ILayers.ArcTo | ILayers.Bezier | ILayers.Quadratic | ILayers.Line) {
+    private rotate(ctx: SKRSContext2D, data: Ngon | Circle | Ellipse | Rectangle | Square | Image | EllipseImage | Text | Arc | ArcTo | Bezier | Quadratic | Line) {
         if (data.transform.rotate) {
             switch (data.type) {
                 case "path2d":

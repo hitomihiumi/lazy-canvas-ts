@@ -39,6 +39,23 @@ import { LazyCanvasPlugin } from "./types/LazyCanvasPlugin";
 import { LazyCanvasMethod } from "./types/LazyCanvasMethod";
 import { LazyCanvasOutline } from "./types/LazyCanvasOutline";
 import { LazyCanvasLink } from "./types/LazyCanvasLink";
+import {
+    Arc,
+    ArcTo,
+    Base,
+    Bezier,
+    Circle,
+    EllipseImage,
+    Ellipse,
+    Image,
+    Line,
+    Ngon,
+    Quadratic,
+    Rectangle,
+    Square,
+    Text,
+    Transform
+} from "./types/layers";
 
 import {
     RenderOutput,
@@ -130,7 +147,22 @@ export {
     PatternType,
     StringPatternType,
     LazyError,
-    LazyLog
+    LazyLog,
+    Arc,
+    ArcTo,
+    Base,
+    Bezier,
+    Circle,
+    EllipseImage,
+    Ellipse,
+    Image,
+    Line,
+    Ngon,
+    Quadratic,
+    Rectangle,
+    Square,
+    Text,
+    Transform
 };
 
 //ImageTransform,

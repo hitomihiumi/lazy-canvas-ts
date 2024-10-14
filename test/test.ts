@@ -32,7 +32,7 @@ import {
     GradientType,
     GlobalComposite,
     OutlineType
-} from "../src";
+} from "../dist";
 
 
 test('Outline', async t => {
