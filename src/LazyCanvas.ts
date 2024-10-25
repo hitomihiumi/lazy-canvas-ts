@@ -905,7 +905,7 @@ export class LazyCanvas {
     }
 
     /** @private */
-    private async outLineRender(ctx: SKRSContext2D, data: Circle | Ngon | Ellipse | EllipseImage | Rectangle | Square | Image) {
+    private async outlineRender(ctx: SKRSContext2D, data: Circle | Ngon | Ellipse | EllipseImage | Rectangle | Square | Image) {
         let dataCopy = { ...data };
         dataCopy.stroke = dataCopy.outline.stroke;
         dataCopy.color = dataCopy.outline.color;
@@ -1328,7 +1328,7 @@ export class LazyCanvas {
                             } else {
                                 ctx.globalAlpha = 1;
                             }
-                            await this.outLineRender(ctx, data);
+                            await this.outlineRender(ctx, data);
                         }
                         ctx.closePath();
                     }

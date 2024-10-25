@@ -1,6 +1,6 @@
 import { parse } from 'svgson';
 import { promises as fs } from 'fs';
-import { ImageLayer, Path2DLayer, RectangleLayer, EllipseLayer, CircleLayer, LineLayer, Gradient, Pattern, PatternType, LazyCanvas, TextLayer, TextAlign, TextBaseline, TextDirection } from "../index";
+import { ImageLayer, Path2DLayer, RectangleLayer, EllipseLayer, CircleLayer, LineLayer, Gradient, Pattern, PatternType, LazyCanvas } from "../index";
 
 export class SVGReader {
     private static async parseSVG(svg: string): Promise<any> {
