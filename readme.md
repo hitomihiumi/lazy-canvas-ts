@@ -3,7 +3,7 @@
 
 # IMPORTANT
 
-ALL CODE BELOW 1.5.0 IS DEPRECATED, PLEASE UPDATE YOUR CODE TO THE NEWEST VERSION
+[New LazyCanvas](https://github.com/NMMTY/LazyCanvas)
 
 # Introduction
 This is a simple module designed to simplify the interaction with canvas, for people who do not know how to work with it.
